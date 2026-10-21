@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+data/
+resultados-tests.xml
+
+# Secretos: nunca al repo
+.pin-cluster.txt
+jenkins/secrets/

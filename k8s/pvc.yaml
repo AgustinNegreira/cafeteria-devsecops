@@ -1,0 +1,16 @@
+# Disco que sobrevive al pod: ahi vive el archivo SQLite con los pedidos.
+# Ojo: el namespace admite solo 3 PVC y los compartimos entre cinco.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: cafeteria-agustin-data
+  labels:
+    app: cafeteria-agustin
+    owner: agustin
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: local-path
+  resources:
+    requests:
+      storage: 256Mi

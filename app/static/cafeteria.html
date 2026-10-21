@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cafetería · Pantalla de pedidos</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="barra">
+    <h1>Cafetería · Pedidos de hoy</h1>
+    <span id="reloj"></span>
+  </header>
+
+  <main id="login" class="contenedor" hidden>
+    <div class="tarjeta">
+      <h2>PIN de la cafetería</h2>
+      <form id="form-pin" class="linea">
+        <input id="pin" type="password" inputmode="numeric" placeholder="PIN" required>
+        <button>Entrar</button>
+      </form>
+      <p id="error-pin" class="nota" style="color:var(--error)"></p>
+    </div>
+  </main>
+
+  <main id="app" class="pantalla" hidden>
+    <section class="columna">
+      <label class="switch"><input type="checkbox" id="ver-entregados"> Mostrar entregados</label>
+      <div id="grupos" class="columna"></div>
+    </section>
+
+    <aside class="columna">
+      <div class="tarjeta">
+        <h2>Resumen de ventas del día</h2>
+        <div id="resumen"></div>
+      </div>
+
+      <div class="tarjeta">
+        <h2>Productos</h2>
+        <ul id="productos" class="lista"></ul>
+      </div>
+
+      <div class="tarjeta">
+        <h2>Configuración</h2>
+        <form id="form-corte" class="linea">
+          <label class="nota" style="margin:0;align-self:center">Cortar pedidos</label>
+          <input id="minutos" type="number" min="0" max="240" style="max-width:5.5rem" required>
+          <label class="nota" style="margin:0;align-self:center">min antes</label>
+          <button>Guardar</button>
+        </form>
+        <p class="nota">Aplica al instante, sin volver a desplegar.</p>
+
+        <h2 style="margin-top:1rem">Recreos</h2>
+        <ul id="recreos" class="lista"></ul>
+        <form id="form-recreo" class="linea" style="margin-top:.5rem">
+          <input id="recreo-nombre" placeholder="Nombre" maxlength="40" required>
+          <input id="recreo-hora" type="time" required style="flex:0">
+          <button>Agregar</button>
+        </form>
+      </div>
+
+      <div id="mensaje" class="mensaje" hidden></div>
+    </aside>
+  </main>
+
+<script>
+const $ = (s) => document.querySelector(s);
+const plata = (n) => '$ ' + n.toLocaleString('es-UY');
+const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+let pin = localStorage.getItem('pin') || '';
+
+async function api(url, opciones = {}) {
+  const r = await fetch(url, { ...opciones, headers: { 'Content-Type': 'application/json', 'X-PIN': pin } });
+  if (r.status === 401) { salir('PIN incorrecto'); throw new Error('PIN incorrecto'); }
+  if (r.status === 204) return null;
+  const datos = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(typeof datos.detail === 'string' ? datos.detail : 'Datos inválidos');
+  return datos;
+}
+
+function mostrarMensaje(texto, tipo = 'error') {
+  const m = $('#mensaje');
+  m.textContent = texto;
+  m.className = 'mensaje ' + tipo;
+  m.hidden = false;
+  setTimeout(() => (m.hidden = true), 4000);
+}
+
+function tarjetaPedido(p) {
+  const acciones = {
+    pendiente: `<button data-estado="listo" data-id="${p.id}">Listo</button>`,
+    listo: `<button data-estado="entregado" data-id="${p.id}">Entregado</button>`,
+    entregado: `<button class="link" data-estado="listo" data-id="${p.id}">deshacer</button>`,
+  }[p.estado];
+  return `<article class="pedido ${p.estado}">
+    <header><strong>#${p.id} · ${esc(p.alumno)}</strong><span class="badge ${p.estado}">${p.estado}</span></header>
+    <ul>${p.items.map((i) => `<li>${i.cantidad}× ${esc(i.nombre)}</li>`).join('')}</ul>
+    <footer><span>${plata(p.total)}</span>${acciones}</footer>
+  </article>`;
+}
+
+function grupo(r, esProximo, verEntregados) {
+  const visibles = r.pedidos.filter((p) => verEntregados || p.estado !== 'entregado');
+  // Lo que todavia hay que preparar, sumado por producto.
+  const preparar = {};
+  r.pedidos.filter((p) => p.estado === 'pendiente')
+    .forEach((p) => p.items.forEach((i) => (preparar[i.nombre] = (preparar[i.nombre] || 0) + i.cantidad)));
+  const textoPreparar = Object.entries(preparar).map(([n, c]) => `${c}× ${esc(n)}`).join(' · ');
+  const pendientes = r.pedidos.filter((p) => p.estado === 'pendiente').length;
+  return `<section class="tarjeta grupo ${esProximo ? 'proximo' : ''}">
+    <h3>${esc(r.nombre)} · ${r.hora}
+      ${esProximo ? '<span class="badge proximo">próximo</span>' : ''}
+      <small>${pendientes} pendientes · pedidos ${r.abierto ? 'abiertos hasta ' + r.cierra : 'cerrados'}</small>
+    </h3>
+    ${textoPreparar ? `<p class="preparar"><strong>Para preparar:</strong> ${textoPreparar}</p>` : ''}
+    <div class="grilla">${visibles.map(tarjetaPedido).join('') || '<p class="vacio">Sin pedidos.</p>'}</div>
+  </section>`;
+}
+
+async function pintarPedidos() {
+  const datos = await api('/api/cafeteria/pedidos');
+  const ver = $('#ver-entregados').checked;
+  // El proximo recreo va arriba de todo: es lo que la cafeteria tiene que tener pronto.
+  const proximo = datos.recreos.filter((r) => r.id === datos.proximo_recreo_id);
+  const resto = datos.recreos.filter((r) => r.id !== datos.proximo_recreo_id && r.pedidos.length);
+  $('#grupos').innerHTML = [...proximo.map((r) => grupo(r, true, ver)), ...resto.map((r) => grupo(r, false, ver))].join('')
+    || '<div class="tarjeta"><p class="vacio">No quedan recreos hoy.</p></div>';
+}
+
+async function pintarResumen() {
+  const r = await api('/api/cafeteria/resumen');
+  const e = r.por_estado;
+  $('#resumen').innerHTML = `
+    <div class="numeros">
+      <div><strong>${plata(r.total)}</strong><span>vendido</span></div>
+      <div><strong>${r.pedidos}</strong><span>pedidos</span></div>
+      <div><strong>${e.entregado || 0}</strong><span>entregados</span></div>
+    </div>
+    <table>
+      <tr><th>Producto</th><th class="num">Cant.</th><th class="num">Total</th></tr>
+      ${r.por_producto.map((p) => `<tr><td>${esc(p.nombre)}</td><td class="num">${p.cantidad}</td><td class="num">${plata(p.total)}</td></tr>`).join('')
+        || '<tr><td colspan="3" class="vacio">Sin ventas todavía.</td></tr>'}
+    </table>`;
+}
+
+async function pintarProductos() {
+  const productos = await api('/api/productos');
+  $('#productos').innerHTML = productos.map((p) => `<li>
+    <span>${esc(p.nombre)} <span class="precio">${plata(p.precio)}</span></span>
+    <label class="switch"><input type="checkbox" data-agotado="${p.id}" ${p.agotado ? 'checked' : ''}> agotado</label>
+  </li>`).join('');
+}
+
+async function pintarConfig() {
+  const datos = await api('/api/recreos');
+  if (document.activeElement !== $('#minutos')) $('#minutos').value = datos.minutos_corte;
+  $('#recreos').innerHTML = datos.recreos.map((r) => `<li>
+    <span>${esc(r.nombre)} · ${r.hora} <span class="precio">(cierra ${r.cierra})</span></span>
+    <button class="link" data-borrar="${r.id}">borrar</button>
+  </li>`).join('');
+}
+
+async function refrescar() {
+  $('#reloj').textContent = new Date().toLocaleTimeString('es-UY', { hour: '2-digit', minute: '2-digit', hour12: false });
+  await Promise.all([pintarPedidos(), pintarResumen()]);
+}
+
+async function todo() {
+  await Promise.all([refrescar(), pintarProductos(), pintarConfig()]);
+}
+
+// --- acciones ------------------------------------------------------------
+
+$('#grupos').addEventListener('click', async (e) => {
+  const b = e.target.closest('[data-estado]');
+  if (!b) return;
+  await api(`/api/cafeteria/pedidos/${b.dataset.id}/estado`, { method: 'POST', body: JSON.stringify({ estado: b.dataset.estado }) });
+  refrescar();
+});
+
+$('#ver-entregados').addEventListener('change', pintarPedidos);
+
+$('#productos').addEventListener('change', async (e) => {
+  const id = e.target.dataset.agotado;
+  if (!id) return;
+  await api(`/api/cafeteria/productos/${id}/agotado`, { method: 'PUT', body: JSON.stringify({ agotado: e.target.checked }) });
+});
+
+$('#form-corte').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  try {
+    await api('/api/cafeteria/config', { method: 'PUT', body: JSON.stringify({ minutos_corte: Number($('#minutos').value) }) });
+    $('#minutos').blur();
+    mostrarMensaje('Guardado: los pedidos ahora cierran ' + $('#minutos').value + ' min antes.', 'ok');
+    todo();
+  } catch (err) { mostrarMensaje(err.message); }
+});
+
+$('#form-recreo').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  try {
+    await api('/api/cafeteria/recreos', { method: 'POST', body: JSON.stringify({ nombre: $('#recreo-nombre').value, hora: $('#recreo-hora').value }) });
+    e.target.reset();
+    todo();
+  } catch (err) { mostrarMensaje(err.message); }
+});
+
+$('#recreos').addEventListener('click', async (e) => {
+  const id = e.target.dataset.borrar;
+  if (!id) return;
+  try { await api('/api/cafeteria/recreos/' + id, { method: 'DELETE' }); todo(); }
+  catch (err) { mostrarMensaje(err.message); }
+});
+
+// --- sesion --------------------------------------------------------------
+
+function salir(error = '') {
+  pin = '';
+  localStorage.removeItem('pin');
+  $('#error-pin').textContent = error;
+  $('#login').hidden = false;
+  $('#app').hidden = true;
+}
+
+$('#form-pin').addEventListener('submit', (e) => {
+  e.preventDefault();
+  pin = $('#pin').value;
+  localStorage.setItem('pin', pin);
+  iniciar();
+});
+
+function iniciar() {
+  if (!pin) return salir();
+  $('#login').hidden = true;
+  $('#app').hidden = false;
+  todo().catch(() => {});
+}
+
+iniciar();
+setInterval(() => pin && refrescar().catch(() => {}), 5000);
+</script>
+</body>
+</html>

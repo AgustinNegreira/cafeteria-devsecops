@@ -1,0 +1,28 @@
+# La "puerta de entrada" desde internet. En este cluster el Ingress lo maneja
+# APISIX, que usa su propio recurso (ApisixRoute) en vez del Ingress estandar.
+#
+# Como llega un request:
+#   https://cafeteria-agustin-team4.reto-ucu.net
+#     -> DNS comodin *.reto-ucu.net -> IP publica del cluster
+#     -> APISIX mira el host, encuentra esta regla
+#     -> Service cafeteria-agustin:80 -> pod:8000
+#
+# Solo funciona por HTTPS: el puerto 80 de esa IP lo atiende otro servidor.
+apiVersion: apisix.apache.org/v2
+kind: ApisixRoute
+metadata:
+  name: cafeteria-agustin
+  labels:
+    app: cafeteria-agustin
+    owner: agustin
+spec:
+  http:
+    - name: cafeteria-agustin
+      match:
+        hosts:
+          - cafeteria-agustin-team4.reto-ucu.net
+        paths:
+          - /*
+      backends:
+        - serviceName: cafeteria-agustin
+          servicePort: 80

@@ -1,0 +1,16 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+data/
+.git/
+tests/
+pytest.ini
+requirements-dev.txt
+resultados-tests.xml
+*.md
+# Lo que no es la app
+jenkins/
+k8s/
+Jenkinsfile
+.pin-cluster.txt

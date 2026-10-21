@@ -1,0 +1,32 @@
+# Levantar:  docker compose -f jenkins/docker-compose.yml up -d --build
+# Abrir:     http://localhost:8080
+
+services:
+  jenkins:
+    build: .
+    container_name: jenkins-cafeteria
+    ports:
+      # Solo desde esta maquina: Jenkins no tiene login.
+      - "127.0.0.1:8080:8080"
+    volumes:
+      # Historial de builds y configuracion: sobrevive a reinicios.
+      - jenkins_home:/var/jenkins_home
+      # El Docker de la maquina, para construir y subir imagenes.
+      - /var/run/docker.sock:/var/run/docker.sock
+      # El repo de la app. Jenkins clona desde aca; solo lectura.
+      - ..:/proyecto:ro
+      - ./casc.yaml:/usr/share/jenkins/casc.yaml:ro
+    secrets:
+      - kubeconfig
+      - dockerhub-token
+    restart: unless-stopped
+
+secrets:
+  kubeconfig:
+    file: ${USERPROFILE}/.kube/ucu.yaml
+  # Lo creas vos: el token de Docker Hub, solo, en una linea.
+  dockerhub-token:
+    file: ./secrets/dockerhub-token.txt
+
+volumes:
+  jenkins_home:

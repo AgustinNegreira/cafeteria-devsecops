@@ -1,0 +1,68 @@
+# El Deployment es el "estado deseado" de la app: Kubernetes se encarga de
+# que siempre haya 1 pod corriendo con esta imagen, y lo recrea si se cae.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cafeteria-agustin
+  labels:
+    app: cafeteria-agustin
+    owner: agustin
+spec:
+  replicas: 1
+  # Recreate = primero baja el pod viejo y despues levanta el nuevo.
+  # SQLite en un disco RWO no admite dos pods escribiendo a la vez, asi que
+  # aceptamos unos segundos sin servicio en cada despliegue.
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: cafeteria-agustin
+  template:
+    metadata:
+      labels:
+        app: cafeteria-agustin
+        owner: agustin
+    spec:
+      containers:
+        - name: app
+          # Jenkins reemplaza IMAGEN por usuario/cafeteria-agustin:<numero de build>
+          image: IMAGEN
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - configMapRef:
+                name: cafeteria-agustin
+          env:
+            - name: CAFETERIA_PIN
+              valueFrom:
+                secretKeyRef:
+                  name: cafeteria-agustin
+                  key: CAFETERIA_PIN
+          volumeMounts:
+            - name: data
+              mountPath: /data
+          # readiness: no le manda trafico hasta que la app responde.
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 8000
+            periodSeconds: 5
+          # liveness: si deja de responder (colgada), Kubernetes la reinicia.
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 15
+          # Pedimos poco: la cuota del namespace la compartimos entre cinco.
+          resources:
+            requests:
+              cpu: 50m
+              memory: 96Mi
+            limits:
+              cpu: 300m
+              memory: 256Mi
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: cafeteria-agustin-data

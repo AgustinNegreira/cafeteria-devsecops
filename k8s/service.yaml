@@ -1,0 +1,16 @@
+# Nombre y direccion fijos dentro del cluster para llegar al pod.
+# El pod cambia de IP cada vez que se recrea; el Service no.
+apiVersion: v1
+kind: Service
+metadata:
+  name: cafeteria-agustin
+  labels:
+    app: cafeteria-agustin
+    owner: agustin
+spec:
+  type: ClusterIP
+  selector:
+    app: cafeteria-agustin
+  ports:
+    - port: 80
+      targetPort: 8000

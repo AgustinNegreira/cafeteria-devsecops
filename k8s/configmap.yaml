@@ -1,0 +1,14 @@
+# Configuracion no secreta, separada de la imagen.
+# X (minutos de corte) NO se cambia aca: este valor es solo el inicial.
+# Cambiar un ConfigMap obliga a reiniciar el pod; por eso X vive en la base
+# y la cafeteria lo edita desde su pantalla, sin redesplegar.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cafeteria-agustin
+  labels:
+    app: cafeteria-agustin
+    owner: agustin
+data:
+  ZONA_HORARIA: America/Montevideo
+  MINUTOS_CORTE: "15"

@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cafetería · Pedidos</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="barra">
+    <h1>Cafetería</h1>
+    <span id="quien"></span>
+  </header>
+
+  <main class="contenedor">
+    <section id="login" class="tarjeta" hidden>
+      <h2>¿Quién sos?</h2>
+      <form id="form-login" class="linea">
+        <input id="nombre" placeholder="Nombre y grupo (ej: Ana 3ºB)" maxlength="60" required>
+        <button>Entrar</button>
+      </form>
+    </section>
+
+    <section id="app" class="contenedor" style="padding:0" hidden>
+      <div class="tarjeta">
+        <h2>1. Elegí el recreo</h2>
+        <div id="recreos" class="opciones"></div>
+        <p id="nota-corte" class="nota"></p>
+      </div>
+
+      <div class="tarjeta">
+        <h2>2. Elegí qué querés</h2>
+        <ul id="productos" class="lista"></ul>
+      </div>
+
+      <div id="mensaje" class="mensaje" hidden></div>
+
+      <div class="tarjeta pie">
+        <div>Total <strong id="total">$ 0</strong></div>
+        <button id="pedir" disabled>Hacer pedido</button>
+      </div>
+
+      <div class="tarjeta">
+        <h2>Mis pedidos</h2>
+        <div id="mis-pedidos"></div>
+      </div>
+    </section>
+  </main>
+
+<script>
+const $ = (s) => document.querySelector(s);
+const plata = (n) => '$ ' + n.toLocaleString('es-UY');
+const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+let alumno = localStorage.getItem('alumno');
+let recreos = [];
+let productos = [];
+let recreoElegido = null;
+const carrito = {};  // producto_id -> cantidad
+
+async function api(url, opciones = {}) {
+  const r = await fetch(url, { headers: { 'Content-Type': 'application/json' }, ...opciones });
+  const datos = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(typeof datos.detail === 'string' ? datos.detail : 'Revisá los datos del pedido');
+  return datos;
+}
+
+function mostrarMensaje(texto, tipo) {
+  const m = $('#mensaje');
+  m.textContent = texto;
+  m.className = 'mensaje ' + tipo;
+  m.hidden = false;
+}
+
+function pintarRecreos(minutos) {
+  // Si el recreo elegido cerro mientras la pagina estaba abierta, se des-elige.
+  if (!recreos.some((r) => r.id === recreoElegido && r.abierto)) recreoElegido = null;
+  $('#recreos').innerHTML = recreos.map((r) => `
+    <button class="opcion ${r.id === recreoElegido ? 'elegida' : ''}" data-id="${r.id}" ${r.abierto ? '' : 'disabled'}>
+      <span>${esc(r.nombre)} · ${r.hora}</span>
+      <small>${r.abierto ? 'pedí hasta las ' + r.cierra : 'cerrado: se podía pedir hasta las ' + r.cierra}</small>
+    </button>`).join('') || '<p class="vacio">No hay recreos configurados.</p>';
+  $('#nota-corte').textContent = `Los pedidos se aceptan hasta ${minutos} minutos antes de cada recreo.`;
+}
+
+function pintarProductos() {
+  $('#productos').innerHTML = productos.map((p) => {
+    if (p.agotado) delete carrito[p.id];
+    const n = carrito[p.id] || 0;
+    return `<li class="${p.agotado ? 'agotado' : ''}">
+      <div>${esc(p.nombre)}<br><span class="precio">${plata(p.precio)}</span></div>
+      ${p.agotado ? '<span class="badge agotado">Agotado</span>' : `
+      <div class="cantidad">
+        <button class="secundario" data-menos="${p.id}" ${n ? '' : 'disabled'}>−</button>
+        <span>${n}</span>
+        <button data-mas="${p.id}">+</button>
+      </div>`}
+    </li>`;
+  }).join('');
+  const total = productos.reduce((t, p) => t + p.precio * (carrito[p.id] || 0), 0);
+  $('#total').textContent = plata(total);
+  $('#pedir').disabled = !(total > 0 && recreoElegido);
+}
+
+async function pintarMisPedidos() {
+  const pedidos = await api('/api/pedidos?alumno=' + encodeURIComponent(alumno));
+  $('#mis-pedidos').innerHTML = pedidos.map((p) => `
+    <article class="pedido ${p.estado}">
+      <header><strong>#${p.id} · ${esc(p.recreo)} ${p.hora}</strong><span class="badge ${p.estado}">${p.estado}</span></header>
+      <ul>${p.items.map((i) => `<li>${i.cantidad}× ${esc(i.nombre)}</li>`).join('')}</ul>
+      <footer><span class="nota" style="margin:0">${p.fecha}</span><strong>${plata(p.total)}</strong></footer>
+    </article>`).join('') || '<p class="vacio">Todavía no hiciste pedidos.</p>';
+}
+
+async function refrescar() {
+  const [datosRecreos, prods] = await Promise.all([api('/api/recreos'), api('/api/productos')]);
+  recreos = datosRecreos.recreos;
+  productos = prods;
+  pintarRecreos(datosRecreos.minutos_corte);
+  pintarProductos();
+  await pintarMisPedidos();
+}
+
+$('#recreos').addEventListener('click', (e) => {
+  const b = e.target.closest('button[data-id]');
+  if (!b || b.disabled) return;
+  recreoElegido = Number(b.dataset.id);
+  document.querySelectorAll('.opcion').forEach((o) => o.classList.toggle('elegida', o === b));
+  pintarProductos();
+});
+
+$('#productos').addEventListener('click', (e) => {
+  const mas = e.target.closest('[data-mas]');
+  const menos = e.target.closest('[data-menos]');
+  if (mas) carrito[mas.dataset.mas] = (carrito[mas.dataset.mas] || 0) + 1;
+  if (menos && carrito[menos.dataset.menos]) carrito[menos.dataset.menos]--;
+  pintarProductos();
+});
+
+$('#pedir').addEventListener('click', async () => {
+  $('#pedir').disabled = true;
+  const items = Object.entries(carrito).filter(([, n]) => n > 0)
+    .map(([id, n]) => ({ producto_id: Number(id), cantidad: n }));
+  try {
+    const r = await api('/api/pedidos', { method: 'POST', body: JSON.stringify({ alumno, recreo_id: recreoElegido, items }) });
+    const recreo = recreos.find((x) => x.id === recreoElegido);
+    Object.keys(carrito).forEach((k) => delete carrito[k]);
+    mostrarMensaje(`¡Listo! Pedido #${r.id} (${plata(r.total)}) para el ${recreo.nombre} de las ${recreo.hora}.`, 'ok');
+  } catch (err) {
+    // Aca llega, por ejemplo, el "ya no se aceptan pedidos" que decide el backend.
+    mostrarMensaje(err.message, 'error');
+  }
+  await refrescar();
+});
+
+$('#form-login').addEventListener('submit', (e) => {
+  e.preventDefault();
+  alumno = $('#nombre').value.trim();
+  if (!alumno) return;
+  localStorage.setItem('alumno', alumno);
+  iniciar();
+});
+
+function iniciar() {
+  $('#login').hidden = !!alumno;
+  $('#app').hidden = !alumno;
+  if (!alumno) return;
+  $('#quien').innerHTML = `${esc(alumno)} · <button class="link" id="salir">cambiar</button>`;
+  $('#salir').onclick = () => { localStorage.removeItem('alumno'); alumno = null; $('#quien').textContent = ''; iniciar(); };
+  refrescar();
+}
+
+iniciar();
+setInterval(() => alumno && refrescar().catch(() => {}), 10000);
+</script>
+</body>
+</html>
