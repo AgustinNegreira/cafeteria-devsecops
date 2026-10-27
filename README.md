@@ -29,7 +29,7 @@ Los alumnos piden desde el celular antes del recreo; la cafetería ve lo pendien
 ### El despliegue (en construcción)
 
 ```text
- git push ──> Jenkins: tests ──> docker build ──> push al registry ──> kubectl apply
+ commit en main ──> Jenkins (polling): tests ──> docker build ──> push al registry ──> kubectl apply
                          │                                                  │
                   si fallan, no se                                          ▼
                   despliega nada                        cluster UCU, namespace alumno-team10
@@ -122,3 +122,36 @@ Invoke-RestMethod -Method Post http://localhost:8000/api/pedidos -ContentType ap
   -Body '{"alumno":"Ana","recreo_id":1,"items":[{"producto_id":1,"cantidad":1}]}'
 # Pasado el corte: 409 "Ya no se aceptan pedidos para el Recreo 1 de las 10:00: se podía pedir hasta las 09:45."
 ```
+
+## Jenkins local: puesta en marcha
+
+Jenkins revisa cada minuto los commits de la rama `main` del repositorio local montado en `/proyecto`. No requiere GitHub ni `git push`: los cambios sin commit no entran al pipeline.
+
+Requisitos: Docker Desktop funcionando, kubeconfig en `%USERPROFILE%\.kube\ucu.yaml` y un token de Docker Hub con permiso Read & Write guardado en `jenkins\secrets\dockerhub-token.txt`. El archivo contiene solo el token; esta ignorado por Git y por el build de Jenkins.
+
+Desde cmd:
+
+```bat
+cd /d "C:\Users\AgustinNegreira\UCU\2do Semestre 2026\DevOps\cafeteria"
+docker desktop start
+docker compose -f jenkins/docker-compose.yml up -d --build
+```
+
+Abrir http://localhost:8080 y entrar al job `cafeteria`. Para el primer build, elegir **Build Now / Construir ahora**. Los siguientes se disparan por polling cuando hay un commit nuevo en `main`.
+
+El pipeline ejecuta tests y publica `agustinnegreira/cafeteria:<numero de build>`. El despliegue apunta explicitamente al namespace `alumno-team10` y al Deployment `cafeteria-agustin`. Si el rollout falla, intenta volver a la revision anterior. La ultima etapa consulta `/healthz` por la URL publica.
+
+Diagnostico:
+
+```bat
+docker compose -f jenkins/docker-compose.yml ps
+docker logs --tail 80 jenkins-cafeteria
+```
+
+Jenkins escucha solo en `127.0.0.1:8080` y funciona mientras la laptop y Docker esten encendidos. Su historial queda en el volumen `jenkins_home`. Para detenerlo conservando el historial:
+
+```bat
+docker compose -f jenkins/docker-compose.yml down
+```
+
+El avance de la puesta en marcha y sus comprobaciones se registran en `PLAN.md` y `CONTEXTO.md`.

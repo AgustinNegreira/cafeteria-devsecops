@@ -19,6 +19,7 @@ pipeline {
         // exactamente que version corre y se puede volver a una anterior.
         TAG = "${env.BUILD_NUMBER}"
         DEPLOYMENT = 'cafeteria-agustin'
+        NAMESPACE = 'alumno-team10'
         URL_PUBLICA = 'https://cafeteria-agustin-team4.reto-ucu.net'
     }
 
@@ -71,12 +72,12 @@ pipeline {
                         for f in k8s/*.yaml; do
                             sed "s|image: IMAGEN|image: $IMAGEN:$TAG|" "$f"
                             echo "---"
-                        done | kubectl apply -f -
+                        done | kubectl -n "$NAMESPACE" apply -f -
 
                         # Si el pod nuevo no llega a estar listo, volvemos a
                         # la version anterior y el pipeline queda en rojo.
-                        if ! kubectl rollout status deployment/$DEPLOYMENT --timeout=180s; then
-                            kubectl rollout undo deployment/$DEPLOYMENT
+                        if ! kubectl -n "$NAMESPACE" rollout status deployment/$DEPLOYMENT --timeout=180s; then
+                            kubectl -n "$NAMESPACE" rollout undo deployment/$DEPLOYMENT
                             exit 1
                         fi
                     '''
@@ -98,7 +99,7 @@ pipeline {
             echo "Version ${TAG} publicada en ${URL_PUBLICA}"
         }
         failure {
-            echo 'Pipeline fallido: el cluster quedo con la version anterior.'
+            echo 'Pipeline fallido: revisar la etapa y los logs para confirmar el estado del despliegue.'
         }
     }
 }
