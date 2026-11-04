@@ -6,9 +6,8 @@ New-Item -ItemType Directory -Force $Private | Out-Null
 $Kubeconfig = Join-Path $Private 'kubeconfig.yaml'
 $env:PATH = (Join-Path $Private 'bin') + [IO.Path]::PathSeparator + $env:PATH
 function Run {
-    param([Parameter(ValueFromRemainingArguments=$true)][string[]]$Arguments)
-    & $Arguments[0] $Arguments[1..($Arguments.Length-1)]
-    if ($LASTEXITCODE -ne 0) { throw ('Fallo: ' + $Arguments[0] + ' ' + $Arguments[1]) }
+    & $args[0] $args[1..($args.Length-1)]
+    if ($LASTEXITCODE -ne 0) { throw ('Fallo: ' + $args[0] + ' ' + $args[1]) }
 }
 function Assert-Local {
     $ctx = & kubectl --kubeconfig $Kubeconfig config current-context
