@@ -1,0 +1,21 @@
+RELEVAMIENTO LOCAL - ENTREGABLE 3
+Fecha: 2026-11-03
+Acciones: consulta de archivos, herramientas, sistema operativo, WSL y listeners.
+No se inicio Docker ni se creo/instalo un cluster local.
+
+Windows 11 Enterprise, 64 bits.
+PowerShell 7.6.5.
+RAM visible: 23.7 GiB; RAM libre al consultar: 13.4 GiB.
+CPU: 16 procesadores logicos.
+C: espacio libre 362.5 GiB.
+WSL 3.0.3.0; kernel registrado 6.18.54.1-1; predeterminado WSL2.
+Unica distro enumerada: docker-desktop, Stopped, version 2.
+Docker Desktop instalado, apagado; docker context: desktop-linux.
+kubectl y docker disponibles desde C:\Program Files\Docker\Docker\resources\bin.
+kind, minikube y helm no encontrados en PATH.
+Node encontrado en runtime de Codex; npm no encontrado en PATH ni junto a ese ejecutable.
+No existe .wslconfig personalizada.
+Campos memoryMiB/cpus/wslEngineEnabled/kubernetesEnabled del JSON Docker consultado: sin valores; no inferir limites reales a partir de esa consulta.
+Sin listeners detectados en puertos 8080,8081,6445,30080.
+BTF, BPF ring buffer y arranque/captura real Falco: PENDIENTES.
+Plan local: LAB_LOCAL.md.

@@ -1,0 +1,33 @@
+Kyverno admission tests - 2026-11-04T11:51:38.4243305Z
+Context: kind-cafeteria-devsecops
+CASE: bad-latest.yaml expected=DENY actual_exit=1 passed=True
+Error from server: error when creating "C:\\Users\\AgustinNegreira\\UCU\\2do Semestre 2026\\DevOps\\cafeteria\\security\\tests\\bad-latest.yaml": admission webhook "validate.kyverno.svc-fail" denied the request: 
+System.Management.Automation.RemoteException
+resource Pod/cafeteria-devsecops/reject-latest was blocked due to the following policies 
+System.Management.Automation.RemoteException
+cafeteria-no-latest:
+  reject-latest-and-untagged: 'validation failure: La imagen debe tener tag explicito distinto de latest o un digest.'
+CASE: bad-untagged.yaml expected=DENY actual_exit=1 passed=True
+Error from server: error when creating "C:\\Users\\AgustinNegreira\\UCU\\2do Semestre 2026\\DevOps\\cafeteria\\security\\tests\\bad-untagged.yaml": admission webhook "validate.kyverno.svc-fail" denied the request: 
+System.Management.Automation.RemoteException
+resource Pod/cafeteria-devsecops/reject-untagged was blocked due to the following policies 
+System.Management.Automation.RemoteException
+cafeteria-no-latest:
+  reject-latest-and-untagged: 'validation failure: La imagen debe tener tag explicito distinto de latest o un digest.'
+CASE: bad-resources.yaml expected=DENY actual_exit=1 passed=True
+Error from server: error when creating "C:\\Users\\AgustinNegreira\\UCU\\2do Semestre 2026\\DevOps\\cafeteria\\security\\tests\\bad-resources.yaml": admission webhook "validate.kyverno.svc-fail" denied the request: 
+System.Management.Automation.RemoteException
+resource Pod/cafeteria-devsecops/reject-resources was blocked due to the following policies 
+System.Management.Automation.RemoteException
+cafeteria-require-resources:
+  cpu-and-memory-requests-limits: 'validation failure: validation error: Cada contenedor e initContainer requiere requests y limits de CPU y memoria. rule cpu-and-memory-requests-limits failed at path /resources/limits/'
+CASE: bad-root.yaml expected=DENY actual_exit=1 passed=True
+Error from server: error when creating "C:\\Users\\AgustinNegreira\\UCU\\2do Semestre 2026\\DevOps\\cafeteria\\security\\tests\\bad-root.yaml": admission webhook "validate.kyverno.svc-fail" denied the request: 
+System.Management.Automation.RemoteException
+resource Pod/cafeteria-devsecops/reject-root was blocked due to the following policies 
+System.Management.Automation.RemoteException
+cafeteria-non-root:
+  explicit-non-root-user: 'validation failure: validation error: Cada contenedor debe declarar runAsNonRoot=true y runAsUser mayor que 0. rule explicit-non-root-user failed at path /securityContext/runAsNonRoot/'
+CASE: good.yaml expected=ALLOW actual_exit=0
+pod/accept-compliant created
+Positive control UID: 10001

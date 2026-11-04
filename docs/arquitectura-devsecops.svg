@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="490" height="425" preserveAspectRatio="xMinYMin meet" viewBox="0 0 490 425" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="490" height="425"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-425)" style="clip-path: url(#clip)">
+		<g transform="">
+			<rect x="5" y="370" width="480" height="50" rx="6" ry="6" style="stroke: rgb(72%,81%,83%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="14" y="403" style="font-family: Arial-Bold; font-size: 10px;fill: rgb(14%,23%,30%); stroke:none;" transform="translate(0,806) scale(1,-1)">Windows / navegador</text>
+			<text x="14" y="388" style="font-family: Arial; font-size: 8.5px;fill: rgb(14%,23%,30%); stroke:none;" transform="translate(0,776) scale(1,-1)">App: localhost:8081   |   Jenkins: localhost:8080   |   API local: 127.0.0.1:6445</text>
+			<rect x="5" y="5" width="480" height="345" rx="9" ry="9" style="stroke: rgb(65%,76%,81%); stroke-linecap: butt; stroke-width: 1; fill: rgb(93%,96%,96%); fill-rule: evenodd;"/>
+			<text x="17" y="332" style="font-family: Arial-Bold; font-size: 11px;fill: rgb(14%,23%,30%); stroke:none;" transform="translate(0,664) scale(1,-1)">Docker Desktop / Linux WSL2</text>
+			<rect x="18" y="241" width="183" height="72" rx="6" ry="6" style="stroke: rgb(72%,81%,83%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="27" y="296" style="font-family: Arial-Bold; font-size: 10px;fill: rgb(14%,23%,30%); stroke:none;" transform="translate(0,592) scale(1,-1)">Jenkins (contenedor)</text>
+			<text x="27" y="281" style="font-family: Arial; font-size: 8.5px;fill: rgb(14%,23%,30%); stroke:none;" transform="translate(0,562) scale(1,-1)">Tests y controles / build / deploy</text>
+			<text x="27" y="269" style="font-family: Arial; font-size: 8.5px;fill: rgb(14%,23%,30%); stroke:none;" transform="translate(0,538) scale(1,-1)">Login + volumen de historial</text>
+			<text x="27" y="257" style="font-family: Arial; font-size: 8.5px;fill: rgb(14%,23%,30%); stroke:none;" transform="translate(0,514) scale(1,-1)">Repo local montado de solo lectura</text>
+			<rect x="18" y="144" width="183" height="68" rx="6" ry="6" style="stroke: rgb(72%,81%,83%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="27" y="195" style="font-family: Arial-Bold; font-size: 10px;fill: rgb(14%,23%,30%); stroke:none;" transform="translate(0,390) scale(1,-1)">Motor Docker + herramientas</text>
+			<text x="27" y="180" style="font-family: Arial; font-size: 8.5px;fill: rgb(14%,23%,30%); stroke:none;" transform="translate(0,360) scale(1,-1)">Semgrep / npm / pip-audit / Trivy</text>
+			<text x="27" y="168" style="font-family: Arial; font-size: 8.5px;fill: rgb(14%,23%,30%); stroke:none;" transform="translate(0,336) scale(1,-1)">KubeLinter: manifiestos renderizados</text>
+			<text x="27" y="156" style="font-family: Arial; font-size: 8.5px;fill: rgb(14%,23%,30%); stroke:none;" transform="translate(0,312) scale(1,-1)">Imagen con tag y etiquetas OCI</text>
+			<rect x="18" y="37" width="183" height="70" rx="6" ry="6" style="stroke: rgb(72%,81%,83%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="27" y="90" style="font-family: Arial-Bold; font-size: 10px;fill: rgb(14%,23%,30%); stroke:none;" transform="translate(0,180) scale(1,-1)">Archivos del proyecto</text>
+			<text x="27" y="75" style="font-family: Arial; font-size: 8.5px;fill: rgb(14%,23%,30%); stroke:none;" transform="translate(0,150) scale(1,-1)">reports/ + JUnit + informe</text>
+			<text x="27" y="63" style="font-family: Arial; font-size: 8.5px;fill: rgb(14%,23%,30%); stroke:none;" transform="translate(0,126) scale(1,-1)">GitHub: fuente y evidencias</text>
+			<text x="27" y="51" style="font-family: Arial; font-size: 8.5px;fill: rgb(14%,23%,30%); stroke:none;" transform="translate(0,102) scale(1,-1)">.local/: credenciales privadas</text>
+			<rect x="218" y="21" width="253" height="296" rx="8" ry="8" style="stroke: rgb(0%,49%,47%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="229" y="299" style="font-family: Arial-Bold; font-size: 10px;fill: rgb(14%,23%,30%); stroke:none;" transform="translate(0,598) scale(1,-1)">Nodo kind / Kubernetes + containerd</text>
+			<rect x="229" y="238" width="104" height="44" rx="6" ry="6" style="stroke: rgb(72%,81%,83%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(93%,96%,96%); fill-rule: evenodd;"/>
+			<text x="238" y="265" style="font-family: Arial-Bold; font-size: 10px;fill: rgb(14%,23%,30%); stroke:none;" transform="translate(0,530) scale(1,-1)">API K8s</text>
+			<text x="238" y="250" style="font-family: Arial; font-size: 8.5px;fill: rgb(14%,23%,30%); stroke:none;" transform="translate(0,500) scale(1,-1)">6443 interno</text>
+			<rect x="347" y="238" width="113" height="44" rx="6" ry="6" style="stroke: rgb(72%,81%,83%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(90%,95%,93%); fill-rule: evenodd;"/>
+			<text x="356" y="265" style="font-family: Arial-Bold; font-size: 10px;fill: rgb(14%,23%,30%); stroke:none;" transform="translate(0,530) scale(1,-1)">Kyverno</text>
+			<text x="356" y="250" style="font-family: Arial; font-size: 8.5px;fill: rgb(14%,23%,30%); stroke:none;" transform="translate(0,500) scale(1,-1)">3 políticas Enforce</text>
+			<rect x="229" y="162" width="231" height="47" rx="6" ry="6" style="stroke: rgb(72%,81%,83%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(93%,96%,96%); fill-rule: evenodd;"/>
+			<text x="238" y="192" style="font-family: Arial-Bold; font-size: 10px;fill: rgb(14%,23%,30%); stroke:none;" transform="translate(0,384) scale(1,-1)">Service NodePort</text>
+			<text x="238" y="177" style="font-family: Arial; font-size: 8.5px;fill: rgb(14%,23%,30%); stroke:none;" transform="translate(0,354) scale(1,-1)">30080 -&gt; Service:80 -&gt; app:8000</text>
+			<rect x="229" y="85" width="128" height="53" rx="6" ry="6" style="stroke: rgb(72%,81%,83%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(90%,95%,93%); fill-rule: evenodd;"/>
+			<text x="238" y="121" style="font-family: Arial-Bold; font-size: 10px;fill: rgb(14%,23%,30%); stroke:none;" transform="translate(0,242) scale(1,-1)">App FastAPI</text>
+			<text x="238" y="106" style="font-family: Arial; font-size: 8.5px;fill: rgb(14%,23%,30%); stroke:none;" transform="translate(0,212) scale(1,-1)">UID/GID 10001</text>
+			<text x="238" y="94" style="font-family: Arial; font-size: 8.5px;fill: rgb(14%,23%,30%); stroke:none;" transform="translate(0,188) scale(1,-1)">API + HTML/JS</text>
+			<rect x="373" y="85" width="87" height="53" rx="6" ry="6" style="stroke: rgb(72%,81%,83%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(93%,96%,96%); fill-rule: evenodd;"/>
+			<text x="382" y="121" style="font-family: Arial-Bold; font-size: 10px;fill: rgb(14%,23%,30%); stroke:none;" transform="translate(0,242) scale(1,-1)">PVC</text>
+			<text x="382" y="106" style="font-family: Arial; font-size: 8.5px;fill: rgb(14%,23%,30%); stroke:none;" transform="translate(0,212) scale(1,-1)">SQLite /data</text>
+			<text x="382" y="94" style="font-family: Arial; font-size: 8.5px;fill: rgb(14%,23%,30%); stroke:none;" transform="translate(0,188) scale(1,-1)">256Mi</text>
+			<rect x="229" y="32" width="231" height="33" rx="6" ry="6" style="stroke: rgb(72%,81%,83%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(90%,95%,93%); fill-rule: evenodd;"/>
+			<text x="238" y="48" style="font-family: Arial-Bold; font-size: 10px;fill: rgb(14%,23%,30%); stroke:none;" transform="translate(0,96) scale(1,-1)">Falco: syscalls / modern eBPF</text>
+			<path d="M 90,370 L 90,313 Z" style="stroke: rgb(0%,49%,47%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<polygon points="90 313, 87 318, 93 318" style="stroke: rgb(0%,49%,47%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,49%,47%); fill-rule: evenodd;"/>
+			<text x="96" y="355" style="font-family: Arial; font-size: 8px;fill: rgb(37%,46%,52%); stroke:none;" transform="translate(0,710) scale(1,-1)">8080</text>
+			<path d="M 480,370 L 480,185 Z" style="stroke: rgb(0%,49%,47%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<path d="M 480,185 L 460,185 Z" style="stroke: rgb(0%,49%,47%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<polygon points="460 185, 465 188, 465 182" style="stroke: rgb(0%,49%,47%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,49%,47%); fill-rule: evenodd;"/>
+			<text x="422" y="355" style="font-family: Arial; font-size: 8px;fill: rgb(37%,46%,52%); stroke:none;" transform="translate(0,710) scale(1,-1)">8081</text>
+			<path d="M 201,274 L 229,261 Z" style="stroke: rgb(0%,49%,47%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<polygon points="229 261, 224 264, 224 258" style="stroke: rgb(0%,49%,47%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,49%,47%); fill-rule: evenodd;"/>
+			<text x="204" y="284" style="font-family: Arial; font-size: 7.5px;fill: rgb(37%,46%,52%); stroke:none;" transform="translate(0,568) scale(1,-1)">RBAC</text>
+			<path d="M 333,259 L 347,259 Z" style="stroke: rgb(0%,49%,47%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<polygon points="347 259, 342 262, 342 256" style="stroke: rgb(0%,49%,47%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,49%,47%); fill-rule: evenodd;"/>
+			<path d="M 110,241 L 110,212 Z" style="stroke: rgb(0%,49%,47%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<polygon points="110 212, 107 217, 113 217" style="stroke: rgb(0%,49%,47%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,49%,47%); fill-rule: evenodd;"/>
+			<path d="M 201,180 L 218,180 Z" style="stroke: rgb(0%,49%,47%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<polygon points="218 180, 213 183, 213 177" style="stroke: rgb(0%,49%,47%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,49%,47%); fill-rule: evenodd;"/>
+			<text x="174" y="221" style="font-family: Arial; font-size: 7.5px;fill: rgb(37%,46%,52%); stroke:none;" transform="translate(0,442) scale(1,-1)">kind load</text>
+			<path d="M 292,162 L 292,138 Z" style="stroke: rgb(0%,49%,47%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<polygon points="292 138, 289 143, 295 143" style="stroke: rgb(0%,49%,47%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,49%,47%); fill-rule: evenodd;"/>
+			<path d="M 357,109 L 373,109 Z" style="stroke: rgb(0%,49%,47%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<polygon points="373 109, 368 112, 368 106" style="stroke: rgb(0%,49%,47%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,49%,47%); fill-rule: evenodd;"/>
+			<path d="M 286,65 L 286,85 Z" style="stroke: rgb(0%,49%,47%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<polygon points="286 85, 283 80, 289 80" style="stroke: rgb(0%,49%,47%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,49%,47%); fill-rule: evenodd;"/>
+			<text x="337" y="69" style="font-family: Arial; font-size: 7.5px;fill: rgb(37%,46%,52%); stroke:none;" transform="translate(0,138) scale(1,-1)">observa</text>
+			<path d="M 110,144 L 110,107 Z" style="stroke: rgb(0%,49%,47%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<polygon points="110 107, 107 112, 113 112" style="stroke: rgb(0%,49%,47%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,49%,47%); fill-rule: evenodd;"/>
+		</g>
+	</g>
+</svg>

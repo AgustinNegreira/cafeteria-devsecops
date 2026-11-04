@@ -1,0 +1,55 @@
+ENTREGABLE 3 - RELEVAMIENTO REAL
+Fecha de consulta: 2026-11-03
+Proyecto: cafeteria
+Contexto de credencial: kubeconfig UCU, namespace alumno-team10
+Tipo de acciones: lectura y SelfSubjectAccessReview (kubectl auth can-i).
+No se instalaron herramientas ni se aplicaron politicas.
+
+APLICACION
+Deployment cafeteria-agustin: READY 1/1, imagen agustinnegreira/cafeteria:2.
+Pod cafeteria-agustin-856f6dcccf-h6g7l: Running 1/1, 0 reinicios, nodo node1.
+GET https://cafeteria-agustin-team4.reto-ucu.net/healthz: {"status":"ok"}.
+
+STACK LOCAL
+Sin package.json ni package-lock.json en archivos del proyecto.
+Dependencias Python declaradas en requirements.txt.
+Docker CLI 29.9.1: motor desktop-linux no disponible (Docker Desktop apagado).
+npm, semgrep, trivy y kube-linter no encontrados mediante Get-Command en el PATH consultado.
+
+DESCUBRIMIENTO
+Namespaces kyverno y falco presentes.
+API kyverno.io/v1 Policy y ClusterPolicy presente.
+No se verifico salud de controladores: la cuenta no puede leer sus pods.
+
+PERMISOS COMPROBADOS CON kubectl auth can-i
+create clusterpolicies.kyverno.io: no
+create policies.kyverno.io -n alumno-team10: no
+list policies.kyverno.io -n alumno-team10: no
+list clusterpolicies.kyverno.io: no
+create customresourcedefinitions.apiextensions.k8s.io: no
+create clusterroles.rbac.authorization.k8s.io: no
+create namespaces: no
+list pods -n kyverno: no
+list pods -n falco: no
+list services -n falco: no
+get pods/log -n falco: no
+list pods -n kube-system: no
+create daemonsets.apps -n alumno-team10: yes
+get pods/log -n alumno-team10: yes
+create pods/exec -n alumno-team10: yes
+
+LIMITRANGE REAL
+Nombre: student-defaults
+Tipo: Container
+default.cpu: 500m
+default.memory: 512Mi
+defaultRequest.cpu: 100m
+defaultRequest.memory: 128Mi
+max.cpu: 2
+max.memory: 2Gi
+
+INTERPRETACION
+No hay acceso actual para aplicar politicas Kyverno o recuperar alertas del namespace Falco.
+Namespaces/CRD no demuestran por si solos que los componentes esten sanos.
+La inyeccion de recursos por defecto debe contemplarse en las pruebas negativas.
+Este archivo documenta el relevamiento; NO es un resultado de Semgrep, Trivy, KubeLinter ni Falco.

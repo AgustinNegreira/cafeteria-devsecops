@@ -1,0 +1,8 @@
+Trivy 0.76.1 - image vulnerability scan
+Image: cafeteria:devsecops-build-5
+Artifact: cafeteria:devsecops-build-5
+Total known vulnerability findings: 0
+HIGH/CRITICAL: 0
+Scan exit code: 0
+Full machine-readable scan: reports/trivyreport.json
+

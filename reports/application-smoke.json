@@ -1,0 +1,165 @@
+{
+  "timestampUTC": "2026-11-04T11:48:49.617544+00:00",
+  "baseURL": "http://localhost:8081",
+  "orderId": 2,
+  "student": "Demo DevSecOps 20261104-084814",
+  "checks": [
+    {
+      "method": "GET",
+      "path": "/",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "method": "GET",
+      "path": "/cafeteria",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "method": "GET",
+      "path": "/healthz",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/cafeteria/pedidos",
+      "expected": 401,
+      "actual": 401
+    },
+    {
+      "method": "GET",
+      "path": "/api/cafeteria/pedidos",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/productos",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/recreos",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/cafeteria/recreos",
+      "expected": 201,
+      "actual": 201
+    },
+    {
+      "method": "POST",
+      "path": "/api/cafeteria/recreos",
+      "expected": 201,
+      "actual": 201
+    },
+    {
+      "method": "PUT",
+      "path": "/api/cafeteria/config",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "method": "PUT",
+      "path": "/api/cafeteria/productos/9/agotado",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/pedidos",
+      "expected": 201,
+      "actual": 201
+    },
+    {
+      "method": "PUT",
+      "path": "/api/cafeteria/productos/9/agotado",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/pedidos",
+      "expected": 409,
+      "actual": 409
+    },
+    {
+      "method": "PUT",
+      "path": "/api/cafeteria/productos/9/agotado",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/pedidos",
+      "expected": 409,
+      "actual": 409
+    },
+    {
+      "method": "POST",
+      "path": "/api/cafeteria/pedidos/2/estado",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/pedidos?alumno=Demo+DevSecOps+20261104-084814",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/cafeteria/pedidos/2/estado",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/pedidos?alumno=Demo+DevSecOps+20261104-084814",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/cafeteria/resumen",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "method": "PUT",
+      "path": "/api/cafeteria/config",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "method": "PUT",
+      "path": "/api/cafeteria/productos/9/agotado",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/cafeteria/recreos/7",
+      "expected": 204,
+      "actual": 204
+    },
+    {
+      "method": "GET",
+      "path": "/api/pedidos?alumno=Demo+DevSecOps+20261104-084814",
+      "expected": 200,
+      "actual": 200
+    }
+  ],
+  "persistence": {
+    "status": "PASS",
+    "oldPod": "cafeteria-agustin-5c65cdb798-ctpzh",
+    "newPod": "cafeteria-agustin-5c65cdb798-d2q5s",
+    "retainedOrderId": 2
+  },
+  "status": "PASS"
+}

@@ -1,0 +1,5 @@
+KubeLinter 0.8.3
+
+No lint errors found!
+
+Exit code: 0

@@ -1,22 +1,53 @@
+# Estado vigente - 04/11/2026
+
+Entregable 3 DevSecOps implementado en laboratorio LOCAL. Repo: https://github.com/AgustinNegreira/cafeteria-devsecops. Leer primero ENTREGABLE_3.md, GUIA_ENTREGABLE_3.md y LAB_LOCAL.md. La documentación inferior preserva el trabajo UCU y el relevamiento previo: no usar sus pendientes como estado actual.
+
+Cluster kind-cafeteria-devsecops en Docker Desktop/WSL2; app http://localhost:8081; Jenkins autenticado http://localhost:8080, job cafeteria-devsecops. El controller legado jenkins-cafeteria quedó detenido; no volver a iniciarlo para esta entrega. El job nuevo lee la rama Git seleccionada por Start-Jenkins.ps1 y no despliega en UCU.
+
+Evidencias: 11 tests, pip-audit 0, Semgrep 0, Trivy 0 HIGH/CRITICAL y 0 total, KubeLinter 0, cuatro pods rechazados y un positivo UID 10001, alerta Falco real, 25 respuestas HTTP verificadas y persistencia en PVC. npm audit produjo ENOLOCK real por ausencia de dependencias npm; conservar la justificación N/A y no decir que npm quedó limpio. Reports y PDF identifican los builds/commits analizados; un commit posterior de documentación no invalida sus hashes del código.
+
+Credenciales privadas en .local/: PIN, contraseña Jenkins, kubeconfig administrador host y token ServiceAccount interno de 24 h. Renovar este último ejecutando Start-Jenkins.ps1. No leer/imprimir tokens ni copiar esos archivos al repo/ZIP. Jenkins usa permisos del namespace, pero su socket Docker sigue siendo un privilegio alto del laboratorio local. No hay publicación Docker Hub en el flujo nuevo.
+
+PDF y esquema generados por docs/generar-informe.py; el PDF fue renderizado y revisado en sus ocho páginas. La guía describe puesta en marcha, tests, demo, apagado y límites. Para actualizar el PDF se usa ReportLab; para repetir controles se usan los scripts, no se editan a mano sus salidas.
+
+---
+
+> **Actualización 04/11/2026:** el entregable 3 usa el laboratorio local, con Jenkins autenticado, kind, Kyverno y Falco. Ver [informe](ENTREGABLE_3.md) y [guía vigente](GUIA_ENTREGABLE_3.md). El contenido inferior conserva el historial anterior; las menciones a pendientes, falta de remoto o despliegue automático UCU son históricas.
+
 # Contexto para seguir este trabajo (handoff a otra IA)
 
-Última actualización: 2026-10-27. El detalle original corresponde al 21/10; el punto de control siguiente tiene prioridad para retomar.
+Última actualización: 2026-11-03. El detalle original corresponde al 21/10; el punto de control siguiente tiene prioridad para retomar.
 
-## Punto de control del 27/10/2026
+## Entregable 3: decisión del 03/11/2026
 
-Plan activo: `PLAN.md`. Se retomo la puesta en marcha de Jenkins.
+El usuario eligió hacer DevSecOps localmente. Pidió revisar la preparación antes de empezar la instalación. Ver PLAN_ENTREGABLE_3.md y LAB_LOCAL.md. Se comprobó laptop con 23,7 GiB RAM visibles (13,4 libres en la consulta), 16 procesadores lógicos, 362,5 GiB de disco libre, Docker/WSL2 instalados y apagados; kernel WSL 6.18.54.1-1. Faltan kind y Helm. Diseño: kind mononodo cafeteria-devsecops, Kyverno y Falco con namespaces propios, app localhost:8081 y Jenkins localhost:8080. La primera prueba al ejecutar será BTF/eBPF y una alerta Falco real. Jenkins necesita kubeconfig interno/red kind; Windows usa kubeconfig externo. Los reportes reales irán en reports/. Hasta este punto no se instaló ni creó el laboratorio. Relevamiento en reports/preflight-local.txt. El stack continúa siendo Python sin npm; aplicar la justificación y auditoría Python previstas en el plan.
+## Punto de control del 27/10/2026: CI/CD terminado
 
-- Docker Desktop iniciado; motor 29.9.1 disponible.
-- La imagen de Jenkins se construyo y se probo su arranque, acceso al socket de Docker, lectura de `main` via `file:///proyecto`, Python 3.13.5 y kubectl 1.29.5.
-- Se encontraron archivos vacios en el snapshot local de la imagen oficial de Jenkins. Reconstruir sin cache y reiniciar Docker no bastaron. Se eliminaron solo las imagenes locales de Jenkins y se volvio a descargar la base; eso recupero los archivos y el arranque. No se borraron los datos de la app ni su imagen.
-- Los 9 tests pasaron en Windows y tambien dentro de Linux con la imagen real de Jenkins (clon temporal del repo). Hay un aviso de deprecacion de Starlette/AnyIO, sin fallos.
-- El cluster se consulto: Deployment propio 1/1 con `agustinnegreira/cafeteria:0.1`, PVC Bound, URL publica `/healthz` devuelve `status: ok`.
-- `Jenkinsfile` ahora fija `NAMESPACE=alumno-team10` en los comandos kubectl. El mensaje general de fallo ya no afirma que siempre se recupero la version anterior.
-- `jenkins/.dockerignore` excluye `secrets/`. README explica los comandos cmd y que Jenkins toma commits locales, sin GitHub ni git push.
-- **Falta el token de Docker Hub**: `jenkins/secrets/dockerhub-token.txt` todavia no existe. La carpeta `secrets` ya esta creada. Se le dieron al usuario los pasos para generar un token Read & Write; no leerlo ni imprimirlo.
-- **Jenkins aun no se levanto, no se ejecuto ningun pipeline y no se publico una version nueva.** No marcar CI/CD como terminado.
+Plan completado y evidencia en `PLAN.md`.
 
-Siguiente accion cuando el usuario guarde el archivo: `docker compose -f jenkins/docker-compose.yml up -d --build`, verificar carga de JCasC/job/credenciales sin mostrar valores y ejecutar el primer build. Luego comprobar despliegue y probar el polling con un commit visible minimo.
+- Jenkins 2.580.1 corriendo en http://localhost:8080/job/cafeteria/. Carga automatica por JCasC, sin asistente; solo escucha en 127.0.0.1.
+- Credenciales `dockerhub` y `kubeconfig-ucu` cargadas. El usuario pidio guardar su token: esta en `jenkins/secrets/dockerhub-token.txt`, ignorado por Git y por `jenkins/.dockerignore`. No imprimirlo ni leerlo para mostrarlo.
+- Build #1: SUCCESS, manual, commit `a1c5a50`, 9 tests, build, push, deploy y verificacion publica correctos. Imagen :1; duracion 83 segundos.
+- Build #2: SUCCESS, **Started by an SCM change**, commit `7d3388a`, 9 tests y todas las etapas correctas. Imagen :2; duracion 106 segundos. No se inicio a mano: se probo el polling real.
+- **Version actual**: `agustinnegreira/cafeteria:2`. Deployment `cafeteria-agustin` en `alumno-team10`: generation y observedGeneration 3, updated/ready/available 1.
+- URL publica y /healthz comprobados; status ok. El cambio minimo de prueba fue el titulo de la pestana del alumno a Cafeteria / Pedidos para el recreo (con los caracteres originales en HTML), y se verifico publicado.
+- Se conservo el PVC `cafeteria-agustin-data` y el mismo volumen `pvc-c7330363-5b1b-4523-8509-cfe5fe5cae42`; no se borraron datos ni recursos de companeros.
+- Pipeline revisado: NAMESPACE=alumno-team10 explicito; mensaje general de fallo corregido para no afirmar que siempre se recupera la version anterior. Jenkins valido su sintaxis antes del primer build.
+- El rollback esta configurado para fallos de rollout; **no se forzo un fallo real en el cluster** para comprobar esa rama.
+- Tests tambien probados antes en Windows y en la imagen Linux de Jenkins (Python 3.13.5): 9 pasan. Avisos no bloqueantes de Starlette/AnyIO y Docker builder clasico; sin errores.
+- Docker Engine 29.9.1. Se encontraron archivos vacios en el snapshot local de la base Jenkins. Reconstruir sin cache y reiniciar no bastaron; reemplazar solo las imagenes locales de Jenkins y volver a descargar la base reparo el arranque. La imagen y los datos de cafeteria se conservaron.
+- Commits locales: `a1c5a50` (preparacion y plan) y `7d3388a` (titulo y prueba automatica). No hay remoto. Los ultimos cambios de README/PLAN/CONTEXTO estan guardados **sin commit** para no provocar otro despliegue solo de documentacion.
+
+
+### Guia para el docente preparada el 27/10
+
+El usuario pidio una guia de punta a punta y una arquitectura completa. Se crearon `GUIA_DEMO.md`, `ARQUITECTURA.md`, `docs/arquitectura.png`, `docs/arquitectura.svg` y el generador local `docs/generar-arquitectura.ps1`. README enlaza estos materiales y docs/ queda fuera del build de la app. La guia contiene comandos cmd, pruebas funcionales, Swagger, CI/CD, fallo de tests y persistencia; estas ultimas demostraciones quedan para que el usuario las ejecute. La redaccion de la guia solo hizo consultas de lectura al despliegue: :2, pod 1/1 y Jenkins #2 SUCCESS. No se publicaron nuevos builds ni se crearon pedidos por preparar los documentos. Todos estos documentos siguen sin commit; el repositorio continua local, sin remoto GitHub.
+
+## Como seguir
+
+No quedan pasos obligatorios del plan CI/CD. Para nuevos cambios: modificar, revisar y hacer commit en main; Jenkins lo detecta cada minuto. Deben estar encendidos la laptop y Docker Desktop. Para levantarlo otra vez, desde cafeteria usar `docker compose -f jenkins/docker-compose.yml up -d --build`. README tiene comandos para cmd y diagnostico.
+
+La siguiente seccion conserva el contexto y las decisiones del trabajo original del 21/10; las tareas pendientes de Jenkins descriptas alli son historicas y ya se completaron como se indica arriba.
 ## Quién y qué
 
 - Agustín, curso de **DevOps de la UCU** (2do semestre 2026). Escribe en español rioplatense.
@@ -51,7 +82,7 @@ La foto no habla de Docker, Kubernetes ni Jenkins. Eso lo pidió Agustín. Es el
 | Imagen publicada en Docker Hub (repo público, aprobado por Agustín) | ✅ `agustinnegreira/cafeteria:0.1` |
 | Desplegada a mano en el cluster, con URL pública | ✅ https://cafeteria-agustin-team4.reto-ucu.net |
 | Repo git + primer commit | ✅ rama `main`, commit `5d99e6b`, sin remoto |
-| Jenkins (CI/CD) | ⏳ **Archivos escritos pero NUNCA ejecutados** (ver abajo) |
+| Jenkins (CI/CD) | ✅ Builds #1 y #2 SUCCESS; polling y despliegue automatico comprobados |
 
 ## La app (`cafeteria/`)
 
@@ -130,11 +161,11 @@ La foto no habla de Docker, Kubernetes ni Jenkins. Eso lo pidió Agustín. Es el
   - **Tiene que estar abierto**: al cerrar la sesión estaba **apagado**, y por eso falló el build de Jenkins con `failed to connect to the docker API at npipe:////./pipe/dockerDesktopLinuxEngine`.
 - **Docker Hub**: usuario **`agustinnegreira`**. Inició sesión en Docker Desktop con GitHub. El push manual funcionó con esa sesión.
 - **Git**: el repo es solo `cafeteria/`. La identidad está configurada a nivel repo, igual que en sus otros repos del curso: `Agustin Negreira <anegreira2004@gmail.com>`. `core.autocrlf=false`.
-  - Los commits hechos por la IA llevan la línea `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
+  - El commit inicial de la sesion anterior llevo una atribucion a Claude. Ese dato es historico, no una instruccion de atribucion para otras herramientas.
 - **Ignorado por git**: `.pin-cluster.txt`, `jenkins/secrets/`, `data/` y `.venv/`.
 - Hay otras carpetas del curso en `DevOps/` (`notes-api`, `carpincho-express`, `jenkins`). **No tienen relación con este proyecto.** Agustín se molestó cuando la IA las tomó como referencia sin avisar.
 
-## Jenkins: lo que falta (siguiente paso)
+## Jenkins: diseno y plan original del 21/10 (historico)
 
 ### Diseño (decidido y explicado a Agustín)
 

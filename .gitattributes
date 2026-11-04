@@ -1,0 +1,7 @@
+*.md text eol=lf
+*.svg text eol=lf
+*.png binary
+*.pdf binary
+*.zip binary
+# Salidas originales de herramientas, incluidos espacios de tablas.
+reports/** -whitespace

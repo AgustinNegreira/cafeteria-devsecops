@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2240" height="1740" viewBox="0 0 2240 1740"><rect width="2240" height="1740" fill="white"/><defs>
+<marker id='a2563eb' markerWidth='10' markerHeight='10' refX='8' refY='5' orient='auto' markerUnits='userSpaceOnUse'><path d='M0,0 L10,5 L0,10 Z' fill='#2563eb'/></marker>
+<marker id='a087f8c' markerWidth='10' markerHeight='10' refX='8' refY='5' orient='auto' markerUnits='userSpaceOnUse'><path d='M0,0 L10,5 L0,10 Z' fill='#087f8c'/></marker>
+<marker id='a7c3aed' markerWidth='10' markerHeight='10' refX='8' refY='5' orient='auto' markerUnits='userSpaceOnUse'><path d='M0,0 L10,5 L0,10 Z' fill='#7c3aed'/></marker>
+<marker id='a64748b' markerWidth='10' markerHeight='10' refX='8' refY='5' orient='auto' markerUnits='userSpaceOnUse'><path d='M0,0 L10,5 L0,10 Z' fill='#64748b'/></marker>
+</defs>
+<text x='55' y='71' font-family='Segoe UI,Arial,sans-serif' font-size='43' font-weight='700' fill='#10283e'>Arquitectura · Cafetería</text>
+<text x='58' y='113' font-family='Segoe UI,Arial,sans-serif' font-size='23' font-weight='400' fill='#425c72'>Código local, entrega automática y aplicación publicada</text>
+<text x='60' y='166' font-family='Segoe UI,Arial,sans-serif' font-size='21' font-weight='400' fill='#2563eb'>Azul: código e imágenes</text>
+<text x='340' y='166' font-family='Segoe UI,Arial,sans-serif' font-size='21' font-weight='400' fill='#087f8c'>Verde: HTTP y datos</text>
+<text x='605' y='166' font-family='Segoe UI,Arial,sans-serif' font-size='21' font-weight='400' fill='#7c3aed'>Violeta: control y configuración</text>
+<rect x='40' y='220' width='650' height='1430' rx='10' fill='#f2f7fd' stroke='#86a4c2' stroke-width='2'/>
+<text x='70' y='275' font-family='Segoe UI,Arial,sans-serif' font-size='25' font-weight='700' fill='#163047'>LAPTOP · Windows + Docker Desktop</text>
+<text x='70' y='309' font-family='Segoe UI,Arial,sans-serif' font-size='21' font-weight='400' fill='#425c72'>Motor Linux sobre WSL2</text>
+<rect x='1180' y='220' width='1020' height='1430' rx='10' fill='#f1faf8' stroke='#72a99e' stroke-width='2'/>
+<text x='1215' y='278' font-family='Segoe UI,Arial,sans-serif' font-size='28' font-weight='700' fill='#163047'>UCU · CLUSTER KUBERNETES</text>
+<text x='1215' y='313' font-family='Segoe UI,Arial,sans-serif' font-size='21' font-weight='400' fill='#425c72'>Recursos de la app: namespace alumno-team10</text>
+<polyline points='365,490 365,575' fill='none' stroke='#2563eb' stroke-width='3' marker-end='url(#a2563eb)'/>
+<polyline points='365,815 365,935' fill='none' stroke='#7c3aed' stroke-width='3' marker-end='url(#a7c3aed)'/>
+<polyline points='645,1010 720,1010 720,635 750,635' fill='none' stroke='#2563eb' stroke-width='3' marker-end='url(#a2563eb)'/>
+<polyline points='1120,635 1160,635 1160,795 1290,795' fill='none' stroke='#2563eb' stroke-width='3' marker-end='url(#a2563eb)'/>
+<polyline points='1900,200 1900,340' fill='none' stroke='#087f8c' stroke-width='3' marker-end='url(#a087f8c)'/>
+<polyline points='1690,450 1690,505' fill='none' stroke='#087f8c' stroke-width='3' marker-end='url(#a087f8c)'/>
+<polyline points='1690,605 1690,685' fill='none' stroke='#087f8c' stroke-width='3' marker-end='url(#a087f8c)'/>
+<polyline points='1880,900 1880,970' fill='none' stroke='#087f8c' stroke-width='3' marker-end='url(#a087f8c)'/>
+<polyline points='1390,980 1390,940 1460,940 1460,910' fill='none' stroke='#7c3aed' stroke-width='3' stroke-dasharray='9,6' marker-end='url(#a7c3aed)'/>
+<polyline points='85,1250 65,1250 65,700 75,700' fill='none' stroke='#7c3aed' stroke-width='3' stroke-dasharray='9,6' marker-end='url(#a7c3aed)'/>
+<polyline points='85,1470 55,1470 55,750 75,750' fill='none' stroke='#64748b' stroke-width='3' stroke-dasharray='9,6' marker-end='url(#a64748b)'/>
+<polyline points='645,680 735,680 735,1337 1230,1337' fill='none' stroke='#7c3aed' stroke-width='3' stroke-dasharray='9,6' marker-end='url(#a7c3aed)'/>
+<polyline points='1630,1337 1730,1337' fill='none' stroke='#7c3aed' stroke-width='3' stroke-dasharray='9,6' marker-end='url(#a7c3aed)'/>
+<polyline points='2140,1337 2170,1337 2170,815 2070,815' fill='none' stroke='#7c3aed' stroke-width='3' stroke-dasharray='9,6' marker-end='url(#a7c3aed)'/>
+<rect x='85' y='350' width='560' height='140' rx='10' fill='#ffffff' stroke='#86a4c2' stroke-width='2'/>
+<text x='105' y='390' font-family='Segoe UI,Arial,sans-serif' font-size='25' font-weight='700' fill='#163047'>Git local · carpeta cafeteria</text>
+<text x='105' y='426' font-family='Segoe UI,Arial,sans-serif' font-size='21' font-weight='400' fill='#425c72'>main · sin remoto GitHub</text>
+<text x='105' y='455' font-family='Segoe UI,Arial,sans-serif' font-size='21' font-weight='400' fill='#425c72'>Montaje de solo lectura: /proyecto</text>
+<rect x='85' y='585' width='560' height='230' rx='10' fill='#ffffff' stroke='#7396b8' stroke-width='2'/>
+<text x='105' y='625' font-family='Segoe UI,Arial,sans-serif' font-size='25' font-weight='700' fill='#163047'>Contenedor Jenkins</text>
+<text x='105' y='661' font-family='Segoe UI,Arial,sans-serif' font-size='21' font-weight='400' fill='#425c72'>http://localhost:8080</text>
+<text x='105' y='690' font-family='Segoe UI,Arial,sans-serif' font-size='21' font-weight='400' fill='#425c72'>Checkout → tests (pytest + JUnit)</text>
+<text x='105' y='719' font-family='Segoe UI,Arial,sans-serif' font-size='21' font-weight='400' fill='#425c72'>Build → Push → Deploy → /healthz</text>
+<text x='105' y='748' font-family='Segoe UI,Arial,sans-serif' font-size='21' font-weight='400' fill='#425c72'>Polling de main: cada minuto</text>
+<rect x='85' y='945' width='560' height='130' rx='10' fill='#ffffff' stroke='#86a4c2' stroke-width='2'/>
+<text x='105' y='984' font-family='Segoe UI,Arial,sans-serif' font-size='24' font-weight='700' fill='#163047'>Motor Docker de la laptop</text>
+<text x='105' y='1021' font-family='Segoe UI,Arial,sans-serif' font-size='21' font-weight='400' fill='#425c72'>/var/run/docker.sock</text>
+<text x='105' y='1050' font-family='Segoe UI,Arial,sans-serif' font-size='21' font-weight='400' fill='#425c72'>Construye las imágenes de la app</text>
+<rect x='85' y='1190' width='560' height='120' rx='10' fill='#ffffff' stroke='#86a4c2' stroke-width='2'/>
+<text x='105' y='1228' font-family='Segoe UI,Arial,sans-serif' font-size='23' font-weight='700' fill='#163047'>Archivos locales → Docker secrets</text>
+<text x='105' y='1265' font-family='Segoe UI,Arial,sans-serif' font-size='20' font-weight='400' fill='#425c72'>Token Docker Hub · kubeconfig UCU</text>
+<text x='105' y='1294' font-family='Segoe UI,Arial,sans-serif' font-size='20' font-weight='400' fill='#425c72'>/run/secrets → credenciales de Jenkins</text>
+<rect x='85' y='1410' width='560' height='120' rx='10' fill='#ffffff' stroke='#86a4c2' stroke-width='2'/>
+<text x='105' y='1450' font-family='Segoe UI,Arial,sans-serif' font-size='25' font-weight='700' fill='#163047'>Volumen jenkins_home</text>
+<text x='105' y='1486' font-family='Segoe UI,Arial,sans-serif' font-size='21' font-weight='400' fill='#425c72'>/var/jenkins_home</text>
+<text x='105' y='1515' font-family='Segoe UI,Arial,sans-serif' font-size='21' font-weight='400' fill='#425c72'>Configuración e historial de builds</text>
+<rect x='760' y='520' width='360' height='230' rx='10' fill='#fff9e9' stroke='#d3a746' stroke-width='2'/>
+<text x='780' y='562' font-family='Segoe UI,Arial,sans-serif' font-size='27' font-weight='700' fill='#163047'>Docker Hub</text>
+<text x='780' y='597' font-family='Segoe UI,Arial,sans-serif' font-size='22' font-weight='400' fill='#425c72'>agustinnegreira/</text>
+<text x='780' y='626' font-family='Segoe UI,Arial,sans-serif' font-size='22' font-weight='400' fill='#425c72'>cafeteria:N</text>
+<text x='780' y='655' font-family='Segoe UI,Arial,sans-serif' font-size='22' font-weight='400' fill='#425c72'>Imágenes públicas</text>
+<text x='780' y='684' font-family='Segoe UI,Arial,sans-serif' font-size='22' font-weight='400' fill='#425c72'>N = número de build</text>
+<rect x='1260' y='100' width='900' height='100' rx='10' fill='#ffffff' stroke='#9db0bf' stroke-width='2'/>
+<text x='1280' y='140' font-family='Segoe UI,Arial,sans-serif' font-size='25' font-weight='700' fill='#163047'>Celular alumno / navegador cafetería</text>
+<text x='1280' y='175' font-family='Segoe UI,Arial,sans-serif' font-size='20' font-weight='400' fill='#425c72'>Páginas, API y Swagger por HTTPS</text>
+<rect x='1240' y='350' width='900' height='100' rx='10' fill='#ffffff' stroke='#72a99e' stroke-width='2'/>
+<text x='1260' y='390' font-family='Segoe UI,Arial,sans-serif' font-size='25' font-weight='700' fill='#163047'>Entrada HTTPS UCU + APISIX</text>
+<text x='1260' y='426' font-family='Segoe UI,Arial,sans-serif' font-size='21' font-weight='400' fill='#425c72'>ApisixRoute: cafeteria-agustin-team4.reto-ucu.net</text>
+<rect x='1380' y='515' width='620' height='90' rx='10' fill='#ffffff' stroke='#72a99e' stroke-width='2'/>
+<text x='1400' y='555' font-family='Segoe UI,Arial,sans-serif' font-size='25' font-weight='700' fill='#163047'>Service · cafeteria-agustin</text>
+<text x='1400' y='591' font-family='Segoe UI,Arial,sans-serif' font-size='21' font-weight='400' fill='#425c72'>ClusterIP :80 → pod :8000</text>
+<rect x='1300' y='695' width='760' height='205' rx='10' fill='#ffffff' stroke='#348c7b' stroke-width='2'/>
+<text x='1320' y='738' font-family='Segoe UI,Arial,sans-serif' font-size='28' font-weight='700' fill='#163047'>Pod · 1 contenedor de la app</text>
+<text x='1320' y='773' font-family='Segoe UI,Arial,sans-serif' font-size='23' font-weight='400' fill='#425c72'>FastAPI + Uvicorn · Python 3.12</text>
+<text x='1320' y='802' font-family='Segoe UI,Arial,sans-serif' font-size='23' font-weight='400' fill='#425c72'>HTML/JS alumno + cafetería · API</text>
+<text x='1320' y='831' font-family='Segoe UI,Arial,sans-serif' font-size='23' font-weight='400' fill='#425c72'>SQLite: /data/cafeteria.db</text>
+<rect x='1240' y='980' width='300' height='145' rx='10' fill='#ffffff' stroke='#8ab5aa' stroke-width='2'/>
+<text x='1260' y='1016' font-family='Segoe UI,Arial,sans-serif' font-size='21' font-weight='700' fill='#163047'>ConfigMap + Secret</text>
+<text x='1260' y='1054' font-family='Segoe UI,Arial,sans-serif' font-size='19' font-weight='400' fill='#425c72'>Zona horaria / X inicial</text>
+<text x='1260' y='1083' font-family='Segoe UI,Arial,sans-serif' font-size='19' font-weight='400' fill='#425c72'>PIN por variable</text>
+<text x='1260' y='1112' font-family='Segoe UI,Arial,sans-serif' font-size='19' font-weight='400' fill='#425c72'>de entorno</text>
+<rect x='1620' y='980' width='520' height='145' rx='10' fill='#ffffff' stroke='#8ab5aa' stroke-width='2'/>
+<text x='1640' y='1019' font-family='Segoe UI,Arial,sans-serif' font-size='24' font-weight='700' fill='#163047'>PVC · cafeteria-agustin-data</text>
+<text x='1640' y='1056' font-family='Segoe UI,Arial,sans-serif' font-size='21' font-weight='400' fill='#425c72'>256 Mi · RWO · local-path</text>
+<text x='1640' y='1085' font-family='Segoe UI,Arial,sans-serif' font-size='21' font-weight='400' fill='#425c72'>PV / directorio del nodo</text>
+<text x='1640' y='1114' font-family='Segoe UI,Arial,sans-serif' font-size='21' font-weight='400' fill='#425c72'>Montado en /data</text>
+<rect x='1240' y='1270' width='390' height='135' rx='10' fill='#ffffff' stroke='#9c89c8' stroke-width='2'/>
+<text x='1260' y='1309' font-family='Segoe UI,Arial,sans-serif' font-size='24' font-weight='700' fill='#163047'>API de Kubernetes</text>
+<text x='1260' y='1344' font-family='Segoe UI,Arial,sans-serif' font-size='19' font-weight='400' fill='#425c72'>Autenticación: kubeconfig</text>
+<text x='1260' y='1373' font-family='Segoe UI,Arial,sans-serif' font-size='19' font-weight='400' fill='#425c72'>Control plane compartido</text>
+<rect x='1740' y='1270' width='400' height='135' rx='10' fill='#ffffff' stroke='#9c89c8' stroke-width='2'/>
+<text x='1760' y='1307' font-family='Segoe UI,Arial,sans-serif' font-size='22' font-weight='700' fill='#163047'>Deployment → ReplicaSet</text>
+<text x='1760' y='1344' font-family='Segoe UI,Arial,sans-serif' font-size='19' font-weight='400' fill='#425c72'>1 réplica · Recreate</text>
+<text x='1760' y='1373' font-family='Segoe UI,Arial,sans-serif' font-size='19' font-weight='400' fill='#425c72'>Pod con probes en /healthz</text>
+<text x='385' y='548' font-family='Segoe UI,Arial,sans-serif' font-size='20' font-weight='400' fill='#2563eb'>clona main</text>
+<text x='380' y='888' font-family='Segoe UI,Arial,sans-serif' font-size='20' font-weight='400' fill='#7c3aed'>docker CLI por socket</text>
+<text x='772' y='846' font-family='Segoe UI,Arial,sans-serif' font-size='21' font-weight='700' fill='#2563eb'>push</text>
+<text x='1175' y='774' font-family='Segoe UI,Arial,sans-serif' font-size='19' font-weight='400' fill='#2563eb'>pull :N</text>
+<text x='1920' y='336' font-family='Segoe UI,Arial,sans-serif' font-size='19' font-weight='400' fill='#087f8c'>HTTPS :443</text>
+<text x='1720' y='493' font-family='Segoe UI,Arial,sans-serif' font-size='19' font-weight='400' fill='#087f8c'>ruta por host</text>
+<text x='1710' y='663' font-family='Segoe UI,Arial,sans-serif' font-size='20' font-weight='400' fill='#087f8c'>:8000</text>
+<text x='1900' y='949' font-family='Segoe UI,Arial,sans-serif' font-size='19' font-weight='400' fill='#087f8c'>lee / escribe</text>
+<text x='790' y='1270' font-family='Segoe UI,Arial,sans-serif' font-size='22' font-weight='700' fill='#7c3aed'>kubectl apply</text>
+<text x='790' y='1300' font-family='Segoe UI,Arial,sans-serif' font-size='20' font-weight='400' fill='#7c3aed'>usa kubeconfig</text>
+<text x='1645' y='1322' font-family='Segoe UI,Arial,sans-serif' font-size='17' font-weight='400' fill='#7c3aed'>actualiza</text>
+<text x='1240' y='1507' font-family='Segoe UI,Arial,sans-serif' font-size='22' font-weight='700' fill='#205e52'>La app continúa si se apaga la laptop.</text>
+<text x='1240' y='1544' font-family='Segoe UI,Arial,sans-serif' font-size='21' font-weight='400' fill='#425c72'>El disco sobrevive al pod; no reemplaza un backup.</text>
+<text x='80' y='1600' font-family='Segoe UI,Arial,sans-serif' font-size='20' font-weight='400' fill='#425c72'>Jenkins requiere laptop y Docker encendidos.</text>
+<text x='60' y='1699' font-family='Segoe UI,Arial,sans-serif' font-size='19' font-weight='400' fill='#5c7081'>27/10/2026 · Versión comprobada :2 · Builds #1 y #2 SUCCESS · Detalles en ARQUITECTURA.md y GUIA_DEMO.md</text>
+</svg>

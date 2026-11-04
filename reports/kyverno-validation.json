@@ -1,0 +1,36 @@
+[
+    {
+        "expected":  "DENY",
+        "exitCode":  1,
+        "case":  "bad-latest.yaml",
+        "policy":  "cafeteria-no-latest",
+        "passed":  true
+    },
+    {
+        "expected":  "DENY",
+        "exitCode":  1,
+        "case":  "bad-untagged.yaml",
+        "policy":  "cafeteria-no-latest",
+        "passed":  true
+    },
+    {
+        "expected":  "DENY",
+        "exitCode":  1,
+        "case":  "bad-resources.yaml",
+        "policy":  "cafeteria-require-resources",
+        "passed":  true
+    },
+    {
+        "expected":  "DENY",
+        "exitCode":  1,
+        "case":  "bad-root.yaml",
+        "policy":  "cafeteria-non-root",
+        "passed":  true
+    },
+    {
+        "expected":  "ALLOW",
+        "exitCode":  0,
+        "case":  "good.yaml",
+        "passed":  true
+    }
+]

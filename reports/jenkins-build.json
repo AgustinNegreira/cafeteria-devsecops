@@ -1,0 +1,350 @@
+{
+  "number": 5,
+  "url": "http://localhost:8080/job/cafeteria-devsecops/5/",
+  "result": "SUCCESS",
+  "timestamp": 1793793426410,
+  "duration": 31270,
+  "displayName": "#5",
+  "stages": [
+    {
+      "_links": {
+        "self": {
+          "href": "/job/cafeteria-devsecops/5/execution/node/6/wfapi/describe"
+        }
+      },
+      "id": "6",
+      "name": "Declarative: Checkout SCM",
+      "execNode": "",
+      "status": "SUCCESS",
+      "startTimeMillis": 1793793427002,
+      "durationMillis": 286,
+      "pauseDurationMillis": 0
+    },
+    {
+      "_links": {
+        "self": {
+          "href": "/job/cafeteria-devsecops/5/execution/node/15/wfapi/describe"
+        }
+      },
+      "id": "15",
+      "name": "Tests",
+      "execNode": "",
+      "status": "SUCCESS",
+      "startTimeMillis": 1793793427374,
+      "durationMillis": 2335,
+      "pauseDurationMillis": 0
+    },
+    {
+      "_links": {
+        "self": {
+          "href": "/job/cafeteria-devsecops/5/execution/node/21/wfapi/describe"
+        }
+      },
+      "id": "21",
+      "name": "Codigo y manifiestos",
+      "execNode": "",
+      "status": "SUCCESS",
+      "startTimeMillis": 1793793429735,
+      "durationMillis": 17279,
+      "pauseDurationMillis": 0
+    },
+    {
+      "_links": {
+        "self": {
+          "href": "/job/cafeteria-devsecops/5/execution/node/26/wfapi/describe"
+        }
+      },
+      "id": "26",
+      "name": "Build",
+      "execNode": "",
+      "status": "SUCCESS",
+      "startTimeMillis": 1793793447040,
+      "durationMillis": 559,
+      "pauseDurationMillis": 0
+    },
+    {
+      "_links": {
+        "self": {
+          "href": "/job/cafeteria-devsecops/5/execution/node/31/wfapi/describe"
+        }
+      },
+      "id": "31",
+      "name": "Trivy",
+      "execNode": "",
+      "status": "SUCCESS",
+      "startTimeMillis": 1793793447626,
+      "durationMillis": 1656,
+      "pauseDurationMillis": 0
+    },
+    {
+      "_links": {
+        "self": {
+          "href": "/job/cafeteria-devsecops/5/execution/node/36/wfapi/describe"
+        }
+      },
+      "id": "36",
+      "name": "Deploy local - Kyverno",
+      "execNode": "",
+      "status": "SUCCESS",
+      "startTimeMillis": 1793793449310,
+      "durationMillis": 7790,
+      "pauseDurationMillis": 0
+    },
+    {
+      "_links": {
+        "self": {
+          "href": "/job/cafeteria-devsecops/5/execution/node/45/wfapi/describe"
+        }
+      },
+      "id": "45",
+      "name": "Verificacion",
+      "execNode": "",
+      "status": "SUCCESS",
+      "startTimeMillis": 1793793457131,
+      "durationMillis": 319,
+      "pauseDurationMillis": 0
+    },
+    {
+      "_links": {
+        "self": {
+          "href": "/job/cafeteria-devsecops/5/execution/node/50/wfapi/describe"
+        }
+      },
+      "id": "50",
+      "name": "Declarative: Post Actions",
+      "execNode": "",
+      "status": "SUCCESS",
+      "startTimeMillis": 1793793457474,
+      "durationMillis": 94,
+      "pauseDurationMillis": 0
+    }
+  ],
+  "anonymousAPIStatus": 403,
+  "tests": {
+    "_class": "hudson.tasks.junit.TestResult",
+    "testActions": [],
+    "duration": 0.719,
+    "empty": false,
+    "failCount": 0,
+    "passCount": 11,
+    "skipCount": 0,
+    "suites": [
+      {
+        "cases": [
+          {
+            "testActions": [],
+            "age": 0,
+            "className": "tests.test_api",
+            "duration": 0.073,
+            "errorDetails": null,
+            "errorStackTrace": null,
+            "failedSince": 0,
+            "flakyFailures": [],
+            "name": "test_pedido_a_tiempo_se_acepta",
+            "properties": {},
+            "rerunFailures": [],
+            "skipped": false,
+            "skippedMessage": null,
+            "status": "PASSED",
+            "stderr": null,
+            "stdout": null
+          },
+          {
+            "testActions": [],
+            "age": 0,
+            "className": "tests.test_api",
+            "duration": 0.038,
+            "errorDetails": null,
+            "errorStackTrace": null,
+            "failedSince": 0,
+            "flakyFailures": [],
+            "name": "test_pedido_pasado_el_corte_se_rechaza_con_mensaje_claro",
+            "properties": {},
+            "rerunFailures": [],
+            "skipped": false,
+            "skippedMessage": null,
+            "status": "PASSED",
+            "stderr": null,
+            "stdout": null
+          },
+          {
+            "testActions": [],
+            "age": 0,
+            "className": "tests.test_api",
+            "duration": 0.06,
+            "errorDetails": null,
+            "errorStackTrace": null,
+            "failedSince": 0,
+            "flakyFailures": [],
+            "name": "test_cambiar_el_corte_aplica_sin_reiniciar",
+            "properties": {},
+            "rerunFailures": [],
+            "skipped": false,
+            "skippedMessage": null,
+            "status": "PASSED",
+            "stderr": null,
+            "stdout": null
+          },
+          {
+            "testActions": [],
+            "age": 0,
+            "className": "tests.test_api",
+            "duration": 0.051,
+            "errorDetails": null,
+            "errorStackTrace": null,
+            "failedSince": 0,
+            "flakyFailures": [],
+            "name": "test_producto_agotado_no_se_puede_pedir",
+            "properties": {},
+            "rerunFailures": [],
+            "skipped": false,
+            "skippedMessage": null,
+            "status": "PASSED",
+            "stderr": null,
+            "stdout": null
+          },
+          {
+            "testActions": [],
+            "age": 0,
+            "className": "tests.test_api",
+            "duration": 0.041,
+            "errorDetails": null,
+            "errorStackTrace": null,
+            "failedSince": 0,
+            "flakyFailures": [],
+            "name": "test_la_cafeteria_necesita_pin",
+            "properties": {},
+            "rerunFailures": [],
+            "skipped": false,
+            "skippedMessage": null,
+            "status": "PASSED",
+            "stderr": null,
+            "stdout": null
+          },
+          {
+            "testActions": [],
+            "age": 0,
+            "className": "tests.test_api",
+            "duration": 0.058,
+            "errorDetails": null,
+            "errorStackTrace": null,
+            "failedSince": 0,
+            "flakyFailures": [],
+            "name": "test_la_cafeteria_ve_los_pedidos_agrupados_y_el_proximo_recreo",
+            "properties": {},
+            "rerunFailures": [],
+            "skipped": false,
+            "skippedMessage": null,
+            "status": "PASSED",
+            "stderr": null,
+            "stdout": null
+          },
+          {
+            "testActions": [],
+            "age": 0,
+            "className": "tests.test_api",
+            "duration": 0.069,
+            "errorDetails": null,
+            "errorStackTrace": null,
+            "failedSince": 0,
+            "flakyFailures": [],
+            "name": "test_el_alumno_ve_el_estado_que_marca_la_cafeteria",
+            "properties": {},
+            "rerunFailures": [],
+            "skipped": false,
+            "skippedMessage": null,
+            "status": "PASSED",
+            "stderr": null,
+            "stdout": null
+          },
+          {
+            "testActions": [],
+            "age": 0,
+            "className": "tests.test_api",
+            "duration": 0.06,
+            "errorDetails": null,
+            "errorStackTrace": null,
+            "failedSince": 0,
+            "flakyFailures": [],
+            "name": "test_resumen_de_ventas_del_dia",
+            "properties": {},
+            "rerunFailures": [],
+            "skipped": false,
+            "skippedMessage": null,
+            "status": "PASSED",
+            "stderr": null,
+            "stdout": null
+          },
+          {
+            "testActions": [],
+            "age": 0,
+            "className": "tests.test_api",
+            "duration": 0.038,
+            "errorDetails": null,
+            "errorStackTrace": null,
+            "failedSince": 0,
+            "flakyFailures": [],
+            "name": "test_healthz",
+            "properties": {},
+            "rerunFailures": [],
+            "skipped": false,
+            "skippedMessage": null,
+            "status": "PASSED",
+            "stderr": null,
+            "stdout": null
+          },
+          {
+            "testActions": [],
+            "age": 0,
+            "className": "tests.test_api",
+            "duration": 0.003,
+            "errorDetails": null,
+            "errorStackTrace": null,
+            "failedSince": 0,
+            "flakyFailures": [],
+            "name": "test_no_arranca_sin_pin_seguro[]",
+            "properties": {},
+            "rerunFailures": [],
+            "skipped": false,
+            "skippedMessage": null,
+            "status": "PASSED",
+            "stderr": null,
+            "stdout": null
+          },
+          {
+            "testActions": [],
+            "age": 0,
+            "className": "tests.test_api",
+            "duration": 0.003,
+            "errorDetails": null,
+            "errorStackTrace": null,
+            "failedSince": 0,
+            "flakyFailures": [],
+            "name": "test_no_arranca_sin_pin_seguro[1234]",
+            "properties": {},
+            "rerunFailures": [],
+            "skipped": false,
+            "skippedMessage": null,
+            "status": "PASSED",
+            "stderr": null,
+            "stdout": null
+          }
+        ],
+        "duration": 0.719,
+        "enclosingBlockNames": [
+          "Tests"
+        ],
+        "enclosingBlocks": [
+          "15"
+        ],
+        "id": null,
+        "name": "pytest",
+        "nodeId": "17",
+        "properties": {},
+        "stderr": null,
+        "stdout": null,
+        "timestamp": "2026-11-04T11:57:08.676039+00:00"
+      }
+    ]
+  }
+}

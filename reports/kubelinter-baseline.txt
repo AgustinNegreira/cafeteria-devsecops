@@ -1,0 +1,9 @@
+KubeLinter 0.8.3
+
+C:\Users\AgustinNegreira\UCU\2do Semestre 2026\DevOps\cafeteria\k8s\deployment.yaml: (object: <no namespace>/cafeteria-agustin apps/v1, Kind=Deployment) The container "app" is using an invalid container image, "IMAGEN". Please use images that are not blocked by the `BlockList` criteria : [".*:(latest)$" "^[^:]*$" "(.*/[^:]+)$"] (check: latest-tag, remediation: Use a container image with a specific tag other than latest.)
+
+C:\Users\AgustinNegreira\UCU\2do Semestre 2026\DevOps\cafeteria\k8s\deployment.yaml: (object: <no namespace>/cafeteria-agustin apps/v1, Kind=Deployment) container "app" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in the container securityContext.)
+
+C:\Users\AgustinNegreira\UCU\2do Semestre 2026\DevOps\cafeteria\k8s\deployment.yaml: (object: <no namespace>/cafeteria-agustin apps/v1, Kind=Deployment) container "app" is not set to runAsNonRoot (check: run-as-non-root, remediation: Set runAsUser to a non-zero number and runAsNonRoot to true in your pod or container securityContext. Refer to https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ for details.)
+
+Error: found 3 lint errors

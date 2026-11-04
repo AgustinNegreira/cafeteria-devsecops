@@ -1,0 +1,96 @@
+{
+  "timestampUTC": "2026-11-04T12:02:33.479809+00:00",
+  "context": "kind-cafeteria-devsecops",
+  "kubernetes": {
+    "architecture": "amd64",
+    "bootID": "b4c7546a-05f8-49b1-8ae3-3bd5023546d7",
+    "containerRuntimeVersion": "containerd://2.3.4",
+    "kernelVersion": "6.18.54.1-microsoft-standard-WSL2",
+    "kubeProxyVersion": "",
+    "kubeletVersion": "v1.35.8",
+    "machineID": "d39d0dee431a49b2b4cd82f09732c16c",
+    "operatingSystem": "linux",
+    "osImage": "Debian GNU/Linux 13 (trixie)",
+    "swap": {
+      "capacity": 3221225472
+    },
+    "systemUUID": "d39d0dee431a49b2b4cd82f09732c16c"
+  },
+  "nodeReady": "True",
+  "helm": [
+    {
+      "name": "falco",
+      "namespace": "falco",
+      "revision": "2",
+      "updated": "2026-11-03 20:32:40.556913 -0300 -03",
+      "status": "deployed",
+      "chart": "falco-9.2.2",
+      "app_version": "0.45.2"
+    },
+    {
+      "name": "kyverno",
+      "namespace": "kyverno",
+      "revision": "1",
+      "updated": "2026-11-03 20:21:34.9465004 -0300 -03",
+      "status": "deployed",
+      "chart": "kyverno-3.9.2",
+      "app_version": "v1.19.2"
+    }
+  ],
+  "deployment": {
+    "name": "cafeteria-agustin",
+    "namespace": "cafeteria-devsecops",
+    "replicasReady": 1,
+    "podSecurityContext": {
+      "fsGroup": 10001,
+      "fsGroupChangePolicy": "OnRootMismatch",
+      "runAsGroup": 10001,
+      "runAsNonRoot": true,
+      "runAsUser": 10001,
+      "seccompProfile": {
+        "type": "RuntimeDefault"
+      }
+    },
+    "containers": [
+      {
+        "name": "app",
+        "image": "cafeteria:devsecops-build-5",
+        "resources": {
+          "limits": {
+            "cpu": "300m",
+            "memory": "256Mi"
+          },
+          "requests": {
+            "cpu": "50m",
+            "memory": "96Mi"
+          }
+        },
+        "securityContext": {
+          "allowPrivilegeEscalation": false,
+          "capabilities": {
+            "drop": [
+              "ALL"
+            ]
+          },
+          "readOnlyRootFilesystem": true,
+          "runAsGroup": 10001,
+          "runAsNonRoot": true,
+          "runAsUser": 10001
+        }
+      }
+    ]
+  },
+  "jenkinsRBAC": {
+    "patch deployments in cafeteria-devsecops": "yes",
+    "get pods in kube-system": "no",
+    "create clusterpolicies.kyverno.io in cafeteria-devsecops": "no",
+    "list secrets in cafeteria-devsecops": "no"
+  },
+  "pvc": [
+    {
+      "name": "cafeteria-agustin-data",
+      "namespace": "cafeteria-devsecops",
+      "phase": "Bound"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+Semgrep 1.183.0 - p/default + p/security-audit + p/dockerfile
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 12 files with 1088 Code rules:
+                                                                                                                        
+  Language      Rules   Files          Origin      Rules                                                                
+ ─────────────────────────────        ───────────────────                                                               
+  <multilang>      64      12          Community    1088                                                                
+  yaml             35       5                                                                                           
+  python          244       3                                                                                           
+  html              1       2                                                                                           
+  dockerfile        7       1                                                                                           
+                                                                                                                        
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 0 (0 blocking)
+ • Rules run: 349
+ • Targets scanned: 12
+ • Parsed lines: ~100.0%
+ • No ignore information available
+Ran 349 rules on 12 files: 0 findings.
+(need more rules? `semgrep login` for additional free Semgrep Registry rules)
+
+
+Exit code: 0
+Findings: 0
+Tool errors: 0

@@ -1,0 +1,137 @@
+
+apiVersion: v1
+data:
+  MINUTOS_CORTE: "15"
+  ZONA_HORARIA: America/Montevideo
+kind: ConfigMap
+metadata:
+  labels:
+    app: cafeteria-agustin
+    owner: agustin
+  name: cafeteria-agustin
+  namespace: cafeteria-devsecops
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: cafeteria-agustin
+    owner: agustin
+  name: cafeteria-agustin
+  namespace: cafeteria-devsecops
+spec:
+  ports:
+  - nodePort: 30080
+    port: 80
+    targetPort: 8000
+  selector:
+    app: cafeteria-agustin
+  type: NodePort
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: cafeteria-agustin
+    owner: agustin
+  name: cafeteria-agustin-data
+  namespace: cafeteria-devsecops
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 256Mi
+  storageClassName: standard
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: cafeteria-agustin
+    owner: agustin
+  name: cafeteria-agustin
+  namespace: cafeteria-devsecops
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cafeteria-agustin
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: cafeteria-agustin
+        owner: agustin
+    spec:
+      automountServiceAccountToken: false
+      containers:
+      - env:
+        - name: CAFETERIA_PIN
+          valueFrom:
+            secretKeyRef:
+              key: CAFETERIA_PIN
+              name: cafeteria-agustin
+        envFrom:
+        - configMapRef:
+            name: cafeteria-agustin
+        image: cafeteria:devsecops-build-5
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: http
+          initialDelaySeconds: 10
+          periodSeconds: 15
+        name: app
+        ports:
+        - containerPort: 8000
+          name: http
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: http
+          periodSeconds: 5
+        resources:
+          limits:
+            cpu: 300m
+            memory: 256Mi
+          requests:
+            cpu: 50m
+            memory: 96Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+          runAsGroup: 10001
+          runAsNonRoot: true
+          runAsUser: 10001
+        startupProbe:
+          failureThreshold: 30
+          httpGet:
+            path: /healthz
+            port: http
+          periodSeconds: 2
+        volumeMounts:
+        - mountPath: /data
+          name: data
+        - mountPath: /tmp
+          name: tmp
+      securityContext:
+        fsGroup: 10001
+        fsGroupChangePolicy: OnRootMismatch
+        runAsGroup: 10001
+        runAsNonRoot: true
+        runAsUser: 10001
+        seccompProfile:
+          type: RuntimeDefault
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: cafeteria-agustin-data
+      - emptyDir:
+          sizeLimit: 16Mi
+        name: tmp

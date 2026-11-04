@@ -1,0 +1,180 @@
+Started by an SCM change
+Checking out git file:///proyecto into /var/jenkins_home/workspace/cafeteria-devsecops@script/3f18b21dbe5ff3c55a52b5a89278b0ff9ef4e846808b218613cd218940b985b3 to read Jenkinsfile
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/cafeteria-devsecops@script/3f18b21dbe5ff3c55a52b5a89278b0ff9ef4e846808b218613cd218940b985b3/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url file:///proyecto # timeout=10
+Fetching upstream changes from file:///proyecto
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+ > git fetch --tags --force --progress -- file:///proyecto +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/codex/entregable-3-devsecops^{commit} # timeout=10
+Checking out Revision fc2065aa66a714baaf76e33ca285b6011a53c66d (refs/remotes/origin/codex/entregable-3-devsecops)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f fc2065aa66a714baaf76e33ca285b6011a53c66d # timeout=10
+Commit message: "Identify each CI image with its build tag and wait before runtime capture"
+ > git rev-list --no-walk 07a8c148eed4d1cf351563d8aa02d5e601ce6e72 # timeout=10
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/cafeteria-devsecops
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/cafeteria-devsecops/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url file:///proyecto # timeout=10
+Fetching upstream changes from file:///proyecto
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+ > git fetch --tags --force --progress -- file:///proyecto +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/codex/entregable-3-devsecops^{commit} # timeout=10
+Checking out Revision fc2065aa66a714baaf76e33ca285b6011a53c66d (refs/remotes/origin/codex/entregable-3-devsecops)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f fc2065aa66a714baaf76e33ca285b6011a53c66d # timeout=10
+Commit message: "Identify each CI image with its build tag and wait before runtime capture"
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Tests)
+[Pipeline] sh
++ mkdir -p reports
++ rm -f reports/pytest.xml
++ python3 -m venv .venv
++ .venv/bin/pip install --quiet --disable-pip-version-check -r requirements-dev.txt
++ .venv/bin/python -m pytest -q --junitxml=reports/pytest.xml
+...........                                                              [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.13/site-packages/fastapi/testclient.py:1
+  /var/jenkins_home/workspace/cafeteria-devsecops/.venv/lib/python3.13/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+11 passed, 1 warning in 0.72s
+Post stage
+[Pipeline] junit
+Recording test results
+[Checks API] No suitable checks publisher found.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Codigo y manifiestos)
+[Pipeline] sh
++ python3 scripts/security/scan.py --image cafeteria:devsecops-build-5 --checks npm,pip,semgrep,kubelinter
+npm: NOT_APPLICABLE
+pip-audit: 0 findings
+Semgrep: 0 findings
+KubeLinter: PASS
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build)
+[Pipeline] sh
++ docker build --label org.opencontainers.image.revision=fc2065aa66a714baaf76e33ca285b6011a53c66d --label org.opencontainers.image.version=cafeteria:devsecops-build-5 -t cafeteria:devsecops-build-5 .
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 787B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.12-alpine3.23@sha256:a4ad86fc2eaa4f9a5c3153776c9fb56e502dbd8e23dfa855d164308f376a6dd2
+#2 DONE 0.1s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 342B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 516B done
+#4 DONE 0.0s
+
+#5 [1/6] FROM docker.io/library/python:3.12-alpine3.23@sha256:a4ad86fc2eaa4f9a5c3153776c9fb56e502dbd8e23dfa855d164308f376a6dd2
+#5 resolve docker.io/library/python:3.12-alpine3.23@sha256:a4ad86fc2eaa4f9a5c3153776c9fb56e502dbd8e23dfa855d164308f376a6dd2 0.0s done
+#5 DONE 0.0s
+
+#6 [2/6] WORKDIR /code
+#6 CACHED
+
+#7 [3/6] RUN apk upgrade --no-cache     && addgroup -S -g 10001 app     && adduser -S -D -H -u 10001 -G app app     && mkdir -p /data     && chown 10001:10001 /data
+#7 CACHED
+
+#8 [4/6] COPY requirements.lock .
+#8 CACHED
+
+#9 [5/6] RUN python -m pip install --no-cache-dir --upgrade pip==26.3 && pip install --no-cache-dir -r requirements.lock && python -m pip uninstall --yes pip setuptools && python -c "import ensurepip,shutil; shutil.rmtree(ensurepip.__path__[0])"
+#9 CACHED
+
+#10 [6/6] COPY app ./app
+#10 CACHED
+
+#11 exporting to image
+#11 exporting layers done
+#11 exporting manifest sha256:2880370db8194f579e69b90342036db3722ae5f03d4d9e032c42473542831a3d 0.0s done
+#11 exporting config sha256:b35e9cbcffce0ab0dd652bf783e1443d23440d9d98610334fa52408ccd505ff2 0.0s done
+#11 exporting attestation manifest sha256:29e5691584fa3c63360aeae50abf716b0769595b921a7407d30da4342fbbc244 0.0s done
+#11 exporting manifest list sha256:d1095636f7dd5e45d4ced6ded7c24fc0095e276b53bb033d322c5692e3c20d94 0.0s done
+#11 naming to docker.io/library/cafeteria:devsecops-build-5
+#11 naming to docker.io/library/cafeteria:devsecops-build-5 done
+#11 unpacking to docker.io/library/cafeteria:devsecops-build-5 done
+#11 DONE 0.1s
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Trivy)
+[Pipeline] sh
++ python3 scripts/security/scan.py --image cafeteria:devsecops-build-5 --checks trivy
+Trivy: 0 total, 0 HIGH/CRITICAL
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy local - Kyverno)
+[Pipeline] withCredentials
+Masking supported pattern matches of $KUBECONFIG
+[Pipeline] {
+[Pipeline] sh
++ python3 scripts/local/deploy.py --image cafeteria:devsecops-build-5 --kubeconfig ****
+Image: "cafeteria:devsecops-build-5" with ID "sha256:d1095636f7dd5e45d4ced6ded7c24fc0095e276b53bb033d322c5692e3c20d94" not yet present on node "cafeteria-devsecops-control-plane", loading...
+secret/cafeteria-agustin
+configmap/cafeteria-agustin unchanged
+service/cafeteria-agustin unchanged
+persistentvolumeclaim/cafeteria-agustin-data unchanged
+deployment.apps/cafeteria-agustin configured
+Waiting for deployment "cafeteria-agustin" rollout to finish: 0 out of 1 new replicas have been updated...
+Waiting for deployment "cafeteria-agustin" rollout to finish: 0 out of 1 new replicas have been updated...
+Waiting for deployment "cafeteria-agustin" rollout to finish: 0 out of 1 new replicas have been updated...
+Waiting for deployment "cafeteria-agustin" rollout to finish: 0 of 1 updated replicas are available...
+deployment "cafeteria-agustin" successfully rolled out
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Verificacion)
+[Pipeline] sh
++ curl -fsS --retry 5 --retry-delay 2 --retry-all-errors http://cafeteria-devsecops-control-plane:30080/healthz
+{"status":"ok"}
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] archiveArtifacts
+Archiving artifacts
+[Pipeline] echo
+Controles y despliegue local completados.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS

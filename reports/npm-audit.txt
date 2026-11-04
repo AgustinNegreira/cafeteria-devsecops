@@ -1,0 +1,11 @@
+$ npm audit
+v24.22.2
+11.19.1
+npm error code ENOLOCK
+npm error audit This command requires an existing lockfile.
+npm error audit Try creating one first with: npm i --package-lock-only
+npm error audit Original error: loadVirtual requires existing shrinkwrap file
+npm error A complete log of this run can be found in: /root/.npm/_logs/2026-11-04T11_57_10_237Z-debug-0.log
+
+Exit code: 1
+APLICABILIDAD: app Python/FastAPI con JS sin paquetes npm. No hay package.json/package-lock.json. Se conserva la ejecucion fallida real; no significa cero vulnerabilidades. Ver pip-audit.txt.

@@ -1,157 +1,82 @@
-# Cafetería · pedidos para el recreo
+# Cafetería - Entregable 3 DevSecOps
 
-Los alumnos piden desde el celular antes del recreo; la cafetería ve lo pendiente agrupado por recreo y lo marca como listo o entregado.
+Aplicación de pedidos para recreos: FastAPI + SQLite y páginas HTML/JavaScript. El alumno pide antes del corte; cafetería administra con PIN, marca estados, agotados y consulta ventas.
 
-## Arquitectura
+**Repositorio:** https://github.com/AgustinNegreira/cafeteria-devsecops
 
-### La app: un solo contenedor
+## Entrega y demostración
 
-```text
- Celular del alumno ─┐       ┌─────────── contenedor ───────────┐
-                     ├─────> │ FastAPI (uvicorn, puerto 8000)   │
- Pantalla cafetería ─┘       │  /            página alumno      │
-                             │  /cafeteria   página cafetería   │
-                             │  /api/...     reglas y datos     │
-                             │  /healthz     "estoy vivo"       │
-                             │        │                         │
-                             │     SQLite ──> /data (volumen)   │
-                             └──────────────────────────────────┘
-```
+- [Informe del entregable 3](ENTREGABLE_3.md): requisitos, resultados, correcciones y límites.
+- [Guía de prueba de punta a punta](GUIA_ENTREGABLE_3.md): preparar, mostrar, repetir controles y diagnosticar.
+- [Arquitectura local](LAB_LOCAL.md) y [diagrama](docs/arquitectura-devsecops.svg).
+- [Informes reales](reports/), incluida la [disposición de cada HIGH original](reports/remediaciones.md).
+- PDF de entrega en `output/pdf/` y ZIP de fuentes/evidencias preparado al cerrar la entrega.
 
-- **Un solo contenedor**: FastAPI sirve la API y también las dos páginas (HTML + JS sin frameworks ni build).
-- **SQLite en un volumen** montado en `/data`. Por eso hay **una sola réplica**; si hicieran falta más, se cambia a Postgres.
-- **La regla de los X minutos vive en el backend** (`POST /api/pedidos` devuelve `409` con un mensaje claro). El frontend solo muestra el estado.
-- **X se guarda en la base** (tabla `config`) y la cafetería lo cambia desde su pantalla: aplica en el próximo request, **sin redesplegar**.
-- **Roles mínimos**: el alumno no tiene login, solo escribe su nombre (queda guardado en el celular); la cafetería entra con un PIN (`CAFETERIA_PIN`, en k8s va en un Secret).
-- **Hora de Uruguay**: los pods corren en UTC, así que los recreos se interpretan en `America/Montevideo`.
-- **"En vivo" por polling**: la pantalla de la cafetería se refresca cada 5 s y la del alumno cada 10 s. No usa websockets.
+## Abrir lo que ya está corriendo
 
-### El despliegue (en construcción)
+- Alumno: http://localhost:8081/
+- Cafetería: http://localhost:8081/cafeteria
+- API/Swagger: http://localhost:8081/docs
+- Jenkins: http://localhost:8080/job/cafeteria-devsecops/ (usuario `agustin`).
 
-```text
- commit en main ──> Jenkins (polling): tests ──> docker build ──> push al registry ──> kubectl apply
-                         │                                                  │
-                  si fallan, no se                                          ▼
-                  despliega nada                        cluster UCU, namespace alumno-team10
+PIN local: archivo privado `.local/cafeteria-pin.txt`. Clave de Jenkins: `.local/jenkins-admin-password.txt`. No están en Git ni en el ZIP; cada instalación nueva genera los suyos.
 
- Celular ──> Ingress (APISIX) ──> Service ──> Deployment (1 pod) ──> PVC en /data (SQLite)
-                                                 ▲          ▲
-                                        Secret (PIN)    ConfigMap (zona horaria, X inicial)
-```
+## Preparar otra instalación en Windows
 
-| Pieza | Por qué está |
-|---|---|
-| Deployment | Mantiene el pod siempre corriendo: si se cae o se cuelga, Kubernetes lo recrea |
-| Probes en `/healthz` | Kubernetes detecta un proceso colgado y no le manda tráfico hasta que esté listo |
-| PVC | Los pedidos sobreviven cuando el pod se reinicia o se actualiza |
-| Secret | El PIN no queda en el código ni en la imagen |
-| ConfigMap | Configuración que no es secreta, separada de la imagen |
-| Service + Ingress | Una URL fija para que los alumnos entren desde el celular |
-| Jenkins | Cada cambio pasa por los tests antes de llegar al cluster, sin pasos manuales |
-
-**Publicada en:** https://cafeteria-agustin-team4.reto-ucu.net (el certificado del cluster está vencido, así que el navegador avisa; hay que tocar "Avanzar"). Por `http://` no funciona: el puerto 80 de esa IP lo atiende otro servidor.
-
-Todo lo nuestro en el namespace se llama `cafeteria-agustin` y lleva la etiqueta `owner: agustin`, porque el namespace se comparte con otros compañeros:
-
-```powershell
-kubectl get all,pvc,cm,secret,apisixroute -l owner=agustin
-```
-
-Despliegue a mano (Jenkins va a automatizar exactamente esto):
-
-```bash
-docker build -t agustinnegreira/cafeteria:0.1 .
-docker push agustinnegreira/cafeteria:0.1
-# una sola vez: el PIN no va en git
-kubectl create secret generic cafeteria-agustin --from-literal=CAFETERIA_PIN=<pin>
-for f in k8s/*.yaml; do sed 's|image: IMAGEN|image: agustinnegreira/cafeteria:0.1|' "$f"; echo ---; done | kubectl apply -f -
-kubectl rollout status deployment/cafeteria-agustin
-```
-
-Lo que **no** se usa, a propósito: varias réplicas, autoescalado y una base aparte. La carga de una cafetería escolar no lo justifica, y SQLite no admite varios pods escribiendo a la vez.
-
-## Cómo cubre la consigna
-
-| Pide | Dónde |
-|---|---|
-| Catálogo inventado con precio | `app/db.py` (semilla) |
-| Recreos con hora de inicio | tabla `recreos`; la cafetería los agrega o borra |
-| Pedido con varios productos | página alumno → `POST /api/pedidos` |
-| Ver estado del pedido | "Mis pedidos" (pendiente / listo / entregado) |
-| Pantalla cafetería, agrupada por recreo, con el próximo arriba | `/cafeteria` → `GET /api/cafeteria/pedidos` |
-| Corte X minutos antes, impuesto por el backend | `crear_pedido` en `app/main.py` + tests |
-| X configurable sin redesplegar | Configuración en `/cafeteria` → `PUT /api/cafeteria/config` |
-| Extra: resumen de ventas del día | `GET /api/cafeteria/resumen` |
-| Extra: productos agotados | switch "agotado" → no se muestran como pedibles y el backend los rechaza |
-
-## Correr local
-
-```powershell
-python -m venv .venv
-.venv/Scripts/pip install -r requirements-dev.txt
-.venv/Scripts/python -m pytest -v
-.venv/Scripts/uvicorn app.main:app --reload --port 8000
-```
-
-- Alumno: http://localhost:8000
-- Cafetería: http://localhost:8000/cafeteria (PIN por defecto `1234`)
-- Docs de la API: http://localhost:8000/docs
-
-## Correr en Docker
-
-```powershell
-docker build -t cafeteria .
-docker run --rm -p 8000:8000 -v cafeteria-data:/data cafeteria
-```
-
-El volumen `cafeteria-data` hace que los pedidos sobrevivan si se borra el contenedor.
-
-## Variables de entorno
-
-| Variable | Default | Para qué |
-|---|---|---|
-| `DB_PATH` | `./data/cafeteria.db` (en la imagen: `/data/cafeteria.db`) | archivo SQLite |
-| `CAFETERIA_PIN` | `1234` | PIN de la pantalla de la cafetería |
-| `MINUTOS_CORTE` | `15` | valor **inicial** de X. Después manda lo que se guarde desde la pantalla |
-| `ZONA_HORARIA` | `America/Montevideo` | zona horaria de los recreos |
-
-## Probar la regla contra el backend, sin pasar por el frontend
-
-```powershell
-Invoke-RestMethod -Method Post http://localhost:8000/api/pedidos -ContentType application/json `
-  -Body '{"alumno":"Ana","recreo_id":1,"items":[{"producto_id":1,"cantidad":1}]}'
-# Pasado el corte: 409 "Ya no se aceptan pedidos para el Recreo 1 de las 10:00: se podía pedir hasta las 09:45."
-```
-
-## Jenkins local: puesta en marcha
-
-Jenkins revisa cada minuto los commits de la rama `main` del repositorio local montado en `/proyecto`. No requiere GitHub ni `git push`: los cambios sin commit no entran al pipeline.
-
-Requisitos: Docker Desktop funcionando, kubeconfig en `%USERPROFILE%\.kube\ucu.yaml` y un token de Docker Hub con permiso Read & Write guardado en `jenkins\secrets\dockerhub-token.txt`. El archivo contiene solo el token; esta ignorado por Git y por el build de Jenkins.
+Requiere Git, Python 3.12 o compatible en PATH, Docker Desktop con motor Linux/WSL2 iniciado y acceso a Internet para descargar herramientas/imágenes. Este laboratorio fue probado con kernel WSL2 6.18 y soporte BTF/eBPF; Falco necesita esas capacidades del kernel.
 
 Desde cmd:
 
 ```bat
-cd /d "C:\Users\AgustinNegreira\UCU\2do Semestre 2026\DevOps\cafeteria"
-docker desktop start
-docker compose -f jenkins/docker-compose.yml up -d --build
+git clone https://github.com/AgustinNegreira/cafeteria-devsecops.git
+cd cafeteria-devsecops
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/local/Start-Lab.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/local/Start-Jenkins.ps1
 ```
 
-Abrir http://localhost:8080 y entrar al job `cafeteria`. Para el primer build, elegir **Build Now / Construir ahora**. Los siguientes se disparan por polling cuando hay un commit nuevo en `main`.
+El primer script instala herramientas privadas con checksum, crea kind, Kyverno y Falco, genera el PIN local, construye/analiza la app y la despliega. El segundo levanta Jenkins autenticado y renueva su token Kubernetes de 24 horas. Un repositorio privado requiere acceso GitHub para clonarlo.
 
-El pipeline ejecuta tests y publica `agustinnegreira/cafeteria:<numero de build>`. El despliegue apunta explicitamente al namespace `alumno-team10` y al Deployment `cafeteria-agustin`. Si el rollout falla, intenta volver a la revision anterior. La ultima etapa consulta `/healthz` por la URL publica.
+## Controles implementados
 
-Diagnostico:
+| Capa | Herramienta / control | Resultado observado |
+|---|---|---|
+| Funcional | pytest | 11 tests pasan |
+| Dependencias npm | npm audit real | ENOLOCK: no hay proyecto npm; justificación conservada |
+| Dependencias Python | pip-audit del lock productivo | 0 vulnerabilidades conocidas |
+| Código/configuración | Semgrep | 0 hallazgos y 0 errores de herramienta |
+| Imagen de la app | Trivy | 0 vulnerabilidades conocidas, 0 HIGH/CRITICAL |
+| Manifiestos de la app | KubeLinter | 0 errores |
+| Admisión | Kyverno Enforce | 4 casos inseguros rechazados; 1 válido aceptado |
+| Ejecución | Falco modern eBPF | Alerta real de terminal en el pod; UID 10001 |
+| App y datos | HTTP + reemplazo de pod | 25 respuestas verificadas; pedido retenido en PVC |
+| CI/CD | Jenkins local | Pipeline completo SUCCESS; reportes archivados |
 
-```bat
-docker compose -f jenkins/docker-compose.yml ps
-docker logs --tail 80 jenkins-cafeteria
+Los resultados son una fotografía de las bases/reglas usadas en la fecha de ejecución. No constituyen una certificación de ausencia de fallas. `reports/security-summary.json` identifica commit, imagen y hashes del código analizado.
+
+## Diseño
+
+Docker Desktop ejecuta dos contenedores principales: Jenkins y el nodo kind. El nodo contiene Kubernetes/containerd, la app, Kyverno y Falco. Jenkins construye y escanea con el motor Docker; `kind load` copia la imagen al containerd del nodo. Kubernetes aplica las políticas antes de admitir pods. La app corre como UID/GID 10001, con raíz de solo lectura, recursos y capacidades retiradas. SQLite escribe únicamente en el PVC `/data`; `/tmp` usa emptyDir.
+
+La ruta del navegador es `localhost:8081 -> puerto 30080 del nodo -> Service -> pod:8000`. No se necesita Docker Hub ni APISIX en este entregable. Una réplica y estrategia Recreate: hay un breve corte al actualizar. El PVC sobrevive al reemplazo del pod; no se garantiza conservarlo al borrar el cluster.
+
+## Estructura
+
+```text
+app/                       FastAPI, SQLite y frontend
+tests/                     reglas de negocio y configuración del PIN
+k8s/base/ + k8s/local/      Kustomize de la aplicación
+local/                     kind y valores Helm/versiones
+security/kyverno/          tres políticas Enforce
+security/tests/            casos positivos y negativos
+security/jenkins-rbac.yaml permisos de despliegue limitados
+scripts/                   preparación, escaneos y demostración
+jenkins/                   controller autenticado y configuración como código
+reports/                   resultados reales y línea base
+.local/                    herramientas y credenciales privadas, ignoradas
 ```
 
-Jenkins escucha solo en `127.0.0.1:8080` y funciona mientras la laptop y Docker esten encendidos. Su historial queda en el volumen `jenkins_home`. Para detenerlo conservando el historial:
+La app valida pedidos, corte y agotados en backend, usa consultas parametrizadas para entradas, exige un PIN configurado de al menos ocho caracteres y compara el PIN con `compare_digest`. El alumno no tiene identidad autenticada: el nombre es solo identificador de demostración.
 
-```bat
-docker compose -f jenkins/docker-compose.yml down
-```
+## Material de entregables anteriores
 
-El avance de la puesta en marcha y sus comprobaciones se registran en `PLAN.md` y `CONTEXTO.md`.
+[Guía original](GUIA_DEMO.md), [arquitectura UCU](ARQUITECTURA.md) y [README original](docs/README_ENTREGABLES_1_2.md) conservan el trabajo de octubre. Son históricos: sus comandos, URLs y Jenkins no representan el laboratorio de este entregable. El controller legado `jenkins-cafeteria` quedó detenido y su volumen se conservó.

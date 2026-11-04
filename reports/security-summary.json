@@ -1,0 +1,44 @@
+{
+  "timestampUTC": "2026-11-04T11:57:28.930708+00:00",
+  "image": "cafeteria:devsecops-build-5",
+  "imageID": "sha256:d1095636f7dd5e45d4ced6ded7c24fc0095e276b53bb033d322c5692e3c20d94",
+  "gitCommit": "fc2065aa66a714baaf76e33ca285b6011a53c66d",
+  "sourceSHA256": {
+    "Dockerfile": "fe5ef8b8a7c154e20e7b17bb9e7469d63a570e15d23203dd0b2f15e7f5f50108",
+    "app/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "app/db.py": "2b166048aa38055312db3e45374b32e65962c402b54b833cb61087d16d8eb21d",
+    "app/main.py": "acc9ffaf179155d8bf4afa91f0e774b1d1ca8be7075606ec66b5540949a81614",
+    "app/static/cafeteria.html": "2ae7fc7f8fd5069b60bcbb42a5d40ea74403422d6a14ce2a81413f49fc48465a",
+    "app/static/index.html": "b24b8f49e7c88980ccc6e20c905324237b8657610e2e7a91e405c89728277fa3",
+    "app/static/style.css": "96c3fdb39958c66cc7d430c5f4d606a22feef8223af8cefa40d8da920ed1a92a",
+    "requirements.lock": "05acc046764d5290d5a58c184d982c7c83ceaea25513f4e5b535064383aa472e"
+  },
+  "checks": {
+    "npm": {
+      "exitCode": 1,
+      "applicable": false,
+      "status": "NOT_APPLICABLE"
+    },
+    "pip": {
+      "exitCode": 0,
+      "findings": 0,
+      "status": "PASS"
+    },
+    "semgrep": {
+      "exitCode": 0,
+      "findings": 0,
+      "errors": 0,
+      "status": "PASS"
+    },
+    "kubelinter": {
+      "exitCode": 0,
+      "status": "PASS"
+    },
+    "trivy": {
+      "exitCode": 0,
+      "findings": 0,
+      "highCritical": 0,
+      "status": "PASS"
+    }
+  }
+}
