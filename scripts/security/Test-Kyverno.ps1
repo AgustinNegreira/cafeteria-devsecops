@@ -17,8 +17,11 @@ $cases = @(
 $results = @()
 foreach ($case in $cases) {
     $path = Join-Path $repo ("security/tests/" + $case.File)
-    $output = & kubectl --kubeconfig $Kubeconfig apply -f $path 2>&1 | Out-String
+    # Windows PowerShell 5 convierte stderr nativo en ErrorRecord; el rechazo es esperado.
+    $ErrorActionPreference = 'Continue'
+    $output = & kubectl --kubeconfig $Kubeconfig apply -f $path 2>&1 | ForEach-Object { $_.ToString() } | Out-String
     $code = $LASTEXITCODE
+    $ErrorActionPreference = "Stop"
     $passed = $code -ne 0 -and $output.Contains($case.Policy) -and $output.Contains("denied")
     $lines.Add("CASE: " + $case.File + " expected=DENY actual_exit=" + $code + " passed=" + $passed)
     $lines.Add($output.Trim())
