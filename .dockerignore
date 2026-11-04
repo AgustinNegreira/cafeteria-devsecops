@@ -14,3 +14,14 @@ jenkins/
 k8s/
 Jenkinsfile
 .pin-cluster.txt
+
+# Documentacion y diagrama de la arquitectura
+docs/
+
+.local/
+.tools/
+reports/
+local/
+security/
+scripts/
+output/

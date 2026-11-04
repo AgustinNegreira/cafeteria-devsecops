@@ -1,0 +1,28 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: cafeteria-devsecops
+resources:
+  - ../base
+  - namespace.yaml
+images:
+  - name: IMAGEN
+    newName: cafeteria
+    newTag: devsecops-1
+patches:
+  - target:
+      kind: Service
+      name: cafeteria-agustin
+    patch: |-
+      - op: replace
+        path: /spec/type
+        value: NodePort
+      - op: add
+        path: /spec/ports/0/nodePort
+        value: 30080
+  - target:
+      kind: PersistentVolumeClaim
+      name: cafeteria-agustin-data
+    patch: |-
+      - op: replace
+        path: /spec/storageClassName
+        value: standard

@@ -1,0 +1,26 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: cafeteria-require-resources
+spec:
+  validationFailureAction: Enforce
+  background: true
+  rules:
+    - name: cpu-and-memory-requests-limits
+      match:
+        any:
+          - resources:
+              kinds: ["Pod"]
+              namespaces: ["cafeteria-devsecops"]
+      validate:
+        message: "Cada contenedor e initContainer requiere requests y limits de CPU y memoria."
+        foreach:
+          - list: "request.object.spec.[containers, initContainers][]"
+            pattern:
+              resources:
+                requests:
+                  cpu: "?*"
+                  memory: "?*"
+                limits:
+                  cpu: "?*"
+                  memory: "?*"

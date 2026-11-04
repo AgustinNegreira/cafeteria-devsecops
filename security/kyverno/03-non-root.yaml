@@ -1,0 +1,22 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: cafeteria-non-root
+spec:
+  validationFailureAction: Enforce
+  background: true
+  rules:
+    - name: explicit-non-root-user
+      match:
+        any:
+          - resources:
+              kinds: ["Pod"]
+              namespaces: ["cafeteria-devsecops"]
+      validate:
+        message: "Cada contenedor debe declarar runAsNonRoot=true y runAsUser mayor que 0."
+        foreach:
+          - list: "request.object.spec.[containers, initContainers, ephemeralContainers][]"
+            pattern:
+              securityContext:
+                runAsNonRoot: true
+                runAsUser: ">0"

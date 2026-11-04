@@ -1,0 +1,34 @@
+name: cafeteria-devsecops
+services:
+  jenkins:
+    build:
+      context: .
+      dockerfile: Dockerfile.devsecops
+    image: cafeteria-jenkins-devsecops:2.580.1
+    container_name: jenkins-devsecops
+    ports:
+      - "127.0.0.1:8080:8080"
+    environment:
+      REPO_BRANCH: "${REPO_BRANCH:-main}"
+    volumes:
+      - jenkins_devsecops_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ..:/proyecto:ro
+    secrets:
+      - kubeconfig-local
+      - jenkins-admin-password
+    networks:
+      - kind
+    restart: unless-stopped
+secrets:
+  kubeconfig-local:
+    file: ../.local/kubeconfig.internal.yaml
+  jenkins-admin-password:
+    file: ../.local/jenkins-admin-password.txt
+volumes:
+  jenkins_devsecops_home:
+    name: cafeteria_jenkins_devsecops_home
+networks:
+  kind:
+    external: true
+    name: kind

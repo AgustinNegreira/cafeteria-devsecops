@@ -8,3 +8,10 @@ resultados-tests.xml
 # Secretos: nunca al repo
 .pin-cluster.txt
 jenkins/secrets/
+
+# Laboratorio local: binarios, caches y credenciales
+.local/
+.tools/
+
+output/*.zip
+tmp/

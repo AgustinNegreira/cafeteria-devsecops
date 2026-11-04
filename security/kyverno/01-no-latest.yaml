@@ -1,0 +1,29 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: cafeteria-no-latest
+  annotations:
+    policies.kyverno.io/title: Imagenes con version explicita
+spec:
+  validationFailureAction: Enforce
+  background: true
+  rules:
+    - name: reject-latest-and-untagged
+      match:
+        any:
+          - resources:
+              kinds: ["Pod"]
+              namespaces: ["cafeteria-devsecops"]
+      validate:
+        message: "La imagen debe tener tag explicito distinto de latest o un digest."
+        foreach:
+          - list: "request.object.spec.[containers, initContainers, ephemeralContainers][]"
+            deny:
+              conditions:
+                any:
+                  - key: "{{ regex_match('(^|.*/)[^/:@]+:latest(@.*)?$', element.image) }}"
+                    operator: Equals
+                    value: true
+                  - key: "{{ regex_match('(^|.*/)[^/:@]+$', element.image) }}"
+                    operator: Equals
+                    value: true

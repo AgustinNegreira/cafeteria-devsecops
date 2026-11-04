@@ -1,0 +1,25 @@
+FROM jenkins/jenkins:2.580.1-jdk21
+USER root
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends docker-cli docker-buildx python3 python3-venv \
+    && rm -rf /var/lib/apt/lists/* \
+    && usermod -aG root jenkins \
+    && git config --system --add safe.directory /proyecto \
+    && git config --system --add safe.directory /proyecto/.git
+RUN curl -fsSL https://github.com/kubernetes-sigs/kind/releases/download/v0.33.0/kind-linux-amd64 -o /usr/local/bin/kind \
+    && echo 'aee6151561422756b764a4ae28e7f44cda5af5a9eead3cc9985112b1de8d8e0d  /usr/local/bin/kind' | sha256sum -c - \
+    && chmod +x /usr/local/bin/kind
+RUN curl -fsSL https://dl.k8s.io/release/v1.35.8/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl \
+    && curl -fsSL https://dl.k8s.io/release/v1.35.8/bin/linux/amd64/kubectl.sha256 -o /tmp/kubectl.sha256 \
+    && echo "$(cat /tmp/kubectl.sha256)  /usr/local/bin/kubectl" | sha256sum -c - \
+    && chmod +x /usr/local/bin/kubectl
+RUN curl -fsSL https://github.com/stackrox/kube-linter/releases/download/v0.8.3/kube-linter-linux.tar.gz -o /tmp/kube-linter.tar.gz \
+    && echo '1a6d8419b11971372971fdbc22682b684ebfb7cf1c39591662d1b6ca736c41df  /tmp/kube-linter.tar.gz' | sha256sum -c - \
+    && tar -xzf /tmp/kube-linter.tar.gz -C /usr/local/bin kube-linter \
+    && chmod +x /usr/local/bin/kube-linter
+COPY plugins.devsecops.txt /usr/share/jenkins/ref/plugins.txt
+RUN jenkins-plugin-cli --plugin-file /usr/share/jenkins/ref/plugins.txt
+COPY casc.devsecops.yaml /usr/share/jenkins/casc.yaml
+USER jenkins
+ENV JAVA_OPTS="-Djenkins.install.runSetupWizard=false -Dhudson.plugins.git.GitSCM.ALLOW_LOCAL_CHECKOUT=true" \
+    CASC_JENKINS_CONFIG=/usr/share/jenkins/casc.yaml

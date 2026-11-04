@@ -1,5 +1,6 @@
 """Pedidos de la cafeteria: API + las dos paginas, en un solo proceso."""
 
+import hmac
 import os
 from contextlib import asynccontextmanager
 from datetime import datetime, time, timedelta
@@ -16,7 +17,7 @@ from app import db
 
 # Los pods corren en UTC: los recreos se interpretan en hora de Uruguay.
 TZ = ZoneInfo(os.getenv("ZONA_HORARIA", "America/Montevideo"))
-CAFETERIA_PIN = os.getenv("CAFETERIA_PIN", "1234")
+CAFETERIA_PIN = os.getenv("CAFETERIA_PIN", "")
 STATIC = Path(__file__).parent / "static"
 
 
@@ -27,6 +28,8 @@ def ahora() -> datetime:
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    if len(CAFETERIA_PIN) < 8:
+        raise RuntimeError("CAFETERIA_PIN debe configurarse con al menos 8 caracteres")
     db.init()
     yield
 
@@ -151,7 +154,7 @@ def mis_pedidos(alumno: str):
 
 
 def solo_cafeteria(x_pin: str = Header(default="")):
-    if x_pin != CAFETERIA_PIN:
+    if not hmac.compare_digest(x_pin.encode("utf-8"), CAFETERIA_PIN.encode("utf-8")):
         raise HTTPException(401, "PIN de cafetería incorrecto")
 
 

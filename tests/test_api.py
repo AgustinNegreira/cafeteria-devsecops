@@ -1,5 +1,6 @@
 """Tests de la API. Lo central: la regla de los X minutos la hace cumplir el backend."""
 
+import secrets
 from datetime import datetime
 
 import pytest
@@ -7,7 +8,8 @@ from fastapi.testclient import TestClient
 
 from app import db, main
 
-PIN = {"X-PIN": main.CAFETERIA_PIN}
+TEST_PIN = secrets.token_urlsafe(24)
+PIN = {"X-PIN": TEST_PIN}
 
 
 def a_las(hora: int, minuto: int):
@@ -17,6 +19,7 @@ def a_las(hora: int, minuto: int):
 
 @pytest.fixture
 def client(tmp_path, monkeypatch):
+    monkeypatch.setattr(main, "CAFETERIA_PIN", TEST_PIN)
     monkeypatch.setattr(db, "DB_PATH", tmp_path / "test.db")
     monkeypatch.setattr(main, "ahora", a_las(9, 0))
     with TestClient(main.app) as c:
@@ -113,3 +116,12 @@ def test_resumen_de_ventas_del_dia(client):
 
 def test_healthz(client):
     assert client.get("/healthz").json() == {"status": "ok"}
+
+
+@pytest.mark.parametrize("pin", ["", "1234"])
+def test_no_arranca_sin_pin_seguro(tmp_path, monkeypatch, pin):
+    monkeypatch.setattr(db, "DB_PATH", tmp_path / "test.db")
+    monkeypatch.setattr(main, "CAFETERIA_PIN", pin)
+    with pytest.raises(RuntimeError, match="CAFETERIA_PIN"):
+        with TestClient(main.app):
+            pass

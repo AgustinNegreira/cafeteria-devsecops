@@ -1,0 +1,15 @@
+{
+  "pythonBase": "python:3.12-alpine3.23@sha256:a4ad86fc2eaa4f9a5c3153776c9fb56e502dbd8e23dfa855d164308f376a6dd2",
+  "trivy": "0.76.1",
+  "kyvernoChart": "3.9.2",
+  "falcoChart": "9.2.2",
+  "kubeLinter": "0.8.3",
+  "kyvernoApp": "1.19.2",
+  "kind": "v0.33.0",
+  "helm": "v4.3.1",
+  "semgrep": "1.183.0",
+  "kindNode": "kindest/node:v1.35.8@sha256:07b2536e30b803ed61d1677a79df6115f798ce64c80f9e22f6ed45afd09323c0",
+  "falcoApp": "0.45.2",
+  "pipAudit": "2.10.1",
+  "kubernetes": "v1.35.8"
+}
