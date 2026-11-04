@@ -1,5 +1,6 @@
 . "$PSScriptRoot/../local/Common.ps1"
 Assert-Local
+Run kubectl --kubeconfig $Kubeconfig -n cafeteria-devsecops rollout status deployment/cafeteria-agustin --timeout=180s
 $start = (Get-Date).ToUniversalTime().ToString('yyyy-MM-ddTHH:mm:ssZ')
 $pod = & kubectl --kubeconfig $Kubeconfig -n cafeteria-devsecops get pods -l app=cafeteria-agustin -o 'jsonpath={.items[0].metadata.name}'
 if ($LASTEXITCODE -ne 0 -or -not $pod) { throw 'No hay pod de la app' }

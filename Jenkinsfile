@@ -19,7 +19,7 @@ pipeline {
             steps { sh 'python3 scripts/security/scan.py --image "$IMAGEN" --checks npm,pip,semgrep,kubelinter' }
         }
         stage('Build') {
-            steps { sh 'docker build --label org.opencontainers.image.revision="$GIT_COMMIT" -t "$IMAGEN" .' }
+            steps { sh 'docker build --label org.opencontainers.image.revision="$GIT_COMMIT" --label org.opencontainers.image.version="$IMAGEN" -t "$IMAGEN" .' }
         }
         stage('Trivy') {
             steps { sh 'python3 scripts/security/scan.py --image "$IMAGEN" --checks trivy' }
