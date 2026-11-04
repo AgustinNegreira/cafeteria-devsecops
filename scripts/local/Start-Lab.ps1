@@ -23,6 +23,7 @@ try {
     $secret | & kubectl --kubeconfig $Kubeconfig apply -f - | Out-Null
     if ($LASTEXITCODE -ne 0) { throw 'No se pudo aplicar el secreto' }
     Run kubectl --kubeconfig $Kubeconfig apply -f security/kyverno/
+    Run kubectl --kubeconfig $Kubeconfig wait --for=condition=Ready clusterpolicy --all --timeout=120s
     Run docker build -t cafeteria:devsecops-local .
     if (-not $SkipScans) { Run python scripts/security/scan.py --image cafeteria:devsecops-local }
     Run python scripts/local/deploy.py --image cafeteria:devsecops-local --kubeconfig $Kubeconfig

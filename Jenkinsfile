@@ -7,7 +7,7 @@ pipeline {
             steps {
                 sh '''
                     mkdir -p reports
-                    rm -f reports/pytest.xml
+                    find reports -maxdepth 1 -type f -delete
                     python3 -m venv .venv
                     .venv/bin/pip install --quiet --disable-pip-version-check -r requirements-dev.txt
                     .venv/bin/python -m pytest -q --junitxml=reports/pytest.xml
