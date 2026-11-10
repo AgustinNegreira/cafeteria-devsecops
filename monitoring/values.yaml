@@ -1,0 +1,27 @@
+fullnameOverride: lab4-monitoring
+
+alertmanager:
+  enabled: false
+defaultRules:
+  create: false
+nodeExporter:
+  enabled: false
+kubeControllerManager:
+  enabled: false
+kubeScheduler:
+  enabled: false
+kubeEtcd:
+  enabled: false
+
+prometheus:
+  prometheusSpec:
+    retention: 1d
+    scrapeInterval: 15s
+    serviceMonitorSelectorNilUsesHelmValues: false
+
+grafana:
+  fullnameOverride: lab4-grafana
+  defaultDashboardsEnabled: false
+  sidecar:
+    dashboards:
+      enabled: true

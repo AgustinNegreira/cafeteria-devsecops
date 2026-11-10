@@ -68,8 +68,8 @@ def main():
     parser.add_argument("--image", required=True)
     parser.add_argument("--checks", default="npm,pip,semgrep,kubelinter,trivy")
     args = parser.parse_args()
-    if not re.fullmatch(r"cafeteria:devsecops-[A-Za-z0-9_.-]+", args.image):
-        parser.error("Expected an explicit local cafeteria:devsecops-* tag")
+    if not re.fullmatch(r"cafeteria:(?:devsecops|lab4)-[A-Za-z0-9_.-]+", args.image):
+        parser.error("Expected an explicit local cafeteria:devsecops-* or cafeteria:lab4-* tag")
     REPORTS.mkdir(exist_ok=True)
     checks = args.checks.split(",")
     results = {}
@@ -95,6 +95,16 @@ def main():
              "\nExit code: " + str(code) + "\nKnown vulnerability findings: " + str(count) + "\n")
         results["pip"] = {"exitCode": code, "findings": count, "status": "PASS" if code == 0 and count == 0 else "FAIL"}
         print("pip-audit:", count, "findings", flush=True)
+    if "lab4-semgrep" in checks:
+        config = "security/semgrep-python.yaml"
+        command = ["semgrep", "scan", "--strict", "--error", "--metrics", "off",
+                   "--disable-version-check", "--config", config, "app"]
+        code, output = container(SEMGREP, command, ["app", config])
+        save("semgrep-report.txt", output)
+        print(output, end="")
+        if code:
+            raise SystemExit(code)
+
     if "semgrep" in checks:
         command = ["semgrep", "scan", "--error", "--no-git-ignore", "--config", "p/default",
                    "--config", "p/security-audit", "--config", "p/dockerfile", "--metrics", "off",

@@ -1,0 +1,29 @@
+image:
+  repository: localhost:5001/cafeteria
+  tag: "0.1.0"
+  pullPolicy: IfNotPresent
+
+replicaCount: 1
+containerPort: 8000
+
+service:
+  type: ClusterIP
+  port: 80
+
+config:
+  zonaHoraria: America/Montevideo
+  minutosCorte: 15
+
+existingSecret: cafeteria-pin
+
+persistence:
+  size: 256Mi
+  storageClass: ""
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 96Mi
+  limits:
+    cpu: 300m
+    memory: 256Mi

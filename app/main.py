@@ -5,12 +5,14 @@ import os
 from contextlib import asynccontextmanager
 from datetime import datetime, time, timedelta
 from pathlib import Path
+from time import perf_counter
 from typing import Literal
 from zoneinfo import ZoneInfo
 
-from fastapi import APIRouter, Depends, FastAPI, Header, HTTPException
+from fastapi import APIRouter, Depends, FastAPI, Header, HTTPException, Request, Response
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
+from prometheus_client import CONTENT_TYPE_LATEST, Counter, Histogram, generate_latest
 from pydantic import BaseModel, Field
 
 from app import db
@@ -35,6 +37,36 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title="Cafetería", lifespan=lifespan)
+
+SOLICITUDES_HTTP = Counter(
+    "cafeteria_http_requests_total", "Solicitudes HTTP atendidas", ["route", "status"]
+)
+DURACION_HTTP = Histogram(
+    "cafeteria_http_request_duration_seconds", "Tiempo de atención de solicitudes HTTP"
+)
+PEDIDOS_CREADOS = Counter("cafeteria_orders_created_total", "Pedidos guardados con éxito")
+
+
+@app.middleware("http")
+async def medir_solicitudes(request: Request, call_next):
+    if request.url.path in {"/healthz", "/metrics"}:
+        return await call_next(request)
+
+    inicio = perf_counter()
+    status = 500
+    try:
+        respuesta = await call_next(request)
+        status = respuesta.status_code
+        return respuesta
+    finally:
+        ruta = getattr(request.scope.get("route"), "path", "sin_ruta")
+        SOLICITUDES_HTTP.labels(route=ruta, status=status).inc()
+        DURACION_HTTP.observe(perf_counter() - inicio)
+
+
+@app.get("/metrics", include_in_schema=False)
+def metrics():
+    return Response(content=generate_latest(), media_type=CONTENT_TYPE_LATEST)
 
 
 # --- helpers ----------------------------------------------------------------
@@ -141,7 +173,10 @@ def crear_pedido(pedido: NuevoPedido):
         con.executemany(
             "INSERT INTO pedido_items VALUES (?, ?, ?, ?, ?)", [(cur.lastrowid, *f) for f in filas]
         )
-        return {"id": cur.lastrowid, "total": total, "estado": "pendiente"}
+        pedido_id = cur.lastrowid
+
+    PEDIDOS_CREADOS.inc()
+    return {"id": pedido_id, "total": total, "estado": "pendiente"}
 
 
 @app.get("/api/pedidos")

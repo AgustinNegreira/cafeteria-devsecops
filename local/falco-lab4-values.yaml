@@ -1,0 +1,12 @@
+customRules:
+  lab4-demo.yaml: |
+    - rule: Lab4 Demo File Opened For Write
+      desc: Detecta que un proceso del pod de prueba abre el archivo de demostración para escribir.
+      condition: >
+        evt.type in (open, openat, openat2) and evt.is_open_write=true
+        and container.id != host and fd.name=/tmp/lab4-falco-event
+      output: >
+        Lab 4 archivo de prueba abierto para escritura
+        (file=%fd.name process=%proc.name uid=%user.uid namespace=%k8s.ns.name pod=%k8s.pod.name)
+      priority: NOTICE
+      tags: [lab4, filesystem]

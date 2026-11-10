@@ -1,0 +1,43 @@
+jenkins:
+  systemMessage: "Cafetería · Laboratorio 4"
+  numExecutors: 1
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+        - id: agustin
+          password: "${readFile:/run/secrets/jenkins-admin-password}"
+  authorizationStrategy:
+    loggedInUsersCanDoAnything:
+      allowAnonymousRead: false
+unclassified:
+  location:
+    url: http://localhost:8083/
+credentials:
+  system:
+    domainCredentials:
+      - credentials:
+          - file:
+              scope: GLOBAL
+              id: lab4-kubeconfig
+              fileName: kubeconfig
+              secretBytes: "${readFileBase64:/run/secrets/kubeconfig-local}"
+          - string:
+              scope: GLOBAL
+              id: lab4-snyk
+              secret: "${readFile:/run/secrets/snyk-token}"
+jobs:
+  - script: |
+      pipelineJob('cafeteria-lab4') {
+        definition {
+          cpsScm {
+            scm {
+              git {
+                remote { url('file:///proyecto') }
+                branch('*/${REPO_BRANCH}')
+              }
+            }
+            scriptPath('Jenkinsfile')
+          }
+        }
+      }

@@ -1,0 +1,14 @@
+service:
+  type: NodePort
+  nodePort: 30081
+
+persistence:
+  storageClass: standard
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 64Mi
+  limits:
+    cpu: 250m
+    memory: 192Mi
