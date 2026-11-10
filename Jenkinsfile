@@ -16,7 +16,8 @@ pipeline {
                 checkout scm
                 sh 'mkdir -p reports && find reports -maxdepth 1 -type f -delete'
                 script {
-                    env.IMAGE_TAG = "build-${env.BUILD_NUMBER}-${env.GIT_COMMIT.take(12)}"
+                    env.SOURCE_REVISION = sh(script: 'git rev-parse HEAD', returnStdout: true).trim()
+                    env.IMAGE_TAG = "build-${env.BUILD_NUMBER}-${env.SOURCE_REVISION.take(12)}"
                     env.LOCAL_IMAGE = "cafeteria:lab4-${env.IMAGE_TAG}"
                 }
             }
@@ -58,7 +59,7 @@ pipeline {
         stage('Imagen y Trivy') {
             steps {
                 sh '''
-                    docker build --label org.opencontainers.image.revision="$GIT_COMMIT" -t "$LOCAL_IMAGE" .
+                    docker build --label org.opencontainers.image.revision="$SOURCE_REVISION" -t "$LOCAL_IMAGE" .
                     python3 scripts/security/scan.py --image "$LOCAL_IMAGE" --checks trivy
                 '''
             }

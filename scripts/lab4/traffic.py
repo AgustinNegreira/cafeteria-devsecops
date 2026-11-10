@@ -52,10 +52,11 @@ def generate_traffic(base_url, count, delay, state):
         print(f"HTTP 409. {rejected['detail']}", flush=True)
     for index in range(count):
         if index % 5 == 0:
-            request(base_url, "/api/pedidos", order, expected=201)
+            created = request(base_url, "/api/pedidos", order, expected=201)
         else:
             request(base_url, "/api/productos")
         time.sleep(delay)
+    state.write_text(json.dumps({"alumno": name, "id": created["id"]}), encoding="utf-8")
     print(f"{count} solicitudes adicionales completadas.")
 
 

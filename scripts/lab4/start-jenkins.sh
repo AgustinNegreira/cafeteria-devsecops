@@ -31,12 +31,18 @@ users:
       token: $token
 EOF
 
-if [[ ! -s "$state_dir/jenkins-admin-password.txt" ]]; then
-    openssl rand -hex 16 > "$state_dir/jenkins-admin-password.txt"
+if [[ -s "$state_dir/jenkins-admin-password.txt" ]]; then
+    password=$(tr -d '\r\n' < "$state_dir/jenkins-admin-password.txt")
+else
+    password=$(openssl rand -hex 16)
 fi
-if [[ ! -s "$state_dir/snyk-token.txt" ]]; then
-    printf '%s\n' "${SNYK_TOKEN:-SIN_CONFIGURAR}" > "$state_dir/snyk-token.txt"
+printf '%s' "$password" > "$state_dir/jenkins-admin-password.txt"
+
+snyk_token=${SNYK_TOKEN:-}
+if [[ -z "$snyk_token" && -s "$state_dir/snyk-token.txt" ]]; then
+    snyk_token=$(tr -d '\r\n' < "$state_dir/snyk-token.txt")
 fi
+printf '%s' "${snyk_token:-SIN_CONFIGURAR}" > "$state_dir/snyk-token.txt"
 if ! docker image inspect cafeteria-jenkins-devsecops:2.580.1 >/dev/null 2>&1; then
     docker build -f jenkins/Dockerfile.devsecops -t cafeteria-jenkins-devsecops:2.580.1 jenkins
 fi

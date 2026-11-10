@@ -101,7 +101,7 @@ def main():
                    "--disable-version-check", "--config", config, "app"]
         code, output = container(SEMGREP, command, ["app", config])
         save("semgrep-report.txt", output)
-        print(output, end="")
+        print("Semgrep Lab 4: ver reports/semgrep-report.txt", flush=True)
         if code:
             raise SystemExit(code)
 
