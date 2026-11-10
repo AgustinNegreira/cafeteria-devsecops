@@ -3,18 +3,18 @@
   "Trivy": {
     "Version": "0.76.1"
   },
-  "ReportID": "01a1c7a3-047a-7f16-8759-9ff886526b71",
-  "CreatedAt": "2026-11-10T22:45:11.930993602Z",
-  "ArtifactID": "sha256:14b7f38a189ed6b13b02e786e5a3cfb417ed952330838a8d4a67b4ca010aa37d",
-  "ArtifactName": "cafeteria:lab4-dev-1",
+  "ReportID": "01a1c7b7-c392-7c2a-b992-e0d8fce2abb2",
+  "CreatedAt": "2026-11-10T23:07:51.57080372Z",
+  "ArtifactID": "sha256:dde6aa9dcbdfd09de1c33ed77f9982ce3b37c3a76d95a779a3f5b4b220add574",
+  "ArtifactName": "cafeteria:lab4-build-4-2d470a9191a6",
   "ArtifactType": "container_image",
   "Metadata": {
-    "Size": 78346752,
+    "Size": 78349312,
     "OS": {
       "Family": "alpine",
       "Name": "3.23.7"
     },
-    "ImageID": "sha256:694994dcece498ebb2f46e4271a0b37bd9bfe34038b5d2fce84e41a05c2ad5b2",
+    "ImageID": "sha256:0b3e008ed3141137ca8795963b1855d05e1d110cf0399dbc65221341891d9a8f",
     "DiffIDs": [
       "sha256:54ea9baa1bbd7651dbda5c61569dad60fa601c73e5b784e154e8ba0f314e84fd",
       "sha256:450704c6d9b6617f234f78608aefadd32f0313839264aee4a67b8762c4d9a55c",
@@ -23,21 +23,19 @@
       "sha256:a36151938daca9a55d8464e20bbe68db9dd2580b5b1b65b975f4b00642d8bff7",
       "sha256:73d0213fdfcb97be03ffcb4ef8e1398e664e4d2ab934333e777ac5d242f955c4",
       "sha256:ca4407fd8fd2f5924f8ae7618e789bd96305d3c83715b8b2dd2c78401e4a4f42",
-      "sha256:d48799031dcd3d4b94e158b8b9b0d496e96a175a008c42494c781df96b6b785a",
-      "sha256:f7b51feb65aa57b4bdcac3c3846e5be91158a49c5b972e9ca97a29bea78f2214"
+      "sha256:f1ad12c3617f89f0ac6734913335e3e890fd81e2bdf245ed065f508e0721bcb3",
+      "sha256:3be142b4925fde5e0049cbb7c3117ac0ffb2a1c1574a0ad8a4587739bdb3f330"
     ],
     "RepoTags": [
-      "cafeteria:lab4-dev-1",
-      "localhost:5001/cafeteria:lab4-dev-1"
+      "cafeteria:lab4-build-4-2d470a9191a6"
     ],
     "RepoDigests": [
-      "cafeteria@sha256:694994dcece498ebb2f46e4271a0b37bd9bfe34038b5d2fce84e41a05c2ad5b2",
-      "localhost:5001/cafeteria@sha256:694994dcece498ebb2f46e4271a0b37bd9bfe34038b5d2fce84e41a05c2ad5b2"
+      "cafeteria@sha256:0b3e008ed3141137ca8795963b1855d05e1d110cf0399dbc65221341891d9a8f"
     ],
-    "Reference": "cafeteria:lab4-dev-1",
+    "Reference": "cafeteria:lab4-build-4-2d470a9191a6",
     "ImageConfig": {
       "architecture": "amd64",
-      "created": "2026-11-10T22:31:12.583574757Z",
+      "created": "2026-11-10T23:07:44.547747229Z",
       "history": [
         {
           "created": "2026-10-21T20:46:55Z",
@@ -117,35 +115,35 @@
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-11-10T22:31:04Z",
+          "created": "2026-11-10T23:07:44Z",
           "created_by": "COPY /opt/dependencies /opt/dependencies # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-11-10T22:31:12Z",
+          "created": "2026-11-10T23:07:44Z",
           "created_by": "COPY app ./app # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-11-10T22:31:12Z",
+          "created": "2026-11-10T23:07:44Z",
           "created_by": "ENV DB_PATH=/data/cafeteria.db PYTHONPATH=/opt/dependencies PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-11-10T22:31:12Z",
+          "created": "2026-11-10T23:07:44Z",
           "created_by": "USER 10001:10001",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-11-10T22:31:12Z",
+          "created": "2026-11-10T23:07:44Z",
           "created_by": "EXPOSE [8000/tcp]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-11-10T22:31:12Z",
+          "created": "2026-11-10T23:07:44Z",
           "created_by": "CMD [\"python\" \"-m\" \"uvicorn\" \"app.main:app\" \"--host\" \"0.0.0.0\" \"--port\" \"8000\"]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
@@ -162,8 +160,8 @@
           "sha256:a36151938daca9a55d8464e20bbe68db9dd2580b5b1b65b975f4b00642d8bff7",
           "sha256:73d0213fdfcb97be03ffcb4ef8e1398e664e4d2ab934333e777ac5d242f955c4",
           "sha256:ca4407fd8fd2f5924f8ae7618e789bd96305d3c83715b8b2dd2c78401e4a4f42",
-          "sha256:d48799031dcd3d4b94e158b8b9b0d496e96a175a008c42494c781df96b6b785a",
-          "sha256:f7b51feb65aa57b4bdcac3c3846e5be91158a49c5b972e9ca97a29bea78f2214"
+          "sha256:f1ad12c3617f89f0ac6734913335e3e890fd81e2bdf245ed065f508e0721bcb3",
+          "sha256:3be142b4925fde5e0049cbb7c3117ac0ffb2a1c1574a0ad8a4587739bdb3f330"
         ]
       },
       "config": {
@@ -188,6 +186,9 @@
           "PYTHONDONTWRITEBYTECODE=1",
           "PYTHONUNBUFFERED=1"
         ],
+        "Labels": {
+          "org.opencontainers.image.revision": "2d470a9191a61aae1e36da6060c8c27fcbb768e2"
+        },
         "User": "10001:10001",
         "WorkingDir": "/code",
         "ExposedPorts": {
@@ -234,19 +235,19 @@
       },
       {
         "Size": 19476480,
-        "Digest": "sha256:fd25395e55f6128202d615e29e25282918d4a22f19b93065dcf519ea47fb6e44",
-        "DiffID": "sha256:d48799031dcd3d4b94e158b8b9b0d496e96a175a008c42494c781df96b6b785a"
+        "Digest": "sha256:17281a4acbe5b9caf7cb8e98a4494bd9f261e7eb813abc83ddc0de73b50109b3",
+        "DiffID": "sha256:f1ad12c3617f89f0ac6734913335e3e890fd81e2bdf245ed065f508e0721bcb3"
       },
       {
-        "Size": 67072,
-        "Digest": "sha256:a88959de4e121a19996031a7683872480d702b973838c4b152f38aab4f4dc9ad",
-        "DiffID": "sha256:f7b51feb65aa57b4bdcac3c3846e5be91158a49c5b972e9ca97a29bea78f2214"
+        "Size": 69632,
+        "Digest": "sha256:2c45afa88f450d27b4c42f02937c3c34aa1348a36e5b09d659f173cc48d5ac63",
+        "DiffID": "sha256:3be142b4925fde5e0049cbb7c3117ac0ffb2a1c1574a0ad8a4587739bdb3f330"
       }
     ]
   },
   "Results": [
     {
-      "Target": "cafeteria:lab4-dev-1 (alpine 3.23.7)",
+      "Target": "cafeteria:lab4-build-4-2d470a9191a6 (alpine 3.23.7)",
       "Class": "os-pkgs",
       "Type": "alpine",
       "Packages": [
@@ -2251,8 +2252,8 @@
             "MIT"
           ],
           "Layer": {
-            "Digest": "sha256:fd25395e55f6128202d615e29e25282918d4a22f19b93065dcf519ea47fb6e44",
-            "DiffID": "sha256:d48799031dcd3d4b94e158b8b9b0d496e96a175a008c42494c781df96b6b785a"
+            "Digest": "sha256:17281a4acbe5b9caf7cb8e98a4494bd9f261e7eb813abc83ddc0de73b50109b3",
+            "DiffID": "sha256:f1ad12c3617f89f0ac6734913335e3e890fd81e2bdf245ed065f508e0721bcb3"
           },
           "FilePath": "opt/dependencies/annotated_doc-0.0.5.dist-info/METADATA",
           "AnalyzedBy": "python-pkg"
@@ -2268,8 +2269,8 @@
             "MIT"
           ],
           "Layer": {
-            "Digest": "sha256:fd25395e55f6128202d615e29e25282918d4a22f19b93065dcf519ea47fb6e44",
-            "DiffID": "sha256:d48799031dcd3d4b94e158b8b9b0d496e96a175a008c42494c781df96b6b785a"
+            "Digest": "sha256:17281a4acbe5b9caf7cb8e98a4494bd9f261e7eb813abc83ddc0de73b50109b3",
+            "DiffID": "sha256:f1ad12c3617f89f0ac6734913335e3e890fd81e2bdf245ed065f508e0721bcb3"
           },
           "FilePath": "opt/dependencies/annotated_types-0.8.0.dist-info/METADATA",
           "AnalyzedBy": "python-pkg"
@@ -2285,8 +2286,8 @@
             "MIT"
           ],
           "Layer": {
-            "Digest": "sha256:fd25395e55f6128202d615e29e25282918d4a22f19b93065dcf519ea47fb6e44",
-            "DiffID": "sha256:d48799031dcd3d4b94e158b8b9b0d496e96a175a008c42494c781df96b6b785a"
+            "Digest": "sha256:17281a4acbe5b9caf7cb8e98a4494bd9f261e7eb813abc83ddc0de73b50109b3",
+            "DiffID": "sha256:f1ad12c3617f89f0ac6734913335e3e890fd81e2bdf245ed065f508e0721bcb3"
           },
           "FilePath": "opt/dependencies/anyio-4.16.0.dist-info/METADATA",
           "AnalyzedBy": "python-pkg"
@@ -2302,8 +2303,8 @@
             "BSD-3-Clause"
           ],
           "Layer": {
-            "Digest": "sha256:fd25395e55f6128202d615e29e25282918d4a22f19b93065dcf519ea47fb6e44",
-            "DiffID": "sha256:d48799031dcd3d4b94e158b8b9b0d496e96a175a008c42494c781df96b6b785a"
+            "Digest": "sha256:17281a4acbe5b9caf7cb8e98a4494bd9f261e7eb813abc83ddc0de73b50109b3",
+            "DiffID": "sha256:f1ad12c3617f89f0ac6734913335e3e890fd81e2bdf245ed065f508e0721bcb3"
           },
           "FilePath": "opt/dependencies/click-8.5.0.dist-info/METADATA",
           "AnalyzedBy": "python-pkg"
@@ -2319,8 +2320,8 @@
             "MIT"
           ],
           "Layer": {
-            "Digest": "sha256:fd25395e55f6128202d615e29e25282918d4a22f19b93065dcf519ea47fb6e44",
-            "DiffID": "sha256:d48799031dcd3d4b94e158b8b9b0d496e96a175a008c42494c781df96b6b785a"
+            "Digest": "sha256:17281a4acbe5b9caf7cb8e98a4494bd9f261e7eb813abc83ddc0de73b50109b3",
+            "DiffID": "sha256:f1ad12c3617f89f0ac6734913335e3e890fd81e2bdf245ed065f508e0721bcb3"
           },
           "FilePath": "opt/dependencies/fastapi-0.162.0.dist-info/METADATA",
           "AnalyzedBy": "python-pkg"
@@ -2336,8 +2337,8 @@
             "MIT"
           ],
           "Layer": {
-            "Digest": "sha256:fd25395e55f6128202d615e29e25282918d4a22f19b93065dcf519ea47fb6e44",
-            "DiffID": "sha256:d48799031dcd3d4b94e158b8b9b0d496e96a175a008c42494c781df96b6b785a"
+            "Digest": "sha256:17281a4acbe5b9caf7cb8e98a4494bd9f261e7eb813abc83ddc0de73b50109b3",
+            "DiffID": "sha256:f1ad12c3617f89f0ac6734913335e3e890fd81e2bdf245ed065f508e0721bcb3"
           },
           "FilePath": "opt/dependencies/h11-0.16.0.dist-info/METADATA",
           "AnalyzedBy": "python-pkg"
@@ -2353,8 +2354,8 @@
             "BSD-3-Clause"
           ],
           "Layer": {
-            "Digest": "sha256:fd25395e55f6128202d615e29e25282918d4a22f19b93065dcf519ea47fb6e44",
-            "DiffID": "sha256:d48799031dcd3d4b94e158b8b9b0d496e96a175a008c42494c781df96b6b785a"
+            "Digest": "sha256:17281a4acbe5b9caf7cb8e98a4494bd9f261e7eb813abc83ddc0de73b50109b3",
+            "DiffID": "sha256:f1ad12c3617f89f0ac6734913335e3e890fd81e2bdf245ed065f508e0721bcb3"
           },
           "FilePath": "opt/dependencies/idna-3.20.dist-info/METADATA",
           "AnalyzedBy": "python-pkg"
@@ -2370,8 +2371,8 @@
             "Apache-2.0"
           ],
           "Layer": {
-            "Digest": "sha256:fd25395e55f6128202d615e29e25282918d4a22f19b93065dcf519ea47fb6e44",
-            "DiffID": "sha256:d48799031dcd3d4b94e158b8b9b0d496e96a175a008c42494c781df96b6b785a"
+            "Digest": "sha256:17281a4acbe5b9caf7cb8e98a4494bd9f261e7eb813abc83ddc0de73b50109b3",
+            "DiffID": "sha256:f1ad12c3617f89f0ac6734913335e3e890fd81e2bdf245ed065f508e0721bcb3"
           },
           "FilePath": "opt/dependencies/opentelemetry_api-1.45.2.dist-info/METADATA",
           "AnalyzedBy": "python-pkg"
@@ -2387,8 +2388,8 @@
             "Apache-2.0 AND BSD-2-Clause"
           ],
           "Layer": {
-            "Digest": "sha256:fd25395e55f6128202d615e29e25282918d4a22f19b93065dcf519ea47fb6e44",
-            "DiffID": "sha256:d48799031dcd3d4b94e158b8b9b0d496e96a175a008c42494c781df96b6b785a"
+            "Digest": "sha256:17281a4acbe5b9caf7cb8e98a4494bd9f261e7eb813abc83ddc0de73b50109b3",
+            "DiffID": "sha256:f1ad12c3617f89f0ac6734913335e3e890fd81e2bdf245ed065f508e0721bcb3"
           },
           "FilePath": "opt/dependencies/prometheus_client-0.26.0.dist-info/METADATA",
           "AnalyzedBy": "python-pkg"
@@ -2404,8 +2405,8 @@
             "MIT"
           ],
           "Layer": {
-            "Digest": "sha256:fd25395e55f6128202d615e29e25282918d4a22f19b93065dcf519ea47fb6e44",
-            "DiffID": "sha256:d48799031dcd3d4b94e158b8b9b0d496e96a175a008c42494c781df96b6b785a"
+            "Digest": "sha256:17281a4acbe5b9caf7cb8e98a4494bd9f261e7eb813abc83ddc0de73b50109b3",
+            "DiffID": "sha256:f1ad12c3617f89f0ac6734913335e3e890fd81e2bdf245ed065f508e0721bcb3"
           },
           "FilePath": "opt/dependencies/pydantic-2.14.2.dist-info/METADATA",
           "AnalyzedBy": "python-pkg"
@@ -2421,8 +2422,8 @@
             "MIT"
           ],
           "Layer": {
-            "Digest": "sha256:fd25395e55f6128202d615e29e25282918d4a22f19b93065dcf519ea47fb6e44",
-            "DiffID": "sha256:d48799031dcd3d4b94e158b8b9b0d496e96a175a008c42494c781df96b6b785a"
+            "Digest": "sha256:17281a4acbe5b9caf7cb8e98a4494bd9f261e7eb813abc83ddc0de73b50109b3",
+            "DiffID": "sha256:f1ad12c3617f89f0ac6734913335e3e890fd81e2bdf245ed065f508e0721bcb3"
           },
           "FilePath": "opt/dependencies/pydantic_core-2.50.2.dist-info/METADATA",
           "AnalyzedBy": "python-pkg"
@@ -2438,8 +2439,8 @@
             "BSD-3-Clause"
           ],
           "Layer": {
-            "Digest": "sha256:fd25395e55f6128202d615e29e25282918d4a22f19b93065dcf519ea47fb6e44",
-            "DiffID": "sha256:d48799031dcd3d4b94e158b8b9b0d496e96a175a008c42494c781df96b6b785a"
+            "Digest": "sha256:17281a4acbe5b9caf7cb8e98a4494bd9f261e7eb813abc83ddc0de73b50109b3",
+            "DiffID": "sha256:f1ad12c3617f89f0ac6734913335e3e890fd81e2bdf245ed065f508e0721bcb3"
           },
           "FilePath": "opt/dependencies/starlette-1.10.0.dist-info/METADATA",
           "AnalyzedBy": "python-pkg"
@@ -2455,8 +2456,8 @@
             "MIT"
           ],
           "Layer": {
-            "Digest": "sha256:fd25395e55f6128202d615e29e25282918d4a22f19b93065dcf519ea47fb6e44",
-            "DiffID": "sha256:d48799031dcd3d4b94e158b8b9b0d496e96a175a008c42494c781df96b6b785a"
+            "Digest": "sha256:17281a4acbe5b9caf7cb8e98a4494bd9f261e7eb813abc83ddc0de73b50109b3",
+            "DiffID": "sha256:f1ad12c3617f89f0ac6734913335e3e890fd81e2bdf245ed065f508e0721bcb3"
           },
           "FilePath": "opt/dependencies/typing_inspection-0.4.4.dist-info/METADATA",
           "AnalyzedBy": "python-pkg"
@@ -2472,8 +2473,8 @@
             "PSF-2.0"
           ],
           "Layer": {
-            "Digest": "sha256:fd25395e55f6128202d615e29e25282918d4a22f19b93065dcf519ea47fb6e44",
-            "DiffID": "sha256:d48799031dcd3d4b94e158b8b9b0d496e96a175a008c42494c781df96b6b785a"
+            "Digest": "sha256:17281a4acbe5b9caf7cb8e98a4494bd9f261e7eb813abc83ddc0de73b50109b3",
+            "DiffID": "sha256:f1ad12c3617f89f0ac6734913335e3e890fd81e2bdf245ed065f508e0721bcb3"
           },
           "FilePath": "opt/dependencies/typing_extensions-4.16.0.dist-info/METADATA",
           "AnalyzedBy": "python-pkg"
@@ -2489,8 +2490,8 @@
             "Apache-2.0"
           ],
           "Layer": {
-            "Digest": "sha256:fd25395e55f6128202d615e29e25282918d4a22f19b93065dcf519ea47fb6e44",
-            "DiffID": "sha256:d48799031dcd3d4b94e158b8b9b0d496e96a175a008c42494c781df96b6b785a"
+            "Digest": "sha256:17281a4acbe5b9caf7cb8e98a4494bd9f261e7eb813abc83ddc0de73b50109b3",
+            "DiffID": "sha256:f1ad12c3617f89f0ac6734913335e3e890fd81e2bdf245ed065f508e0721bcb3"
           },
           "FilePath": "opt/dependencies/tzdata-2026.6.dist-info/METADATA",
           "AnalyzedBy": "python-pkg"
@@ -2506,8 +2507,8 @@
             "BSD-3-Clause"
           ],
           "Layer": {
-            "Digest": "sha256:fd25395e55f6128202d615e29e25282918d4a22f19b93065dcf519ea47fb6e44",
-            "DiffID": "sha256:d48799031dcd3d4b94e158b8b9b0d496e96a175a008c42494c781df96b6b785a"
+            "Digest": "sha256:17281a4acbe5b9caf7cb8e98a4494bd9f261e7eb813abc83ddc0de73b50109b3",
+            "DiffID": "sha256:f1ad12c3617f89f0ac6734913335e3e890fd81e2bdf245ed065f508e0721bcb3"
           },
           "FilePath": "opt/dependencies/uvicorn-0.54.0.dist-info/METADATA",
           "AnalyzedBy": "python-pkg"

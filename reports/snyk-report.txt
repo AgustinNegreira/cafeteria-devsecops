@@ -1,0 +1,12 @@
+
+Testing /var/jenkins_home/workspace/cafeteria-lab4...
+
+Organization:      agustinnegreira
+Package manager:   pip
+Target file:       requirements.lock
+Project name:      cafeteria-lab4
+Open source:       no
+Project path:      /var/jenkins_home/workspace/cafeteria-lab4
+Licenses:          enabled
+
+✔ Tested 16 dependencies for known issues, no vulnerable paths found.

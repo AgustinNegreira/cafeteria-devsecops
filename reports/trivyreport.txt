@@ -1,6 +1,6 @@
 Trivy 0.76.1 - image vulnerability scan
-Image: cafeteria:lab4-dev-1
-Artifact: cafeteria:lab4-dev-1
+Image: cafeteria:lab4-build-4-2d470a9191a6
+Artifact: cafeteria:lab4-build-4-2d470a9191a6
 Total known vulnerability findings: 0
 HIGH/CRITICAL: 0
 Scan exit code: 0
