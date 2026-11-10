@@ -1,0 +1,171 @@
+{
+  "capturedAt": "2026-11-10T22:49:27.178627+00:00",
+  "target": {
+    "discoveredLabels": {
+      "__address__": "10.244.0.19:8000",
+      "__always_scrape_classic_histograms__": "false",
+      "__convert_classic_histograms_to_nhcb__": "false",
+      "__meta_kubernetes_endpoint_address_target_kind": "Pod",
+      "__meta_kubernetes_endpoint_address_target_name": "cafeteria-85b9ff6cb7-b5jzm",
+      "__meta_kubernetes_endpoint_node_name": "cafeteria-lab4-control-plane",
+      "__meta_kubernetes_endpoint_port_name": "http",
+      "__meta_kubernetes_endpoint_port_protocol": "TCP",
+      "__meta_kubernetes_endpoint_ready": "true",
+      "__meta_kubernetes_endpoints_annotation_endpoints_kubernetes_io_last_change_trigger_time": "2026-11-10T22:34:49Z",
+      "__meta_kubernetes_endpoints_annotationpresent_endpoints_kubernetes_io_last_change_trigger_time": "true",
+      "__meta_kubernetes_endpoints_label_app_kubernetes_io_instance": "cafeteria",
+      "__meta_kubernetes_endpoints_label_app_kubernetes_io_managed_by": "Helm",
+      "__meta_kubernetes_endpoints_label_app_kubernetes_io_name": "cafeteria",
+      "__meta_kubernetes_endpoints_label_endpoints_kubernetes_io_managed_by": "endpoint-controller",
+      "__meta_kubernetes_endpoints_labelpresent_app_kubernetes_io_instance": "true",
+      "__meta_kubernetes_endpoints_labelpresent_app_kubernetes_io_managed_by": "true",
+      "__meta_kubernetes_endpoints_labelpresent_app_kubernetes_io_name": "true",
+      "__meta_kubernetes_endpoints_labelpresent_endpoints_kubernetes_io_managed_by": "true",
+      "__meta_kubernetes_endpoints_name": "cafeteria",
+      "__meta_kubernetes_namespace": "cafeteria-lab4",
+      "__meta_kubernetes_pod_annotation_checksum_config": "300b57d9d71db2a9c1393031087b114a2ce2daf4c5ec77c05e18510d55aed358",
+      "__meta_kubernetes_pod_annotationpresent_checksum_config": "true",
+      "__meta_kubernetes_pod_container_image": "localhost:5001/cafeteria:lab4-dev-1",
+      "__meta_kubernetes_pod_container_init": "false",
+      "__meta_kubernetes_pod_container_name": "app",
+      "__meta_kubernetes_pod_container_port_name": "http",
+      "__meta_kubernetes_pod_container_port_number": "8000",
+      "__meta_kubernetes_pod_container_port_protocol": "TCP",
+      "__meta_kubernetes_pod_controller_kind": "ReplicaSet",
+      "__meta_kubernetes_pod_controller_name": "cafeteria-85b9ff6cb7",
+      "__meta_kubernetes_pod_host_ip": "172.19.0.4",
+      "__meta_kubernetes_pod_ip": "10.244.0.19",
+      "__meta_kubernetes_pod_label_app_kubernetes_io_instance": "cafeteria",
+      "__meta_kubernetes_pod_label_app_kubernetes_io_name": "cafeteria",
+      "__meta_kubernetes_pod_label_pod_template_hash": "85b9ff6cb7",
+      "__meta_kubernetes_pod_labelpresent_app_kubernetes_io_instance": "true",
+      "__meta_kubernetes_pod_labelpresent_app_kubernetes_io_name": "true",
+      "__meta_kubernetes_pod_labelpresent_pod_template_hash": "true",
+      "__meta_kubernetes_pod_name": "cafeteria-85b9ff6cb7-b5jzm",
+      "__meta_kubernetes_pod_node_name": "cafeteria-lab4-control-plane",
+      "__meta_kubernetes_pod_phase": "Running",
+      "__meta_kubernetes_pod_ready": "true",
+      "__meta_kubernetes_pod_uid": "97216ce0-b051-42f1-8cb4-66ba62d48a6c",
+      "__meta_kubernetes_service_annotation_meta_helm_sh_release_name": "cafeteria",
+      "__meta_kubernetes_service_annotation_meta_helm_sh_release_namespace": "cafeteria-lab4",
+      "__meta_kubernetes_service_annotationpresent_meta_helm_sh_release_name": "true",
+      "__meta_kubernetes_service_annotationpresent_meta_helm_sh_release_namespace": "true",
+      "__meta_kubernetes_service_label_app_kubernetes_io_instance": "cafeteria",
+      "__meta_kubernetes_service_label_app_kubernetes_io_managed_by": "Helm",
+      "__meta_kubernetes_service_label_app_kubernetes_io_name": "cafeteria",
+      "__meta_kubernetes_service_labelpresent_app_kubernetes_io_instance": "true",
+      "__meta_kubernetes_service_labelpresent_app_kubernetes_io_managed_by": "true",
+      "__meta_kubernetes_service_labelpresent_app_kubernetes_io_name": "true",
+      "__meta_kubernetes_service_name": "cafeteria",
+      "__metrics_path__": "/metrics",
+      "__scheme__": "http",
+      "__scrape_interval__": "10s",
+      "__scrape_native_histograms__": "false",
+      "__scrape_timeout__": "10s",
+      "job": "serviceMonitor/monitoring/cafeteria/0"
+    },
+    "labels": {
+      "container": "app",
+      "endpoint": "http",
+      "instance": "10.244.0.19:8000",
+      "job": "cafeteria",
+      "namespace": "cafeteria-lab4",
+      "pod": "cafeteria-85b9ff6cb7-b5jzm",
+      "service": "cafeteria"
+    },
+    "scrapePool": "serviceMonitor/monitoring/cafeteria/0",
+    "scrapeUrl": "http://10.244.0.19:8000/metrics",
+    "globalUrl": "http://10.244.0.19:8000/metrics",
+    "lastError": "",
+    "lastScrape": "2026-11-10T22:49:06.683234621Z",
+    "lastScrapeDuration": 0.011581228,
+    "health": "up",
+    "scrapeInterval": "10s",
+    "scrapeTimeout": "10s"
+  },
+  "queries": {
+    "rps": {
+      "expr": "sum(rate(cafeteria_http_requests_total[2m]))",
+      "result": [
+        {
+          "metric": {},
+          "value": [
+            1794350967.36,
+            "0.2636723189525844"
+          ]
+        }
+      ]
+    },
+    "latency": {
+      "expr": "sum(rate(cafeteria_http_request_duration_seconds_sum[2m])) / sum(rate(cafeteria_http_request_duration_seconds_count[2m]))",
+      "result": [
+        {
+          "metric": {},
+          "value": [
+            1794350967.529,
+            "0.005450163620684305"
+          ]
+        }
+      ]
+    },
+    "cpu": {
+      "expr": "sum by (pod) (rate(container_cpu_usage_seconds_total{namespace=\"cafeteria-lab4\",container=\"app\"}[2m]))",
+      "result": [
+        {
+          "metric": {
+            "pod": "cafeteria-85b9ff6cb7-b5jzm"
+          },
+          "value": [
+            1794350967.682,
+            "0.005875794367027803"
+          ]
+        }
+      ]
+    },
+    "memory": {
+      "expr": "sum by (pod) (container_memory_working_set_bytes{namespace=\"cafeteria-lab4\",container=\"app\"})",
+      "result": [
+        {
+          "metric": {
+            "pod": "cafeteria-85b9ff6cb7-b5jzm"
+          },
+          "value": [
+            1794350967.84,
+            "43745280"
+          ]
+        }
+      ]
+    },
+    "orders": {
+      "expr": "cafeteria_orders_created_total",
+      "result": [
+        {
+          "metric": {
+            "__name__": "cafeteria_orders_created_total",
+            "container": "app",
+            "endpoint": "http",
+            "instance": "10.244.0.19:8000",
+            "job": "cafeteria",
+            "namespace": "cafeteria-lab4",
+            "pod": "cafeteria-85b9ff6cb7-b5jzm",
+            "service": "cafeteria"
+          },
+          "value": [
+            1794350967.989,
+            "14"
+          ]
+        }
+      ]
+    }
+  },
+  "dashboard": {
+    "uid": "cafeteria-lab4",
+    "panels": [
+      "Peticiones por segundo",
+      "Latencia promedio",
+      "CPU por pod",
+      "Memoria por pod",
+      "Pedidos creados en el intervalo"
+    ]
+  }
+}

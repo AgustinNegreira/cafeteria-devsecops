@@ -1,0 +1,4 @@
+Pedido 1 creado: HTTP 201. Recreo vencido: HTTP 409, cierre 09:45.
+Pod original: cafeteria-85b9ff6cb7-rgq8h
+Pod de reemplazo: cafeteria-85b9ff6cb7-b5jzm
+Pedido recuperado: id=1, estado=pendiente

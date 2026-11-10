@@ -1,0 +1,111 @@
+Started by user agustin
+Started by an SCM change
+Checking out git file:///proyecto into /var/jenkins_home/workspace/cafeteria-lab4@script/382c04883742d6af0b44bb0fd6e504e36a40d3c91773afa97ce6edebbf2521dd to read Jenkinsfile
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/cafeteria-lab4@script/382c04883742d6af0b44bb0fd6e504e36a40d3c91773afa97ce6edebbf2521dd/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url file:///proyecto # timeout=10
+Fetching upstream changes from file:///proyecto
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+ > git fetch --tags --force --progress -- file:///proyecto +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/laboratorio-4^{commit} # timeout=10
+Checking out Revision acf0124ac18fb8e2fd45818b44a07ab5953d468b (refs/remotes/origin/laboratorio-4)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f acf0124ac18fb8e2fd45818b44a07ab5953d468b # timeout=10
+Commit message: "Derive the image revision from the Jenkins checkout"
+ > git rev-list --no-walk ef15856344bed320552815843f73dbeae83fd0da # timeout=10
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/cafeteria-lab4
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Checkout)
+[Pipeline] deleteDir
+[Pipeline] checkout
+The recommended git tool is: NONE
+No credentials specified
+Cloning the remote Git repository
+Cloning repository file:///proyecto
+ > git init /var/jenkins_home/workspace/cafeteria-lab4 # timeout=10
+Fetching upstream changes from file:///proyecto
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+ > git fetch --tags --force --progress -- file:///proyecto +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url file:///proyecto # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+ > git rev-parse refs/remotes/origin/laboratorio-4^{commit} # timeout=10
+Checking out Revision acf0124ac18fb8e2fd45818b44a07ab5953d468b (refs/remotes/origin/laboratorio-4)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f acf0124ac18fb8e2fd45818b44a07ab5953d468b # timeout=10
+Commit message: "Derive the image revision from the Jenkins checkout"
+[Pipeline] sh
++ mkdir -p reports
++ find reports -maxdepth 1 -type f -delete
+[Pipeline] script
+[Pipeline] {
+[Pipeline] sh
++ git rev-parse HEAD
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Semgrep)
+[Pipeline] sh
++ python3 scripts/security/scan.py --image cafeteria:lab4-build-2-acf0124ac18f --checks lab4-semgrep
+Semgrep Lab 4: ver reports/semgrep-report.txt
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Snyk)
+[Pipeline] withCredentials
+Masking supported pattern matches of $SNYK_TOKEN
+[Pipeline] {
+[Pipeline] sh
+Configurar la credencial de Snyk para habilitar el escaneo.
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build y tests)
+Stage "Build y tests" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Imagen y Trivy)
+Stage "Imagen y Trivy" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Publicar)
+Stage "Publicar" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Desplegar con Helm)
+Stage "Desplegar con Helm" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] archiveArtifacts
+Archiving artifacts
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+ERROR: script returned exit code 1
+Finished: FAILURE

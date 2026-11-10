@@ -1,4 +1,8 @@
-# Cafetería - Entregable 3 DevSecOps
+# Cafetería
+
+El [informe del Laboratorio 4](LABORATORIO_4.md) reúne los comandos de arranque, la arquitectura, el pipeline y las evidencias de esta rama.
+
+## Entregable 3 DevSecOps
 
 Aplicación de pedidos para recreos: FastAPI + SQLite y páginas HTML/JavaScript. El alumno pide antes del corte; cafetería administra con PIN, marca estados, agotados y consulta ventas.
 

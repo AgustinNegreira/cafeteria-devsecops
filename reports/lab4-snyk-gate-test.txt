@@ -1,0 +1,5 @@
+Verificacion con respuestas sinteticas. El escaneo autenticado se verifica aparte.
+sin hallazgos: exit 0. Snyk completó el escaneo con 0 hallazgos y cero críticos.
+hallazgo high: exit 0. Snyk completó el escaneo con 1 hallazgos y cero críticos.
+hallazgo critical: exit 1. Snyk detectó 1 vulnerabilidades críticas. Se bloquea el despliegue.
+error de herramienta: exit 1. Snyk no completó el escaneo (código 2).
