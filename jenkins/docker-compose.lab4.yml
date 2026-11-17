@@ -1,0 +1,35 @@
+name: cafeteria-lab4
+services:
+  jenkins:
+    build:
+      context: .
+      dockerfile: Dockerfile.lab4
+    image: cafeteria-jenkins-lab4:2.580.1
+    container_name: jenkins-lab4
+    ports:
+      - "127.0.0.1:8083:8080"
+    environment:
+      REPO_BRANCH: "${REPO_BRANCH:-laboratorio-4}"
+    volumes:
+      - jenkins_lab4_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ..:/proyecto:ro
+    secrets:
+      - kubeconfig-local
+      - jenkins-admin-password
+      - snyk-token
+    networks:
+      - kind
+secrets:
+  kubeconfig-local:
+    file: ../.local/lab4/kubeconfig.internal.yaml
+  jenkins-admin-password:
+    file: ../.local/lab4/jenkins-admin-password.txt
+  snyk-token:
+    file: ../.local/lab4/snyk-token.txt
+volumes:
+  jenkins_lab4_home:
+networks:
+  kind:
+    external: true
+    name: kind

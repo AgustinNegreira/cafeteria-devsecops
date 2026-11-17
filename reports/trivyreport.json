@@ -3,39 +3,39 @@
   "Trivy": {
     "Version": "0.76.1"
   },
-  "ReportID": "01a1a66b-d895-7706-9676-5b3c04ebf4d0",
-  "CreatedAt": "2026-11-04T11:57:28.085461458Z",
-  "ArtifactID": "sha256:770ca359d7bd3113b138c3ad6380d410ab5e24e255c471655626270e6424b69e",
-  "ArtifactName": "cafeteria:devsecops-build-5",
+  "ReportID": "01a1c7b7-c392-7c2a-b992-e0d8fce2abb2",
+  "CreatedAt": "2026-11-10T23:07:51.57080372Z",
+  "ArtifactID": "sha256:dde6aa9dcbdfd09de1c33ed77f9982ce3b37c3a76d95a779a3f5b4b220add574",
+  "ArtifactName": "cafeteria:lab4-build-4-2d470a9191a6",
   "ArtifactType": "container_image",
   "Metadata": {
-    "Size": 74727424,
+    "Size": 78349312,
     "OS": {
       "Family": "alpine",
       "Name": "3.23.7"
     },
-    "ImageID": "sha256:d1095636f7dd5e45d4ced6ded7c24fc0095e276b53bb033d322c5692e3c20d94",
+    "ImageID": "sha256:0b3e008ed3141137ca8795963b1855d05e1d110cf0399dbc65221341891d9a8f",
     "DiffIDs": [
       "sha256:54ea9baa1bbd7651dbda5c61569dad60fa601c73e5b784e154e8ba0f314e84fd",
       "sha256:450704c6d9b6617f234f78608aefadd32f0313839264aee4a67b8762c4d9a55c",
       "sha256:45d6ee087647b8bbccd1f9abd64b38d07fbb12f6dc296ac392a4bca863916281",
       "sha256:f6b14d76b56d0fac4a3a22e962c2723793393d74cc1777aeb424b3db192bace5",
-      "sha256:af287d800238f601f27eeca1255bf5aa2407b78c8865499b9ce04a39595cc95c",
-      "sha256:3f783b5b86a4343988b2344b119de69eb3a07e5e689c62b43fa42bb48e668005",
-      "sha256:681f35014cef8fecb58a1ba960e73458f50ecd4f2a4c20703af8e41a24db6a86",
-      "sha256:ac4c782da828f50011dc7b71f5d47f802c7f4b6b97dc84093871bee721f824ab",
-      "sha256:1d2512797458156c60cb6f2d199987d39c4fda81be528bee9639905c81a5c3a6"
+      "sha256:a36151938daca9a55d8464e20bbe68db9dd2580b5b1b65b975f4b00642d8bff7",
+      "sha256:73d0213fdfcb97be03ffcb4ef8e1398e664e4d2ab934333e777ac5d242f955c4",
+      "sha256:ca4407fd8fd2f5924f8ae7618e789bd96305d3c83715b8b2dd2c78401e4a4f42",
+      "sha256:f1ad12c3617f89f0ac6734913335e3e890fd81e2bdf245ed065f508e0721bcb3",
+      "sha256:3be142b4925fde5e0049cbb7c3117ac0ffb2a1c1574a0ad8a4587739bdb3f330"
     ],
     "RepoTags": [
-      "cafeteria:devsecops-build-5"
+      "cafeteria:lab4-build-4-2d470a9191a6"
     ],
     "RepoDigests": [
-      "cafeteria@sha256:d1095636f7dd5e45d4ced6ded7c24fc0095e276b53bb033d322c5692e3c20d94"
+      "cafeteria@sha256:0b3e008ed3141137ca8795963b1855d05e1d110cf0399dbc65221341891d9a8f"
     ],
-    "Reference": "cafeteria:devsecops-build-5",
+    "Reference": "cafeteria:lab4-build-4-2d470a9191a6",
     "ImageConfig": {
       "architecture": "amd64",
-      "created": "2026-11-04T11:46:49.215900045Z",
+      "created": "2026-11-10T23:07:44.547747229Z",
       "history": [
         {
           "created": "2026-10-21T20:46:55Z",
@@ -100,51 +100,51 @@
           "empty_layer": true
         },
         {
-          "created": "2026-11-03T23:29:27Z",
+          "created": "2026-11-10T22:29:52Z",
+          "created_by": "RUN /bin/sh -c apk upgrade --no-cache # buildkit",
+          "comment": "buildkit.dockerfile.v0"
+        },
+        {
+          "created": "2026-11-10T22:29:54Z",
           "created_by": "WORKDIR /code",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-11-03T23:29:29Z",
-          "created_by": "RUN /bin/sh -c apk upgrade --no-cache     \u0026\u0026 addgroup -S -g 10001 app     \u0026\u0026 adduser -S -D -H -u 10001 -G app app     \u0026\u0026 mkdir -p /data     \u0026\u0026 chown 10001:10001 /data # buildkit",
+          "created": "2026-11-10T22:30:23Z",
+          "created_by": "RUN /bin/sh -c addgroup -S -g 10001 app     \u0026\u0026 adduser -S -D -H -u 10001 -G app app     \u0026\u0026 mkdir -p /data     \u0026\u0026 chown 10001:10001 /data     \u0026\u0026 python -m pip uninstall --yes pip setuptools     \u0026\u0026 python -c \"import ensurepip,shutil; shutil.rmtree(ensurepip.__path__[0])\" # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-11-04T11:46:42Z",
-          "created_by": "COPY requirements.lock . # buildkit",
+          "created": "2026-11-10T23:07:44Z",
+          "created_by": "COPY /opt/dependencies /opt/dependencies # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-11-04T11:46:49Z",
-          "created_by": "RUN /bin/sh -c python -m pip install --no-cache-dir --upgrade pip==26.3 \u0026\u0026 pip install --no-cache-dir -r requirements.lock \u0026\u0026 python -m pip uninstall --yes pip setuptools \u0026\u0026 python -c \"import ensurepip,shutil; shutil.rmtree(ensurepip.__path__[0])\" # buildkit",
-          "comment": "buildkit.dockerfile.v0"
-        },
-        {
-          "created": "2026-11-04T11:46:49Z",
+          "created": "2026-11-10T23:07:44Z",
           "created_by": "COPY app ./app # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-11-04T11:46:49Z",
-          "created_by": "ENV DB_PATH=/data/cafeteria.db PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1",
+          "created": "2026-11-10T23:07:44Z",
+          "created_by": "ENV DB_PATH=/data/cafeteria.db PYTHONPATH=/opt/dependencies PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-11-04T11:46:49Z",
+          "created": "2026-11-10T23:07:44Z",
           "created_by": "USER 10001:10001",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-11-04T11:46:49Z",
+          "created": "2026-11-10T23:07:44Z",
           "created_by": "EXPOSE [8000/tcp]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-11-04T11:46:49Z",
-          "created_by": "CMD [\"uvicorn\" \"app.main:app\" \"--host\" \"0.0.0.0\" \"--port\" \"8000\"]",
+          "created": "2026-11-10T23:07:44Z",
+          "created_by": "CMD [\"python\" \"-m\" \"uvicorn\" \"app.main:app\" \"--host\" \"0.0.0.0\" \"--port\" \"8000\"]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         }
@@ -157,15 +157,17 @@
           "sha256:450704c6d9b6617f234f78608aefadd32f0313839264aee4a67b8762c4d9a55c",
           "sha256:45d6ee087647b8bbccd1f9abd64b38d07fbb12f6dc296ac392a4bca863916281",
           "sha256:f6b14d76b56d0fac4a3a22e962c2723793393d74cc1777aeb424b3db192bace5",
-          "sha256:af287d800238f601f27eeca1255bf5aa2407b78c8865499b9ce04a39595cc95c",
-          "sha256:3f783b5b86a4343988b2344b119de69eb3a07e5e689c62b43fa42bb48e668005",
-          "sha256:681f35014cef8fecb58a1ba960e73458f50ecd4f2a4c20703af8e41a24db6a86",
-          "sha256:ac4c782da828f50011dc7b71f5d47f802c7f4b6b97dc84093871bee721f824ab",
-          "sha256:1d2512797458156c60cb6f2d199987d39c4fda81be528bee9639905c81a5c3a6"
+          "sha256:a36151938daca9a55d8464e20bbe68db9dd2580b5b1b65b975f4b00642d8bff7",
+          "sha256:73d0213fdfcb97be03ffcb4ef8e1398e664e4d2ab934333e777ac5d242f955c4",
+          "sha256:ca4407fd8fd2f5924f8ae7618e789bd96305d3c83715b8b2dd2c78401e4a4f42",
+          "sha256:f1ad12c3617f89f0ac6734913335e3e890fd81e2bdf245ed065f508e0721bcb3",
+          "sha256:3be142b4925fde5e0049cbb7c3117ac0ffb2a1c1574a0ad8a4587739bdb3f330"
         ]
       },
       "config": {
         "Cmd": [
+          "python",
+          "-m",
           "uvicorn",
           "app.main:app",
           "--host",
@@ -180,12 +182,12 @@
           "PYTHON_VERSION=3.12.16",
           "PYTHON_SHA256=b5796915dc45ff745cfb4e990a7e7c93d6f546328a102ce31448d69ebc37575c",
           "DB_PATH=/data/cafeteria.db",
+          "PYTHONPATH=/opt/dependencies",
           "PYTHONDONTWRITEBYTECODE=1",
           "PYTHONUNBUFFERED=1"
         ],
         "Labels": {
-          "org.opencontainers.image.revision": "fc2065aa66a714baaf76e33ca285b6011a53c66d",
-          "org.opencontainers.image.version": "cafeteria:devsecops-build-5"
+          "org.opencontainers.image.revision": "2d470a9191a61aae1e36da6060c8c27fcbb768e2"
         },
         "User": "10001:10001",
         "WorkingDir": "/code",
@@ -217,35 +219,35 @@
         "DiffID": "sha256:f6b14d76b56d0fac4a3a22e962c2723793393d74cc1777aeb424b3db192bace5"
       },
       {
+        "Size": 3288064,
+        "Digest": "sha256:f33c5efa0987183cdb321b2b10aba5f892533339199c2b619e999dd7737aefae",
+        "DiffID": "sha256:a36151938daca9a55d8464e20bbe68db9dd2580b5b1b65b975f4b00642d8bff7"
+      },
+      {
         "Size": 1536,
-        "Digest": "sha256:85b96748c2654c994763d71f38720e12bf7b5b8fbc5eb52fb9d0feb80b1567a8",
-        "DiffID": "sha256:af287d800238f601f27eeca1255bf5aa2407b78c8865499b9ce04a39595cc95c"
+        "Digest": "sha256:fa67a29993caaf4a6641efd7e9e8904ff33a4d306c53ae6ea43b34c6020484a4",
+        "DiffID": "sha256:73d0213fdfcb97be03ffcb4ef8e1398e664e4d2ab934333e777ac5d242f955c4"
       },
       {
-        "Size": 98816,
-        "Digest": "sha256:26631df54bf9b82bb3c85bc120463102b69a54f98e9740c0d9ed13fac6a1b3f7",
-        "DiffID": "sha256:3f783b5b86a4343988b2344b119de69eb3a07e5e689c62b43fa42bb48e668005"
+        "Size": 4327424,
+        "Digest": "sha256:12bda94f8715fdd03ffae9643cb96c56ca8587d5f08f8db269b97d0c851c3e50",
+        "DiffID": "sha256:ca4407fd8fd2f5924f8ae7618e789bd96305d3c83715b8b2dd2c78401e4a4f42"
       },
       {
-        "Size": 2560,
-        "Digest": "sha256:defc83034166fa8563e419f2446cab66aa51773caa7faeb07003117e731b6d66",
-        "DiffID": "sha256:681f35014cef8fecb58a1ba960e73458f50ecd4f2a4c20703af8e41a24db6a86"
+        "Size": 19476480,
+        "Digest": "sha256:17281a4acbe5b9caf7cb8e98a4494bd9f261e7eb813abc83ddc0de73b50109b3",
+        "DiffID": "sha256:f1ad12c3617f89f0ac6734913335e3e890fd81e2bdf245ed065f508e0721bcb3"
       },
       {
-        "Size": 23371776,
-        "Digest": "sha256:1820e2846d3f74fa1389792c869e9cbbae92f518491f55def4bcd4e4bfeeec0b",
-        "DiffID": "sha256:ac4c782da828f50011dc7b71f5d47f802c7f4b6b97dc84093871bee721f824ab"
-      },
-      {
-        "Size": 66560,
-        "Digest": "sha256:d237ab82644b26ad52fa8610e47f17ed7dc7c846d709a0eb8a9842265a7bce11",
-        "DiffID": "sha256:1d2512797458156c60cb6f2d199987d39c4fda81be528bee9639905c81a5c3a6"
+        "Size": 69632,
+        "Digest": "sha256:2c45afa88f450d27b4c42f02937c3c34aa1348a36e5b09d659f173cc48d5ac63",
+        "DiffID": "sha256:3be142b4925fde5e0049cbb7c3117ac0ffb2a1c1574a0ad8a4587739bdb3f330"
       }
     ]
   },
   "Results": [
     {
-      "Target": "cafeteria:devsecops-build-5 (alpine 3.23.7)",
+      "Target": "cafeteria:lab4-build-4-2d470a9191a6 (alpine 3.23.7)",
       "Class": "os-pkgs",
       "Type": "alpine",
       "Packages": [
@@ -254,7 +256,7 @@
           "Name": ".python-rundeps",
           "Identifier": {
             "PURL": "pkg:apk/alpine/.python-rundeps@20261026.225308?arch=noarch\u0026distro=3.23.7",
-            "UID": "b0fd39d3dfb1a56f"
+            "UID": "72a28f489cdf68b"
           },
           "Version": "20261026.225308",
           "Arch": "noarch",
@@ -273,7 +275,7 @@
             "readline@8.3.1-r0",
             "sqlite-libs@3.53.4-r0",
             "xz-libs@5.8.4-r0",
-            "zlib@1.3.2-r1"
+            "zlib@1.4-r0"
           ],
           "Layer": {
             "Digest": "sha256:977e4cb8a93576029766a4c29c04e12492e5a1c89fe321c2143ce04f63dfd521",
@@ -428,16 +430,16 @@
           "AnalyzedBy": "apk"
         },
         {
-          "ID": "alpine-release@3.23.7-r0",
+          "ID": "alpine-release@3.23.8-r0",
           "Name": "alpine-release",
           "Identifier": {
-            "PURL": "pkg:apk/alpine/alpine-release@3.23.7-r0?arch=x86_64\u0026distro=3.23.7",
-            "UID": "1ac633e4c968fe5b"
+            "PURL": "pkg:apk/alpine/alpine-release@3.23.8-r0?arch=x86_64\u0026distro=3.23.7",
+            "UID": "be3c805f728d85c1"
           },
-          "Version": "3.23.7-r0",
+          "Version": "3.23.8-r0",
           "Arch": "x86_64",
           "SrcName": "alpine-base",
-          "SrcVersion": "3.23.7-r0",
+          "SrcVersion": "3.23.8-r0",
           "Licenses": [
             "MIT"
           ],
@@ -446,10 +448,10 @@
             "alpine-keys@2.6-r0"
           ],
           "Layer": {
-            "Digest": "sha256:5e9b4a97f6395abf54a5c584be133078deb2295e280dd0b9e77638874d07b637",
-            "DiffID": "sha256:54ea9baa1bbd7651dbda5c61569dad60fa601c73e5b784e154e8ba0f314e84fd"
+            "Digest": "sha256:f33c5efa0987183cdb321b2b10aba5f892533339199c2b619e999dd7737aefae",
+            "DiffID": "sha256:a36151938daca9a55d8464e20bbe68db9dd2580b5b1b65b975f4b00642d8bff7"
           },
-          "Digest": "sha1:754da405bd0c6ffb7de5ca0374a35be2676c21bf",
+          "Digest": "sha1:4f328098d849bbf2c43bfb724411c8279945cd71",
           "InstalledFiles": [
             "etc/alpine-release",
             "etc/issue",
@@ -460,32 +462,32 @@
           "AnalyzedBy": "apk"
         },
         {
-          "ID": "apk-tools@3.0.8-r0",
+          "ID": "apk-tools@3.0.9-r0",
           "Name": "apk-tools",
           "Identifier": {
-            "PURL": "pkg:apk/alpine/apk-tools@3.0.8-r0?arch=x86_64\u0026distro=3.23.7",
-            "UID": "9e8a7181b3399c56"
+            "PURL": "pkg:apk/alpine/apk-tools@3.0.9-r0?arch=x86_64\u0026distro=3.23.7",
+            "UID": "8ed805eb0c9ddfca"
           },
-          "Version": "3.0.8-r0",
+          "Version": "3.0.9-r0",
           "Arch": "x86_64",
           "SrcName": "apk-tools",
-          "SrcVersion": "3.0.8-r0",
+          "SrcVersion": "3.0.9-r0",
           "Licenses": [
             "GPL-2.0-only"
           ],
           "Maintainer": "Natanael Copa \u003cncopa@alpinelinux.org\u003e",
           "DependsOn": [
             "ca-certificates-bundle@20261020-r0",
-            "libapk@3.0.8-r0",
+            "libapk@3.0.9-r0",
             "libcrypto3@3.5.9-r0",
             "musl@1.2.5-r24",
-            "zlib@1.3.2-r1"
+            "zlib@1.4-r0"
           ],
           "Layer": {
-            "Digest": "sha256:5e9b4a97f6395abf54a5c584be133078deb2295e280dd0b9e77638874d07b637",
-            "DiffID": "sha256:54ea9baa1bbd7651dbda5c61569dad60fa601c73e5b784e154e8ba0f314e84fd"
+            "Digest": "sha256:f33c5efa0987183cdb321b2b10aba5f892533339199c2b619e999dd7737aefae",
+            "DiffID": "sha256:a36151938daca9a55d8464e20bbe68db9dd2580b5b1b65b975f4b00642d8bff7"
           },
-          "Digest": "sha1:fa7a8422abbbb5e179033cee5455124007817b22",
+          "Digest": "sha1:01b0fef443f41e764a0ca422a29ad89aa12cc91a",
           "InstalledFiles": [
             "sbin/apk"
           ],
@@ -822,16 +824,16 @@
           "AnalyzedBy": "apk"
         },
         {
-          "ID": "krb5-libs@1.22.1-r0",
+          "ID": "krb5-libs@1.22.3-r0",
           "Name": "krb5-libs",
           "Identifier": {
-            "PURL": "pkg:apk/alpine/krb5-libs@1.22.1-r0?arch=x86_64\u0026distro=3.23.7",
-            "UID": "ffe3d82d6f3c077b"
+            "PURL": "pkg:apk/alpine/krb5-libs@1.22.3-r0?arch=x86_64\u0026distro=3.23.7",
+            "UID": "a358782ceab13046"
           },
-          "Version": "1.22.1-r0",
+          "Version": "1.22.3-r0",
           "Arch": "x86_64",
           "SrcName": "krb5",
-          "SrcVersion": "1.22.1-r0",
+          "SrcVersion": "1.22.3-r0",
           "Licenses": [
             "MIT"
           ],
@@ -846,10 +848,10 @@
             "musl@1.2.5-r24"
           ],
           "Layer": {
-            "Digest": "sha256:977e4cb8a93576029766a4c29c04e12492e5a1c89fe321c2143ce04f63dfd521",
-            "DiffID": "sha256:45d6ee087647b8bbccd1f9abd64b38d07fbb12f6dc296ac392a4bca863916281"
+            "Digest": "sha256:f33c5efa0987183cdb321b2b10aba5f892533339199c2b619e999dd7737aefae",
+            "DiffID": "sha256:a36151938daca9a55d8464e20bbe68db9dd2580b5b1b65b975f4b00642d8bff7"
           },
-          "Digest": "sha1:1980f1ffd1e00cc794a1293046e4cf5cfcee7f4d",
+          "Digest": "sha1:714664adfdb86c1fe4bccbc5fc3ba6a7270871f1",
           "InstalledFiles": [
             "usr/lib/libgssapi_krb5.so.2",
             "usr/lib/libgssapi_krb5.so.2.2",
@@ -878,16 +880,16 @@
           "AnalyzedBy": "apk"
         },
         {
-          "ID": "libapk@3.0.8-r0",
+          "ID": "libapk@3.0.9-r0",
           "Name": "libapk",
           "Identifier": {
-            "PURL": "pkg:apk/alpine/libapk@3.0.8-r0?arch=x86_64\u0026distro=3.23.7",
-            "UID": "3879951de3f07fe3"
+            "PURL": "pkg:apk/alpine/libapk@3.0.9-r0?arch=x86_64\u0026distro=3.23.7",
+            "UID": "8abf670fed321955"
           },
-          "Version": "3.0.8-r0",
+          "Version": "3.0.9-r0",
           "Arch": "x86_64",
           "SrcName": "apk-tools",
-          "SrcVersion": "3.0.8-r0",
+          "SrcVersion": "3.0.9-r0",
           "Licenses": [
             "GPL-2.0-only"
           ],
@@ -896,13 +898,13 @@
             "libcrypto3@3.5.9-r0",
             "libssl3@3.5.9-r0",
             "musl@1.2.5-r24",
-            "zlib@1.3.2-r1"
+            "zlib@1.4-r0"
           ],
           "Layer": {
-            "Digest": "sha256:5e9b4a97f6395abf54a5c584be133078deb2295e280dd0b9e77638874d07b637",
-            "DiffID": "sha256:54ea9baa1bbd7651dbda5c61569dad60fa601c73e5b784e154e8ba0f314e84fd"
+            "Digest": "sha256:f33c5efa0987183cdb321b2b10aba5f892533339199c2b619e999dd7737aefae",
+            "DiffID": "sha256:a36151938daca9a55d8464e20bbe68db9dd2580b5b1b65b975f4b00642d8bff7"
           },
-          "Digest": "sha1:2913286d1d02641d392289ba525850be6856df11",
+          "Digest": "sha1:3b40f710d73a30aca956996fc050f42c28cdeefe",
           "InstalledFiles": [
             "usr/lib/libapk.so.3.0.0"
           ],
@@ -1190,7 +1192,7 @@
           "Name": "libtirpc",
           "Identifier": {
             "PURL": "pkg:apk/alpine/libtirpc@1.3.5-r1?arch=x86_64\u0026distro=3.23.7",
-            "UID": "2e822e84fc80448"
+            "UID": "9555541e3bdfdeaa"
           },
           "Version": "1.3.5-r1",
           "Arch": "x86_64",
@@ -1201,7 +1203,7 @@
           ],
           "Maintainer": "Natanael Copa \u003cncopa@alpinelinux.org\u003e",
           "DependsOn": [
-            "krb5-libs@1.22.1-r0",
+            "krb5-libs@1.22.3-r0",
             "libtirpc-conf@1.3.5-r1",
             "musl@1.2.5-r24"
           ],
@@ -1545,25 +1547,25 @@
           "AnalyzedBy": "apk"
         },
         {
-          "ID": "tzdata@2026e-r0",
+          "ID": "tzdata@2026f-r0",
           "Name": "tzdata",
           "Identifier": {
-            "PURL": "pkg:apk/alpine/tzdata@2026e-r0?arch=x86_64\u0026distro=3.23.7",
-            "UID": "218cbc852ef99489"
+            "PURL": "pkg:apk/alpine/tzdata@2026f-r0?arch=x86_64\u0026distro=3.23.7",
+            "UID": "a48973092649459f"
           },
-          "Version": "2026e-r0",
+          "Version": "2026f-r0",
           "Arch": "x86_64",
           "SrcName": "tzdata",
-          "SrcVersion": "2026e-r0",
+          "SrcVersion": "2026f-r0",
           "Licenses": [
             "Public-Domain"
           ],
           "Maintainer": "Natanael Copa \u003cncopa@alpinelinux.org\u003e",
           "Layer": {
-            "Digest": "sha256:0758722dc9176eb1da30203d9628d158adbf05b41e3b159cbb94e463c807cc43",
-            "DiffID": "sha256:450704c6d9b6617f234f78608aefadd32f0313839264aee4a67b8762c4d9a55c"
+            "Digest": "sha256:f33c5efa0987183cdb321b2b10aba5f892533339199c2b619e999dd7737aefae",
+            "DiffID": "sha256:a36151938daca9a55d8464e20bbe68db9dd2580b5b1b65b975f4b00642d8bff7"
           },
-          "Digest": "sha1:c12e2c000960e072c28e1f9c3b8a49f035898f38",
+          "Digest": "sha1:b7f62c961de15d1dfc84274f62a6170383e97792",
           "InstalledFiles": [
             "usr/share/zoneinfo/CET",
             "usr/share/zoneinfo/CST6CDT",
@@ -2204,16 +2206,16 @@
           "AnalyzedBy": "apk"
         },
         {
-          "ID": "zlib@1.3.2-r1",
+          "ID": "zlib@1.4-r0",
           "Name": "zlib",
           "Identifier": {
-            "PURL": "pkg:apk/alpine/zlib@1.3.2-r1?arch=x86_64\u0026distro=3.23.7",
-            "UID": "cf7ead8e674e4421"
+            "PURL": "pkg:apk/alpine/zlib@1.4-r0?arch=x86_64\u0026distro=3.23.7",
+            "UID": "64553b8e8678b52"
           },
-          "Version": "1.3.2-r1",
+          "Version": "1.4-r0",
           "Arch": "x86_64",
           "SrcName": "zlib",
-          "SrcVersion": "1.3.2-r1",
+          "SrcVersion": "1.4-r0",
           "Licenses": [
             "Zlib"
           ],
@@ -2222,13 +2224,13 @@
             "musl@1.2.5-r24"
           ],
           "Layer": {
-            "Digest": "sha256:5e9b4a97f6395abf54a5c584be133078deb2295e280dd0b9e77638874d07b637",
-            "DiffID": "sha256:54ea9baa1bbd7651dbda5c61569dad60fa601c73e5b784e154e8ba0f314e84fd"
+            "Digest": "sha256:f33c5efa0987183cdb321b2b10aba5f892533339199c2b619e999dd7737aefae",
+            "DiffID": "sha256:a36151938daca9a55d8464e20bbe68db9dd2580b5b1b65b975f4b00642d8bff7"
           },
-          "Digest": "sha1:8eeb776cd3d11e9fc9a16a74196361b485a79d01",
+          "Digest": "sha1:c3cc30fcebfa47ed09ecee2d81e31e0ec7ffbe9d",
           "InstalledFiles": [
             "usr/lib/libz.so.1",
-            "usr/lib/libz.so.1.3.2"
+            "usr/lib/libz.so.1.4"
           ],
           "AnalyzedBy": "apk"
         }
@@ -2243,255 +2245,272 @@
           "Name": "annotated-doc",
           "Identifier": {
             "PURL": "pkg:pypi/annotated-doc@0.0.5",
-            "UID": "fb6ac2c1f334acc0"
+            "UID": "14780067dbae3bff"
           },
           "Version": "0.0.5",
           "Licenses": [
             "MIT"
           ],
           "Layer": {
-            "Digest": "sha256:1820e2846d3f74fa1389792c869e9cbbae92f518491f55def4bcd4e4bfeeec0b",
-            "DiffID": "sha256:ac4c782da828f50011dc7b71f5d47f802c7f4b6b97dc84093871bee721f824ab"
+            "Digest": "sha256:17281a4acbe5b9caf7cb8e98a4494bd9f261e7eb813abc83ddc0de73b50109b3",
+            "DiffID": "sha256:f1ad12c3617f89f0ac6734913335e3e890fd81e2bdf245ed065f508e0721bcb3"
           },
-          "FilePath": "usr/local/lib/python3.12/site-packages/annotated_doc-0.0.5.dist-info/METADATA",
+          "FilePath": "opt/dependencies/annotated_doc-0.0.5.dist-info/METADATA",
           "AnalyzedBy": "python-pkg"
         },
         {
           "Name": "annotated-types",
           "Identifier": {
             "PURL": "pkg:pypi/annotated-types@0.8.0",
-            "UID": "1847359b2b3688a4"
+            "UID": "6d5adbe5855f1884"
           },
           "Version": "0.8.0",
           "Licenses": [
             "MIT"
           ],
           "Layer": {
-            "Digest": "sha256:1820e2846d3f74fa1389792c869e9cbbae92f518491f55def4bcd4e4bfeeec0b",
-            "DiffID": "sha256:ac4c782da828f50011dc7b71f5d47f802c7f4b6b97dc84093871bee721f824ab"
+            "Digest": "sha256:17281a4acbe5b9caf7cb8e98a4494bd9f261e7eb813abc83ddc0de73b50109b3",
+            "DiffID": "sha256:f1ad12c3617f89f0ac6734913335e3e890fd81e2bdf245ed065f508e0721bcb3"
           },
-          "FilePath": "usr/local/lib/python3.12/site-packages/annotated_types-0.8.0.dist-info/METADATA",
+          "FilePath": "opt/dependencies/annotated_types-0.8.0.dist-info/METADATA",
           "AnalyzedBy": "python-pkg"
         },
         {
           "Name": "anyio",
           "Identifier": {
             "PURL": "pkg:pypi/anyio@4.16.0",
-            "UID": "a99d512d2164faed"
+            "UID": "ad727430adcbf378"
           },
           "Version": "4.16.0",
           "Licenses": [
             "MIT"
           ],
           "Layer": {
-            "Digest": "sha256:1820e2846d3f74fa1389792c869e9cbbae92f518491f55def4bcd4e4bfeeec0b",
-            "DiffID": "sha256:ac4c782da828f50011dc7b71f5d47f802c7f4b6b97dc84093871bee721f824ab"
+            "Digest": "sha256:17281a4acbe5b9caf7cb8e98a4494bd9f261e7eb813abc83ddc0de73b50109b3",
+            "DiffID": "sha256:f1ad12c3617f89f0ac6734913335e3e890fd81e2bdf245ed065f508e0721bcb3"
           },
-          "FilePath": "usr/local/lib/python3.12/site-packages/anyio-4.16.0.dist-info/METADATA",
+          "FilePath": "opt/dependencies/anyio-4.16.0.dist-info/METADATA",
           "AnalyzedBy": "python-pkg"
         },
         {
           "Name": "click",
           "Identifier": {
             "PURL": "pkg:pypi/click@8.5.0",
-            "UID": "1726c35a3b1d5d0d"
+            "UID": "9a77674a226940d7"
           },
           "Version": "8.5.0",
           "Licenses": [
             "BSD-3-Clause"
           ],
           "Layer": {
-            "Digest": "sha256:1820e2846d3f74fa1389792c869e9cbbae92f518491f55def4bcd4e4bfeeec0b",
-            "DiffID": "sha256:ac4c782da828f50011dc7b71f5d47f802c7f4b6b97dc84093871bee721f824ab"
+            "Digest": "sha256:17281a4acbe5b9caf7cb8e98a4494bd9f261e7eb813abc83ddc0de73b50109b3",
+            "DiffID": "sha256:f1ad12c3617f89f0ac6734913335e3e890fd81e2bdf245ed065f508e0721bcb3"
           },
-          "FilePath": "usr/local/lib/python3.12/site-packages/click-8.5.0.dist-info/METADATA",
+          "FilePath": "opt/dependencies/click-8.5.0.dist-info/METADATA",
           "AnalyzedBy": "python-pkg"
         },
         {
           "Name": "fastapi",
           "Identifier": {
             "PURL": "pkg:pypi/fastapi@0.162.0",
-            "UID": "df694f2c07c4da87"
+            "UID": "28c0d4c367e445e0"
           },
           "Version": "0.162.0",
           "Licenses": [
             "MIT"
           ],
           "Layer": {
-            "Digest": "sha256:1820e2846d3f74fa1389792c869e9cbbae92f518491f55def4bcd4e4bfeeec0b",
-            "DiffID": "sha256:ac4c782da828f50011dc7b71f5d47f802c7f4b6b97dc84093871bee721f824ab"
+            "Digest": "sha256:17281a4acbe5b9caf7cb8e98a4494bd9f261e7eb813abc83ddc0de73b50109b3",
+            "DiffID": "sha256:f1ad12c3617f89f0ac6734913335e3e890fd81e2bdf245ed065f508e0721bcb3"
           },
-          "FilePath": "usr/local/lib/python3.12/site-packages/fastapi-0.162.0.dist-info/METADATA",
+          "FilePath": "opt/dependencies/fastapi-0.162.0.dist-info/METADATA",
           "AnalyzedBy": "python-pkg"
         },
         {
           "Name": "h11",
           "Identifier": {
             "PURL": "pkg:pypi/h11@0.16.0",
-            "UID": "2ec0fe64a8b38d3a"
+            "UID": "2cd05b848e89c029"
           },
           "Version": "0.16.0",
           "Licenses": [
             "MIT"
           ],
           "Layer": {
-            "Digest": "sha256:1820e2846d3f74fa1389792c869e9cbbae92f518491f55def4bcd4e4bfeeec0b",
-            "DiffID": "sha256:ac4c782da828f50011dc7b71f5d47f802c7f4b6b97dc84093871bee721f824ab"
+            "Digest": "sha256:17281a4acbe5b9caf7cb8e98a4494bd9f261e7eb813abc83ddc0de73b50109b3",
+            "DiffID": "sha256:f1ad12c3617f89f0ac6734913335e3e890fd81e2bdf245ed065f508e0721bcb3"
           },
-          "FilePath": "usr/local/lib/python3.12/site-packages/h11-0.16.0.dist-info/METADATA",
+          "FilePath": "opt/dependencies/h11-0.16.0.dist-info/METADATA",
           "AnalyzedBy": "python-pkg"
         },
         {
           "Name": "idna",
           "Identifier": {
             "PURL": "pkg:pypi/idna@3.20",
-            "UID": "f1b3d4f2a93b9098"
+            "UID": "ce21f67b3e9d307c"
           },
           "Version": "3.20",
           "Licenses": [
             "BSD-3-Clause"
           ],
           "Layer": {
-            "Digest": "sha256:1820e2846d3f74fa1389792c869e9cbbae92f518491f55def4bcd4e4bfeeec0b",
-            "DiffID": "sha256:ac4c782da828f50011dc7b71f5d47f802c7f4b6b97dc84093871bee721f824ab"
+            "Digest": "sha256:17281a4acbe5b9caf7cb8e98a4494bd9f261e7eb813abc83ddc0de73b50109b3",
+            "DiffID": "sha256:f1ad12c3617f89f0ac6734913335e3e890fd81e2bdf245ed065f508e0721bcb3"
           },
-          "FilePath": "usr/local/lib/python3.12/site-packages/idna-3.20.dist-info/METADATA",
+          "FilePath": "opt/dependencies/idna-3.20.dist-info/METADATA",
           "AnalyzedBy": "python-pkg"
         },
         {
           "Name": "opentelemetry-api",
           "Identifier": {
             "PURL": "pkg:pypi/opentelemetry-api@1.45.2",
-            "UID": "e5257c0e0cfb3218"
+            "UID": "53904577e9b48c51"
           },
           "Version": "1.45.2",
           "Licenses": [
             "Apache-2.0"
           ],
           "Layer": {
-            "Digest": "sha256:1820e2846d3f74fa1389792c869e9cbbae92f518491f55def4bcd4e4bfeeec0b",
-            "DiffID": "sha256:ac4c782da828f50011dc7b71f5d47f802c7f4b6b97dc84093871bee721f824ab"
+            "Digest": "sha256:17281a4acbe5b9caf7cb8e98a4494bd9f261e7eb813abc83ddc0de73b50109b3",
+            "DiffID": "sha256:f1ad12c3617f89f0ac6734913335e3e890fd81e2bdf245ed065f508e0721bcb3"
           },
-          "FilePath": "usr/local/lib/python3.12/site-packages/opentelemetry_api-1.45.2.dist-info/METADATA",
+          "FilePath": "opt/dependencies/opentelemetry_api-1.45.2.dist-info/METADATA",
+          "AnalyzedBy": "python-pkg"
+        },
+        {
+          "Name": "prometheus_client",
+          "Identifier": {
+            "PURL": "pkg:pypi/prometheus-client@0.26.0",
+            "UID": "2025b831105f2b4e"
+          },
+          "Version": "0.26.0",
+          "Licenses": [
+            "Apache-2.0 AND BSD-2-Clause"
+          ],
+          "Layer": {
+            "Digest": "sha256:17281a4acbe5b9caf7cb8e98a4494bd9f261e7eb813abc83ddc0de73b50109b3",
+            "DiffID": "sha256:f1ad12c3617f89f0ac6734913335e3e890fd81e2bdf245ed065f508e0721bcb3"
+          },
+          "FilePath": "opt/dependencies/prometheus_client-0.26.0.dist-info/METADATA",
           "AnalyzedBy": "python-pkg"
         },
         {
           "Name": "pydantic",
           "Identifier": {
             "PURL": "pkg:pypi/pydantic@2.14.2",
-            "UID": "f796459a2e9d62a1"
+            "UID": "6654e675fd5bf214"
           },
           "Version": "2.14.2",
           "Licenses": [
             "MIT"
           ],
           "Layer": {
-            "Digest": "sha256:1820e2846d3f74fa1389792c869e9cbbae92f518491f55def4bcd4e4bfeeec0b",
-            "DiffID": "sha256:ac4c782da828f50011dc7b71f5d47f802c7f4b6b97dc84093871bee721f824ab"
+            "Digest": "sha256:17281a4acbe5b9caf7cb8e98a4494bd9f261e7eb813abc83ddc0de73b50109b3",
+            "DiffID": "sha256:f1ad12c3617f89f0ac6734913335e3e890fd81e2bdf245ed065f508e0721bcb3"
           },
-          "FilePath": "usr/local/lib/python3.12/site-packages/pydantic-2.14.2.dist-info/METADATA",
+          "FilePath": "opt/dependencies/pydantic-2.14.2.dist-info/METADATA",
           "AnalyzedBy": "python-pkg"
         },
         {
           "Name": "pydantic_core",
           "Identifier": {
             "PURL": "pkg:pypi/pydantic-core@2.50.2",
-            "UID": "38cadeae4d0e7538"
+            "UID": "383562d30a3c2639"
           },
           "Version": "2.50.2",
           "Licenses": [
             "MIT"
           ],
           "Layer": {
-            "Digest": "sha256:1820e2846d3f74fa1389792c869e9cbbae92f518491f55def4bcd4e4bfeeec0b",
-            "DiffID": "sha256:ac4c782da828f50011dc7b71f5d47f802c7f4b6b97dc84093871bee721f824ab"
+            "Digest": "sha256:17281a4acbe5b9caf7cb8e98a4494bd9f261e7eb813abc83ddc0de73b50109b3",
+            "DiffID": "sha256:f1ad12c3617f89f0ac6734913335e3e890fd81e2bdf245ed065f508e0721bcb3"
           },
-          "FilePath": "usr/local/lib/python3.12/site-packages/pydantic_core-2.50.2.dist-info/METADATA",
+          "FilePath": "opt/dependencies/pydantic_core-2.50.2.dist-info/METADATA",
           "AnalyzedBy": "python-pkg"
         },
         {
           "Name": "starlette",
           "Identifier": {
             "PURL": "pkg:pypi/starlette@1.10.0",
-            "UID": "c482f2672a26a130"
+            "UID": "295832862f330953"
           },
           "Version": "1.10.0",
           "Licenses": [
             "BSD-3-Clause"
           ],
           "Layer": {
-            "Digest": "sha256:1820e2846d3f74fa1389792c869e9cbbae92f518491f55def4bcd4e4bfeeec0b",
-            "DiffID": "sha256:ac4c782da828f50011dc7b71f5d47f802c7f4b6b97dc84093871bee721f824ab"
+            "Digest": "sha256:17281a4acbe5b9caf7cb8e98a4494bd9f261e7eb813abc83ddc0de73b50109b3",
+            "DiffID": "sha256:f1ad12c3617f89f0ac6734913335e3e890fd81e2bdf245ed065f508e0721bcb3"
           },
-          "FilePath": "usr/local/lib/python3.12/site-packages/starlette-1.10.0.dist-info/METADATA",
+          "FilePath": "opt/dependencies/starlette-1.10.0.dist-info/METADATA",
           "AnalyzedBy": "python-pkg"
         },
         {
           "Name": "typing-inspection",
           "Identifier": {
             "PURL": "pkg:pypi/typing-inspection@0.4.4",
-            "UID": "53f9ffc7d6a5637e"
+            "UID": "53350195fa5dbddb"
           },
           "Version": "0.4.4",
           "Licenses": [
             "MIT"
           ],
           "Layer": {
-            "Digest": "sha256:1820e2846d3f74fa1389792c869e9cbbae92f518491f55def4bcd4e4bfeeec0b",
-            "DiffID": "sha256:ac4c782da828f50011dc7b71f5d47f802c7f4b6b97dc84093871bee721f824ab"
+            "Digest": "sha256:17281a4acbe5b9caf7cb8e98a4494bd9f261e7eb813abc83ddc0de73b50109b3",
+            "DiffID": "sha256:f1ad12c3617f89f0ac6734913335e3e890fd81e2bdf245ed065f508e0721bcb3"
           },
-          "FilePath": "usr/local/lib/python3.12/site-packages/typing_inspection-0.4.4.dist-info/METADATA",
+          "FilePath": "opt/dependencies/typing_inspection-0.4.4.dist-info/METADATA",
           "AnalyzedBy": "python-pkg"
         },
         {
           "Name": "typing_extensions",
           "Identifier": {
             "PURL": "pkg:pypi/typing-extensions@4.16.0",
-            "UID": "723d87d1aaa6dd8"
+            "UID": "50207e7fb1dd64fc"
           },
           "Version": "4.16.0",
           "Licenses": [
             "PSF-2.0"
           ],
           "Layer": {
-            "Digest": "sha256:1820e2846d3f74fa1389792c869e9cbbae92f518491f55def4bcd4e4bfeeec0b",
-            "DiffID": "sha256:ac4c782da828f50011dc7b71f5d47f802c7f4b6b97dc84093871bee721f824ab"
+            "Digest": "sha256:17281a4acbe5b9caf7cb8e98a4494bd9f261e7eb813abc83ddc0de73b50109b3",
+            "DiffID": "sha256:f1ad12c3617f89f0ac6734913335e3e890fd81e2bdf245ed065f508e0721bcb3"
           },
-          "FilePath": "usr/local/lib/python3.12/site-packages/typing_extensions-4.16.0.dist-info/METADATA",
+          "FilePath": "opt/dependencies/typing_extensions-4.16.0.dist-info/METADATA",
           "AnalyzedBy": "python-pkg"
         },
         {
           "Name": "tzdata",
           "Identifier": {
             "PURL": "pkg:pypi/tzdata@2026.6",
-            "UID": "f740f459b9fd5360"
+            "UID": "2556dc09239ae276"
           },
           "Version": "2026.6",
           "Licenses": [
             "Apache-2.0"
           ],
           "Layer": {
-            "Digest": "sha256:1820e2846d3f74fa1389792c869e9cbbae92f518491f55def4bcd4e4bfeeec0b",
-            "DiffID": "sha256:ac4c782da828f50011dc7b71f5d47f802c7f4b6b97dc84093871bee721f824ab"
+            "Digest": "sha256:17281a4acbe5b9caf7cb8e98a4494bd9f261e7eb813abc83ddc0de73b50109b3",
+            "DiffID": "sha256:f1ad12c3617f89f0ac6734913335e3e890fd81e2bdf245ed065f508e0721bcb3"
           },
-          "FilePath": "usr/local/lib/python3.12/site-packages/tzdata-2026.6.dist-info/METADATA",
+          "FilePath": "opt/dependencies/tzdata-2026.6.dist-info/METADATA",
           "AnalyzedBy": "python-pkg"
         },
         {
           "Name": "uvicorn",
           "Identifier": {
             "PURL": "pkg:pypi/uvicorn@0.54.0",
-            "UID": "7d7dd9826c91f227"
+            "UID": "e8275fbe68e63d68"
           },
           "Version": "0.54.0",
           "Licenses": [
             "BSD-3-Clause"
           ],
           "Layer": {
-            "Digest": "sha256:1820e2846d3f74fa1389792c869e9cbbae92f518491f55def4bcd4e4bfeeec0b",
-            "DiffID": "sha256:ac4c782da828f50011dc7b71f5d47f802c7f4b6b97dc84093871bee721f824ab"
+            "Digest": "sha256:17281a4acbe5b9caf7cb8e98a4494bd9f261e7eb813abc83ddc0de73b50109b3",
+            "DiffID": "sha256:f1ad12c3617f89f0ac6734913335e3e890fd81e2bdf245ed065f508e0721bcb3"
           },
-          "FilePath": "usr/local/lib/python3.12/site-packages/uvicorn-0.54.0.dist-info/METADATA",
+          "FilePath": "opt/dependencies/uvicorn-0.54.0.dist-info/METADATA",
           "AnalyzedBy": "python-pkg"
         }
       ]

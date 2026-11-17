@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}
+data:
+  ZONA_HORARIA: {{ .Values.config.zonaHoraria | quote }}
+  MINUTOS_CORTE: {{ .Values.config.minutosCorte | quote }}

@@ -1,0 +1,14 @@
+rules:
+  - id: python-eval
+    languages: [python]
+    severity: ERROR
+    message: Evitar eval, porque evalúa la entrada como código Python.
+    pattern: eval(...)
+  - id: python-subprocess-shell
+    languages: [python]
+    severity: ERROR
+    message: Pasar el comando y sus argumentos como lista y evitar shell=True.
+    patterns:
+      - pattern-either:
+          - pattern: subprocess.run(..., shell=True, ...)
+          - pattern: subprocess.Popen(..., shell=True, ...)

@@ -1,0 +1,21 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: cafeteria-no-privilege-escalation
+spec:
+  validationFailureAction: Enforce
+  background: true
+  rules:
+    - name: no-privilege-escalation
+      match:
+        any:
+          - resources:
+              kinds: ["Pod"]
+              namespaces: ["cafeteria-lab4"]
+      validate:
+        message: "Cada contenedor debe declarar allowPrivilegeEscalation=false."
+        foreach:
+          - list: "request.object.spec.[containers, initContainers, ephemeralContainers][]"
+            pattern:
+              securityContext:
+                allowPrivilegeEscalation: false

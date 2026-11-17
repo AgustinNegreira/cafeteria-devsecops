@@ -5,6 +5,7 @@ from datetime import datetime
 
 import pytest
 from fastapi.testclient import TestClient
+from prometheus_client.parser import text_string_to_metric_families
 
 from app import db, main
 
@@ -59,6 +60,32 @@ def test_pedido_pasado_el_corte_se_rechaza_con_mensaje_claro(client, monkeypatch
     assert "09:45" in r.json()["detail"]
 
 
+def test_metricas_cuentan_solo_pedidos_guardados(client, monkeypatch):
+    def leer_metrica(nombre, **etiquetas):
+        muestras = text_string_to_metric_families(client.get("/metrics").text)
+        return next(
+            (m.value for familia in muestras for m in familia.samples
+             if m.name == nombre and m.labels == etiquetas),
+            0,
+        )
+
+    pedidos_antes = leer_metrica("cafeteria_orders_created_total")
+    etiquetas_ok = {"route": "/api/pedidos", "status": "201"}
+    etiquetas_conflicto = {"route": "/api/pedidos", "status": "409"}
+    ok_antes = leer_metrica("cafeteria_http_requests_total", **etiquetas_ok)
+    conflictos_antes = leer_metrica("cafeteria_http_requests_total", **etiquetas_conflicto)
+    latencias_antes = leer_metrica("cafeteria_http_request_duration_seconds_count")
+
+    assert pedir(client).status_code == 201
+    monkeypatch.setattr(main, "ahora", a_las(9, 50))
+    assert pedir(client).status_code == 409
+
+    assert leer_metrica("cafeteria_orders_created_total") == pedidos_antes + 1
+    assert leer_metrica("cafeteria_http_requests_total", **etiquetas_ok) == ok_antes + 1
+    assert leer_metrica("cafeteria_http_requests_total", **etiquetas_conflicto) == conflictos_antes + 1
+    assert leer_metrica("cafeteria_http_request_duration_seconds_count") == latencias_antes + 6
+
+
 def test_cambiar_el_corte_aplica_sin_reiniciar(client, monkeypatch):
     monkeypatch.setattr(main, "ahora", a_las(9, 50))
     assert pedir(client).status_code == 409
@@ -101,6 +128,25 @@ def test_el_alumno_ve_el_estado_que_marca_la_cafeteria(client):
 
     mios = client.get("/api/pedidos", params={"alumno": "Ana 3ºB"}).json()
     assert mios[0]["estado"] == "listo"
+
+
+def test_metricas_muestran_los_tres_estados_de_pedidos_de_hoy(client):
+    pedido_id = pedir(client).json()["id"]
+
+    client.post(
+        f"/api/cafeteria/pedidos/{pedido_id}/estado",
+        json={"estado": "entregado"},
+        headers=PIN,
+    )
+
+    muestras = text_string_to_metric_families(client.get("/metrics").text)
+    por_estado = {
+        m.labels["status"]: m.value
+        for familia in muestras
+        for m in familia.samples
+        if m.name == "cafeteria_orders_by_status_today"
+    }
+    assert por_estado == {"pendiente": 0, "listo": 0, "entregado": 1}
 
 
 def test_resumen_de_ventas_del_dia(client):
