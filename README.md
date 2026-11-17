@@ -1,6 +1,6 @@
 # Cafetería
 
-El [informe del Laboratorio 4](LABORATORIO_4.md) reúne los comandos de arranque, la arquitectura, el pipeline y las evidencias de esta rama.
+El [informe del Laboratorio 4](LABORATORIO_4.md) reúne los comandos de arranque, la arquitectura, el pipeline y las evidencias de esta rama. La [guía de trabajo y estudio](GUIA_LABORATORIO_4.md) registra lo aprendido y los pendientes de preparación para la defensa. La [consigna](docs/Laboratorio%204.pdf) acompaña el proyecto.
 
 ## Entregable 3 DevSecOps
 
