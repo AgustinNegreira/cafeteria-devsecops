@@ -2,7 +2,7 @@
   "uid": "cafeteria-lab4",
   "title": "Cafetería · Lab 4",
   "schemaVersion": 39,
-  "version": 4,
+  "version": 5,
   "time": {
     "from": "now-15m",
     "to": "now"
@@ -87,7 +87,10 @@
       },
       "options": {
         "legend": {
-          "calcs": ["mean", "max"],
+          "calcs": [
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -155,7 +158,9 @@
       "options": {
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -211,7 +216,7 @@
       "id": 4,
       "type": "bargauge",
       "title": "Memoria utilizada",
-      "description": "Uso actual de memoria frente al límite de 256 MiB configurado para el contenedor.",
+      "description": "Uso actual de memoria frente al límite de 192 MiB configurado para el contenedor de desarrollo.",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -226,7 +231,7 @@
         "defaults": {
           "unit": "bytes",
           "min": 0,
-          "max": 268435456,
+          "max": 201326592,
           "color": {
             "mode": "thresholds"
           },
@@ -239,11 +244,11 @@
               },
               {
                 "color": "yellow",
-                "value": 209715200
+                "value": 161061274
               },
               {
                 "color": "red",
-                "value": 251658240
+                "value": 191260262
               }
             ]
           }
@@ -256,7 +261,9 @@
         "minVizWidth": 8,
         "orientation": "horizontal",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -321,7 +328,9 @@
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -386,7 +395,9 @@
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -475,16 +486,25 @@
         ]
       },
       "options": {
-        "displayLabels": ["name", "value", "percent"],
+        "displayLabels": [
+          "name",
+          "value",
+          "percent"
+        ],
         "legend": {
           "displayMode": "table",
           "placement": "right",
           "showLegend": true,
-          "values": ["value", "percent"]
+          "values": [
+            "value",
+            "percent"
+          ]
         },
         "pieType": "donut",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },

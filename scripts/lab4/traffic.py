@@ -35,7 +35,8 @@ def verify_persistence(base_url, state):
 def generate_traffic(base_url, count, delay, state):
     request(base_url, "/healthz")
     breaks = request(base_url, "/api/recreos")["recreos"]
-    available = next((item for item in breaks if item["abierto"]), None)
+    available = max((item for item in breaks if item["abierto"]),
+                    key=lambda item: item["cierra"], default=None)
     closed = next((item for item in breaks if not item["abierto"]), None)
     products = request(base_url, "/api/productos")
     product = next((item for item in products if not item["agotado"]), None)
