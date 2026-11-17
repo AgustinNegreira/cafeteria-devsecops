@@ -130,6 +130,25 @@ def test_el_alumno_ve_el_estado_que_marca_la_cafeteria(client):
     assert mios[0]["estado"] == "listo"
 
 
+def test_metricas_muestran_los_tres_estados_de_pedidos_de_hoy(client):
+    pedido_id = pedir(client).json()["id"]
+
+    client.post(
+        f"/api/cafeteria/pedidos/{pedido_id}/estado",
+        json={"estado": "entregado"},
+        headers=PIN,
+    )
+
+    muestras = text_string_to_metric_families(client.get("/metrics").text)
+    por_estado = {
+        m.labels["status"]: m.value
+        for familia in muestras
+        for m in familia.samples
+        if m.name == "cafeteria_orders_by_status_today"
+    }
+    assert por_estado == {"pendiente": 0, "listo": 0, "entregado": 1}
+
+
 def test_resumen_de_ventas_del_dia(client):
     pedir(client, nombre="Café", cantidad=3)
     pedir(client, nombre="Medialuna", cantidad=2)

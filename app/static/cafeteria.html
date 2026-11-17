@@ -89,12 +89,12 @@ function mostrarMensaje(texto, tipo = 'error') {
 
 function tarjetaPedido(p) {
   const acciones = {
-    pendiente: `<button data-estado="listo" data-id="${p.id}">Listo</button>`,
+    pendiente: `<button data-estado="listo" data-id="${p.id}">Listo para retirar</button>`,
     listo: `<button data-estado="entregado" data-id="${p.id}">Entregado</button>`,
     entregado: `<button class="link" data-estado="listo" data-id="${p.id}">deshacer</button>`,
   }[p.estado];
   return `<article class="pedido ${p.estado}">
-    <header><strong>#${p.id} · ${esc(p.alumno)}</strong><span class="badge ${p.estado}">${p.estado}</span></header>
+    <header><strong>#${p.id} · ${esc(p.alumno)}</strong><span class="badge ${p.estado}">${p.estado === 'listo' ? 'listo para retirar' : p.estado}</span></header>
     <ul>${p.items.map((i) => `<li>${i.cantidad}× ${esc(i.nombre)}</li>`).join('')}</ul>
     <footer><span>${plata(p.total)}</span>${acciones}</footer>
   </article>`;

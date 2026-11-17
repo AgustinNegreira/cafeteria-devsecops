@@ -106,7 +106,7 @@ async function pintarMisPedidos() {
   const pedidos = await api('/api/pedidos?alumno=' + encodeURIComponent(alumno));
   $('#mis-pedidos').innerHTML = pedidos.map((p) => `
     <article class="pedido ${p.estado}">
-      <header><strong>#${p.id} · ${esc(p.recreo)} ${p.hora}</strong><span class="badge ${p.estado}">${p.estado}</span></header>
+      <header><strong>#${p.id} · ${esc(p.recreo)} ${p.hora}</strong><span class="badge ${p.estado}">${p.estado === 'listo' ? 'listo para retirar' : p.estado}</span></header>
       <ul>${p.items.map((i) => `<li>${i.cantidad}× ${esc(i.nombre)}</li>`).join('')}</ul>
       <footer><span class="nota" style="margin:0">${p.fecha}</span><strong>${plata(p.total)}</strong></footer>
     </article>`).join('') || '<p class="vacio">Todavía no hiciste pedidos.</p>';

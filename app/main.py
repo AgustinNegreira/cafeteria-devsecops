@@ -12,7 +12,7 @@ from zoneinfo import ZoneInfo
 from fastapi import APIRouter, Depends, FastAPI, Header, HTTPException, Request, Response
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
-from prometheus_client import CONTENT_TYPE_LATEST, Counter, Histogram, generate_latest
+from prometheus_client import CONTENT_TYPE_LATEST, Counter, Gauge, Histogram, generate_latest
 from pydantic import BaseModel, Field
 
 from app import db
@@ -45,6 +45,9 @@ DURACION_HTTP = Histogram(
     "cafeteria_http_request_duration_seconds", "Tiempo de atención de solicitudes HTTP"
 )
 PEDIDOS_CREADOS = Counter("cafeteria_orders_created_total", "Pedidos guardados con éxito")
+PEDIDOS_POR_ESTADO_HOY = Gauge(
+    "cafeteria_orders_by_status_today", "Pedidos del día agrupados por estado", ["status"]
+)
 
 
 @app.middleware("http")
@@ -66,6 +69,16 @@ async def medir_solicitudes(request: Request, call_next):
 
 @app.get("/metrics", include_in_schema=False)
 def metrics():
+    with db.conexion() as con:
+        por_estado = {
+            fila["estado"]: fila["cantidad"]
+            for fila in con.execute(
+                "SELECT estado, COUNT(*) AS cantidad FROM pedidos WHERE fecha = ? GROUP BY estado",
+                (ahora().date().isoformat(),),
+            )
+        }
+    for estado in ("pendiente", "listo", "entregado"):
+        PEDIDOS_POR_ESTADO_HOY.labels(status=estado).set(por_estado.get(estado, 0))
     return Response(content=generate_latest(), media_type=CONTENT_TYPE_LATEST)
 
 
