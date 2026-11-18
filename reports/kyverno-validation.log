@@ -1,26 +1,26 @@
-2026-11-10T22:40:00Z
+2026-11-17T23:14:11Z
 pod/accept-compliant created (server dry run)
-Error from server: error when creating "STDIN": admission webhook "validate.kyverno.svc-fail" denied the request:
+Error from server: error when creating "STDIN": admission webhook "validate.kyverno.svc-fail" denied the request: 
 
-resource Pod/cafeteria-lab4/reject-latest was blocked due to the following policies
+resource Pod/cafeteria-lab4/reject-latest was blocked due to the following policies 
 
 cafeteria-no-latest:
   reject-latest-and-untagged: 'validation failure: La imagen debe tener tag explicito distinto de latest o un digest.'
-Error from server: error when creating "STDIN": admission webhook "validate.kyverno.svc-fail" denied the request:
+Error from server: error when creating "STDIN": admission webhook "validate.kyverno.svc-fail" denied the request: 
 
-resource Pod/cafeteria-lab4/reject-resources was blocked due to the following policies
+resource Pod/cafeteria-lab4/reject-resources was blocked due to the following policies 
 
 cafeteria-require-resources:
   cpu-and-memory-requests-limits: 'validation failure: validation error: Cada contenedor e initContainer requiere requests y limits de CPU y memoria. rule cpu-and-memory-requests-limits failed at path /resources/limits/'
-Error from server: error when creating "STDIN": admission webhook "validate.kyverno.svc-fail" denied the request:
+Error from server: error when creating "STDIN": admission webhook "validate.kyverno.svc-fail" denied the request: 
 
-resource Pod/cafeteria-lab4/reject-root was blocked due to the following policies
+resource Pod/cafeteria-lab4/reject-root was blocked due to the following policies 
 
 cafeteria-non-root:
   explicit-non-root-user: 'validation failure: validation error: Cada contenedor debe declarar runAsNonRoot=true y runAsUser mayor que 0. rule explicit-non-root-user failed at path /securityContext/runAsNonRoot/'
-Error from server: error when creating "STDIN": admission webhook "validate.kyverno.svc-fail" denied the request:
+Error from server: error when creating "STDIN": admission webhook "validate.kyverno.svc-fail" denied the request: 
 
-resource Pod/cafeteria-lab4/reject-escalation was blocked due to the following policies
+resource Pod/cafeteria-lab4/reject-escalation was blocked due to the following policies 
 
 cafeteria-no-privilege-escalation:
   no-privilege-escalation: 'validation failure: validation error: Cada contenedor debe declarar allowPrivilegeEscalation=false. rule no-privilege-escalation failed at path /securityContext/allowPrivilegeEscalation/'

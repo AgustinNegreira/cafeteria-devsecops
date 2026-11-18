@@ -1,0 +1,152 @@
+[
+  {
+    "panel": "Peticiones por segundo y código HTTP",
+    "expression": "sum by (status) (rate(cafeteria_http_requests_total[2m]))",
+    "result": [
+      {
+        "metric": {
+          "status": "200"
+        },
+        "value": [
+          1794957496.548,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "status": "201"
+        },
+        "value": [
+          1794957496.548,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "status": "409"
+        },
+        "value": [
+          1794957496.548,
+          "0"
+        ]
+      }
+    ]
+  },
+  {
+    "panel": "Latencia promedio del intervalo",
+    "expression": "sum(increase(cafeteria_http_request_duration_seconds_sum[15m])) / sum(increase(cafeteria_http_request_duration_seconds_count[15m]))",
+    "result": [
+      {
+        "metric": {},
+        "value": [
+          1794957496.598,
+          "0.004199834734545949"
+        ]
+      }
+    ]
+  },
+  {
+    "panel": "CPU por pod",
+    "expression": "sum by (pod) (rate(container_cpu_usage_seconds_total{namespace=\"cafeteria-lab4\",container=\"app\"}[2m]))",
+    "result": [
+      {
+        "metric": {
+          "pod": "cafeteria-844586d485-bcdx5"
+        },
+        "value": [
+          1794957496.61,
+          "0.001742695685404767"
+        ]
+      },
+      {
+        "metric": {
+          "pod": "cafeteria-844586d485-c9lbx"
+        },
+        "value": [
+          1794957496.61,
+          "0.009831755711491445"
+        ]
+      }
+    ]
+  },
+  {
+    "panel": "Memoria utilizada",
+    "expression": "sum by (pod) (container_memory_working_set_bytes{namespace=\"cafeteria-lab4\",container=\"app\"})",
+    "result": [
+      {
+        "metric": {
+          "pod": "cafeteria-844586d485-c9lbx"
+        },
+        "value": [
+          1794957496.623,
+          "39542784"
+        ]
+      }
+    ]
+  },
+  {
+    "panel": "Pedidos creados",
+    "expression": "sum(increase(cafeteria_orders_created_total[15m]))",
+    "result": [
+      {
+        "metric": {},
+        "value": [
+          1794957496.693,
+          "9.299999999999999"
+        ]
+      }
+    ]
+  },
+  {
+    "panel": "Pedidos entregados hoy",
+    "expression": "max(cafeteria_orders_by_status_today{status=\"entregado\"})",
+    "result": [
+      {
+        "metric": {},
+        "value": [
+          1794957496.741,
+          "1"
+        ]
+      }
+    ]
+  },
+  {
+    "panel": "Estado de los pedidos de hoy",
+    "expression": "max(cafeteria_orders_by_status_today{status=\"pendiente\"})",
+    "result": [
+      {
+        "metric": {},
+        "value": [
+          1794957496.753,
+          "8"
+        ]
+      }
+    ]
+  },
+  {
+    "panel": "Estado de los pedidos de hoy",
+    "expression": "max(cafeteria_orders_by_status_today{status=\"listo\"})",
+    "result": [
+      {
+        "metric": {},
+        "value": [
+          1794957496.768,
+          "0"
+        ]
+      }
+    ]
+  },
+  {
+    "panel": "Estado de los pedidos de hoy",
+    "expression": "max(cafeteria_orders_by_status_today{status=\"entregado\"})",
+    "result": [
+      {
+        "metric": {},
+        "value": [
+          1794957496.804,
+          "1"
+        ]
+      }
+    ]
+  }
+]

@@ -107,7 +107,7 @@ kubectl --kubeconfig .local/lab4/kubeconfig.yaml -n monitoring port-forward svc/
 
 Grafana queda en `http://localhost:3001`. El usuario inicial es `admin`. Consultar su contraseña en una terminal privada con `kubectl --kubeconfig .local/lab4/kubeconfig.yaml -n monitoring get secret lab4-grafana -o jsonpath='{.data.admin-password}' | base64 -d`. Prometheus queda en `http://localhost:9091`. En Targets, buscar el scrape de Cafetería y comprobar que esté `UP`.
 
-El [dashboard exportable](grafana/dashboard.json) tiene cinco paneles. RPS toma la tasa de solicitudes. La latencia promedio divide la tasa de segundos acumulados por la tasa de observaciones. CPU y memoria por pod llegan desde las métricas del nodo. Pedidos creados sube después de guardar un pedido exitoso. Durante la demo, correr el generador de tráfico y dejar que pasen varios scrapes.
+El [dashboard exportable](grafana/dashboard.json) tiene siete paneles: incluye además estados de pedidos del día y pedidos entregados, incorporados por Valentín. RPS toma la tasa de solicitudes. La latencia promedio divide la tasa de segundos acumulados por la tasa de observaciones. CPU y memoria por pod llegan desde las métricas del nodo. Pedidos creados sube después de guardar un pedido exitoso. Durante la demo, correr el generador de tráfico y dejar que pasen varios scrapes.
 
 ## Limpiar el laboratorio
 
@@ -118,6 +118,8 @@ bash scripts/lab4/cleanup.sh
 Este comando borra el cluster `cafeteria-lab4` y sus volúmenes de aplicación, la instancia y el volumen de Jenkins del Lab 4, y el registry local con sus imágenes publicadas. Los archivos del repo, la evidencia y las imágenes en caché del motor Docker quedan disponibles. Usar el comando cuando termine la presentación.
 
 ## Resultados y trabajo pendiente
+
+El [ensayo del 17 de noviembre](reports/lab4-demo-2026-11-17.md) verificó el build 6 con 13 tests, el dashboard actualizado, persistencia y seguridad. Para repetirlo, seguir [GUIA_DEMO_LAB4.md](GUIA_DEMO_LAB4.md). Los resultados históricos siguientes conservan las versiones y fechas originales.
 
 - Pytest pasó 12 tests. El nuevo test distingue un pedido persistido de un `409` y comprueba el contador HTTP y el histograma. [Reporte JUnit](reports/lab4-pytest.xml)
 - La imagen multietapa pasó Dive y arrancó como UID 10001. La imagen se publicó en el registry local y Helm completó el rollout. También se probó `helm install` con una release temporal y se retiró esa release.

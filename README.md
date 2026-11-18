@@ -2,6 +2,8 @@
 
 El [informe del Laboratorio 4](LABORATORIO_4.md) reúne los comandos de arranque, la arquitectura, el pipeline y las evidencias de esta rama. La [guía de trabajo y estudio](GUIA_LABORATORIO_4.md) registra lo aprendido y los pendientes de preparación para la defensa. La [consigna](docs/Laboratorio%204.pdf) acompaña el proyecto.
 
+**Para ensayar y presentar el Lab 4:** seguir la [guía práctica de punta a punta](GUIA_DEMO_LAB4.md). Accesos actuales: app `localhost:8082`, Jenkins `localhost:8083`, Grafana `localhost:3001` y Prometheus `localhost:9091`. [Ensayo completo verificado el 17/11](reports/lab4-demo-2026-11-17.md).
+
 ## Entregable 3 DevSecOps
 
 Aplicación de pedidos para recreos: FastAPI + SQLite y páginas HTML/JavaScript. El alumno pide antes del corte; cafetería administra con PIN, marca estados, agotados y consulta ventas.

@@ -2,6 +2,8 @@
 
 Agustín y Valentín. Usar este recorrido para ensayar y para presentar desde la laptop. Duración aproximada: 15–20 minutos, más lo que tarde el pipeline. Los comandos son para **Git Bash**, abierto en la raíz del repositorio `cafeteria`, rama `laboratorio-4`.
 
+Ensayo verificado: [build 6 y resultados actuales](reports/lab4-demo-2026-11-17.md). Los accesos y claves están juntos en `.local/lab4/accesos-demo.txt`, archivo local ignorado por Git.
+
 ## 0. Dejar listo antes de presentar
 
 Docker Desktop debe estar iniciado. En esta laptop ya existe el cluster y conserva sus datos. Para reabrir este entorno:
